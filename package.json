@@ -1,0 +1,21 @@
+{
+    "name": "Skybrud.VideoPicker",
+    "url": "https://github.com/skybrud/Skybrud.VideoPicker",
+    "license": {
+        "name": "MIT",
+        "url": "https://github.com/skybrud/Skybrud.VideoPicker/blob/master/LICENSE.md"
+    },
+    "author": {
+        "name": "Skybrud.dk",
+        "url": "http://www.skybrud.dk/"
+    },
+    "readme": "Skybrud.VideoPicker is a package for Umbraco 7+ containing a property editor and a grid editor for inserting videos from YouTube or Vimeo.",
+    "devDependencies": {
+        "grunt": "~0.4.5",
+        "grunt-contrib-copy": "~0.4.1",
+        "grunt-nuget": "0.1.6",
+        "grunt-zip": "~0.17.0",
+        "grunt-umbraco-package": "1.0.0",
+        "grunt-contrib-clean": "^0.7.0"
+    }
+}

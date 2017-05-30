@@ -1,0 +1,62 @@
+﻿.SkybrudVideoPicker .umb-thumbnail .placeholder {
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid #CCC;
+  background: #efefef;
+  width: 320px;
+  height: 180px;
+  line-height: 180px;
+  text-align: center;
+  font-size: 50px;
+}
+.SkybrudVideoPicker .umb-thumbnail a.placeholder {
+  text-decoration: none;
+  color: #CCC;
+}
+.SkybrudVideoPicker .SkybrudVideoPickerItem {
+  /*border: 2px solid #999;*/
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.SkybrudVideoPicker input {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: initial;
+  line-height: 32px;
+  height: 32px;
+}
+.SkybrudVideoPicker .umb-thumbnail > div {
+  position: relative;
+}
+.SkybrudVideoPicker .umb-thumbnail > div .actions {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: -ms-flexbox;
+  display: flex;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+.SkybrudVideoPicker .umb-thumbnail > div:hover .actions {
+  opacity: 1;
+  visibility: visible;
+}
+.SkybrudVideoPicker .umb-thumbnail > div a.action {
+  display: -ms-flexbox;
+  display: flex;
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+  font-size: 16px;
+  color: #222;
+  background: white;
+  border-radius: 15px;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-decoration: none;
+}

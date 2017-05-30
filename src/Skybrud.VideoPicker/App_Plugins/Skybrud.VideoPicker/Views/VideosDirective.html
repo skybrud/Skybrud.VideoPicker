@@ -1,0 +1,55 @@
+﻿<div class="SkybrudVideoPicker" ng-class="{SingleVideoPicker: config.limit == 1, MultiVideoPicker: config.limit != 1}">
+    <div>
+        <div class="SkybrudVideoPickerItem" ng-repeat="item in shadowValue.items">
+            <div style="display: flex;">
+                <input type="text" ng-model="item.url" ng-change="urlChanged(item)" placeholder="Angiv adressen til videoen her..." />
+                <!--<div class="actions">
+                <a href="#" ng-click="removeItem($index);" prevent-default>
+                    <i class="icon icon-delete red"></i>
+                </a>
+                <i class="icon icon-navigation handle" ng-show="shadowValue.items.length > 1"></i>
+            </div>-->
+            </div>
+            <div ng-show="!!item.details">
+                <hr style="margin: 10px 0; border: 0; height: 2px; background: #999;" />
+                <p style="margin-top: 0;"><strong>{{item.details.title}}</strong></p>
+                <p style="font-size: 11px;">
+                    Type: {{item.$typeName}}
+                    &ndash;
+                    Længde: {{item.details.duration}} sekunder
+                </p>
+                <p ng-show="!config.hideDescription && item.details.description">
+                    {{item.details.description}}
+                </p>
+                <div style="display: flex;">
+                    <div>
+                        <strong style="font-size: 11px; text-transform: uppercase;">Thumbnail fra {{item.$typeName}}</strong><br />
+                        <img ng-show="item.type == 'vimeo'" ng-src="{{item.details.thumbnails[1].url.replace('200x150', '320x180')}}" />
+                        <img ng-show="item.type == 'youtube'" ng-src="{{item.details.thumbnails[1].url}}" />
+                    </div>
+                    <div style="padding-left: 10px;" class="umb-thumbnail">
+                        <strong style="font-size: 11px; text-transform: uppercase;">Thumbnail fra Umbraco</strong><br />
+                        <a ng-hide="item.$thumbnail" href="#" prevent-default class="placeholder" ng-click="addThumbnail(item)">
+                            <i class="icon icon-add"></i>
+                        </a>
+                        <div ng-show="item.$thumbnail">
+                            <img ng-src="{{item.$thumbnailUrl}}" width="320" height="180" style="height: 180px; width: 320px;" />
+                            <div class="actions">
+                                <a class="action" href="#" prevent-default ng-click="removeThumbnail(item)">
+                                    <i class="icon icon-delete red"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a href="#" prevent-default ng-click="addVideo()" class="blue" ng-show="config.limit != 1">
+                <i class="icon icon-add"></i>
+                Tilføj ny video
+            </a>
+        </div>
+    </div>
+    <umb-overlay ng-if="mediaPickerOverlay.show" model="mediaPickerOverlay" position="right" view="mediaPickerOverlay.view"></umb-overlay>
+</div>
