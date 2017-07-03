@@ -1,9 +1,13 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Globalization;
+using Newtonsoft.Json.Linq;
 using Skybrud.Umbraco.GridData;
 using Skybrud.Umbraco.GridData.Interfaces;
 using Skybrud.Umbraco.GridData.Rendering;
+using Skybrud.VideoPicker.Constants;
 using Skybrud.VideoPicker.Grid.Config;
 using Skybrud.VideoPicker.Grid.Values;
+using Umbraco.Core;
 
 namespace Skybrud.VideoPicker.Grid.Converters {
 
@@ -51,7 +55,13 @@ namespace Skybrud.VideoPicker.Grid.Converters {
         }
 
         private bool IsVideoPicker(GridEditor editor) {
-            return editor.Alias.ToLower() == "skybrud.videos" || editor.Alias.ToLower().StartsWith("skybrud.videos.");
+            return (
+                CultureInfo.InvariantCulture.CompareInfo.IndexOf(editor.View, VideoPickerConstants.GridEditorView, CompareOptions.IgnoreCase) >= 0
+                ||
+                editor.Alias.Equals(VideoPickerConstants.GridEditorAlias, StringComparison.InvariantCultureIgnoreCase)
+                ||
+                CultureInfo.InvariantCulture.CompareInfo.IndexOf(editor.Alias, VideoPickerConstants.GridEditorAlias + ".", CompareOptions.IgnoreCase) >= 0
+            );
         }
 
     }

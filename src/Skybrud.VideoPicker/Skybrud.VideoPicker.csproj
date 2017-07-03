@@ -283,6 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\VideoPickerConfig.cs" />
+    <Compile Include="Constants\VideoPickerConstants.cs" />
     <Compile Include="Controllers\Api\VideoPickerController.cs" />
     <Compile Include="Grid\Config\GridEditorVideoPickerConfig.cs" />
     <Compile Include="Grid\Converters\VideoPickerGridConverter.cs" />
