@@ -3,22 +3,65 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web.Http;
+using Newtonsoft.Json.Linq;
+using Skybrud.Essentials.Json;
+using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Essentials.Time;
 using Skybrud.Social.Google;
 using Skybrud.Social.Google.YouTube.Objects.Videos;
 using Skybrud.Social.Google.YouTube.Options;
 using Skybrud.Social.Google.YouTube.Responses;
-using Skybrud.Social.Vimeo.Advanced;
-using Skybrud.Social.Vimeo.Advanced.Objects;
-using Skybrud.Social.Vimeo.Advanced.Responses;
+using Skybrud.Social.Http;
 using Skybrud.VideoPicker.Config;
 using Skybrud.WebApi.Json;
 using Skybrud.WebApi.Json.Meta;
 using Umbraco.Core;
+using Umbraco.Core.Logging;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
 
 namespace Skybrud.VideoPicker.Controllers.Api {
+
+    public class VideoPickerVimeoHttpException : Exception {
+
+        #region Properties
+
+        /// <summary>
+        /// Gets a reference to the underlying <see cref="SocialHttpResponse"/>.
+        /// </summary>
+        public SocialHttpResponse Response { get; private set; }
+
+        /// <summary>
+        /// Gets the HTTP status code returned by the Vimeo API.
+        /// </summary>
+        public HttpStatusCode StatusCode { get; private set; }
+
+        /// <summary>
+        /// Gets the error message returned by the Vimeo API.
+        /// </summary>
+        public string Error { get; private set; }
+
+        #endregion
+
+        #region Constructors
+
+        public VideoPickerVimeoHttpException(SocialHttpResponse response) : base("Invalid response received from the Vimeo API (Status: " + ((int)response.StatusCode) + ")") {
+            
+            Response = response;
+            StatusCode = response.StatusCode;
+
+            try {
+                JObject obj = JsonUtils.ParseJsonObject(response.Body);
+                Error = obj.GetString("error");
+            } catch (Exception ex) {
+                LogHelper.Error<VideoPickerVimeoHttpException>("Unable to parse error message received from the Vimeo API", ex);
+            }
+        
+        }
+
+        #endregion
+
+    }
 
     [PluginController("Skybrud")]
     [JsonOnlyConfiguration]
@@ -41,39 +84,48 @@ namespace Skybrud.VideoPicker.Controllers.Api {
 
                 string videoId = m1.Groups[1].Value;
 
-                if (String.IsNullOrWhiteSpace(Config.VimeoConsumerKey)) return Request.CreateResponse(JsonMetaResponse.GetError(HttpStatusCode.InternalServerError, "Vimeo is not configured"));
-                if (String.IsNullOrWhiteSpace(Config.VimeoConsumerSecret)) return Request.CreateResponse(JsonMetaResponse.GetError(HttpStatusCode.InternalServerError, "Vimeo is not configured"));
-
-                VimeoService vimeo = VimeoService.CreateFromConsumerKey(Config.VimeoConsumerKey, Config.VimeoConsumerSecret);
+                if (String.IsNullOrWhiteSpace(Config.VimeoAccessToken)) return Request.CreateResponse(JsonMetaResponse.GetError(HttpStatusCode.InternalServerError, "Vimeo is not configured"));
 
                 try {
+                    
+                    SocialHttpRequest request = new SocialHttpRequest {
+                        Url = "https://api.vimeo.com/videos/" + videoId,
+                        Headers = {
+                            Authorization = "Bearer " + Config.VimeoAccessToken
+                        }
+                    };
 
-                    VimeoVideoResponse response = vimeo.Videos.GetInfo(Int32.Parse(videoId));
+                    SocialHttpResponse response = request.GetResponse();
 
-                    VimeoVideo video = response.Video;
+                    if (response.StatusCode != HttpStatusCode.OK) {
+                        throw new VideoPickerVimeoHttpException(response);
+                    }
+
+                    JObject obj = JsonUtils.ParseJsonObject(response.Body);
 
                     return new {
                         url = "https://vimeo.com/" + videoId,
                         type = "vimeo",
                         details = new {
                             id = videoId,
-                            published = TimeUtils.GetUnixTimeFromDateTime(video.UploadDate),
-                            title = video.Title,
-                            description = video.Description,
-                            duration = (int) video.Duration.TotalSeconds,
+                            published = obj.GetString("created_time", EssentialsDateTime.Parse).UnixTimestamp,
+                            title = obj.GetString("name"),
+                            description = obj.GetString("description"),
+                            duration = obj.GetInt32("duration"),
                             thumbnails = (
-                                from thumbnail in video.Thumbnails
+                                from thumbnail in obj.GetObjectArray("pictures.sizes")
                                 select new {
-                                    url = thumbnail.Url,
-                                    width = thumbnail.Width,
-                                    height = thumbnail.Height
+                                    url = thumbnail.GetString("link"),
+                                    width = thumbnail.GetInt32("width"),
+                                    height = thumbnail.GetInt32("height")
                                 }
                             )
                         }
                     };
 
-                } catch (VimeoException ex) {
-                    return Request.CreateResponse(JsonMetaResponse.GetError(HttpStatusCode.InternalServerError, "Something went wrong: " + ex.Message));
+                } catch (Exception ex) {
+                    LogHelper.Error<VideoPickerController>("Unable to load Vimeo video: " + videoId, ex);
+                    return Request.CreateResponse(JsonMetaResponse.GetError(HttpStatusCode.InternalServerError, "Something went wrong."));
                 }
 
             }

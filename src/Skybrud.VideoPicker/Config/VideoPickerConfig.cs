@@ -12,17 +12,10 @@ namespace Skybrud.VideoPicker.Config {
         }
 
         /// <summary>
-        /// Gets the OAuth 1.0a consumer key used for accessing the Vimeo API.
+        /// Gets the OAuth 2.0 access token used for accessing the Vimeo API.
         /// </summary>
-        public string VimeoConsumerKey {
-            get { return ConfigurationManager.AppSettings["SkybrudVideoPicker:VimeoConsumerKey"]; }
-        }
-
-        /// <summary>
-        /// Gets the OAuth 1.0a consumer secret used for accessing the Vimeo API.
-        /// </summary>
-        public string VimeoConsumerSecret {
-            get { return ConfigurationManager.AppSettings["SkybrudVideoPicker:VimeoConsumerSecret"]; }
+        public string VimeoAccessToken {
+            get { return ConfigurationManager.AppSettings["SkybrudVideoPicker:VimeoAccessToken"]; }
         }
 
     }
