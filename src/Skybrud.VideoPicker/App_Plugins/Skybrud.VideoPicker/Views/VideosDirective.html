@@ -14,9 +14,11 @@
                 <hr style="margin: 10px 0; border: 0; height: 2px; background: #999;" />
                 <p style="margin-top: 0;"><strong>{{item.details.title}}</strong></p>
                 <p style="font-size: 11px;">
-                    Type: {{item.$typeName}}
+                    <localize key="skyVideoPicker_type">Type</localize>: {{item.$typeName}}
                     &ndash;
-                    Længde: {{item.details.duration}} sekunder
+                    <localize key="skyVideoPicker_duration">Duration</localize>: {{item.details.duration}}
+                    <span ng-show="item.details.duration == 1"><localize key="skyVideoPicker_second">second</localize></span>
+                    <span ng-show="item.details.duration != 1"><localize key="skyVideoPicker_seconds">seconds</localize></span>
                 </p>
                 <p ng-show="!config.hideDescription && item.details.description">
                     {{item.details.description}}
@@ -47,7 +49,7 @@
         <div>
             <a href="#" prevent-default ng-click="addVideo()" class="blue" ng-show="config.limit != 1">
                 <i class="icon icon-add"></i>
-                Tilføj ny video
+                <localize key="skyVideoPicker_addVideo">Add new video</localize>
             </a>
         </div>
     </div>
