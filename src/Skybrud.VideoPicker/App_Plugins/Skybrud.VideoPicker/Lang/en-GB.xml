@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<language alias="en" intName="English" localName="English" lcid="6" culture="en-GB">
+  <area alias="skyVideoPicker">
+    <key alias="type">Type</key>
+    <key alias="duration">Duration</key>
+    <key alias="second">second</key>
+    <key alias="seconds">seconds</key>
+    <key alias="thumbnailFrom">Thumbnail from</key>
+    <key alias="addVideo">Add new video</key>
+    <key alias="urlPlaceholder">Enter the URL of the video here...</key>
+  </area>
+</language>
