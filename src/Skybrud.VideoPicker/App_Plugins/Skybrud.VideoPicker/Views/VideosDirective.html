@@ -25,12 +25,17 @@
                 </p>
                 <div style="display: flex;">
                     <div>
-                        <strong style="font-size: 11px; text-transform: uppercase;">Thumbnail fra {{item.$typeName}}</strong><br />
+                        <strong style="font-size: 11px; text-transform: uppercase;">
+                            <localize key="skyVideoPicker_thumbnailFrom">Thumbnail from</localize>
+                            {{item.$typeName}}
+                        </strong><br />
                         <img ng-show="item.type == 'vimeo'" ng-src="{{item.details.thumbnails[1].url.replace('200x150', '320x180')}}" />
                         <img ng-show="item.type == 'youtube'" ng-src="{{item.details.thumbnails[1].url}}" />
                     </div>
                     <div style="padding-left: 10px;" class="umb-thumbnail">
-                        <strong style="font-size: 11px; text-transform: uppercase;">Thumbnail fra Umbraco</strong><br />
+                        <strong style="font-size: 11px; text-transform: uppercase;">
+                            <localize key="skyVideoPicker_thumbnailFrom">Thumbnail from</localize> Umbraco
+                        </strong><br />
                         <a ng-hide="item.$thumbnail" href="#" prevent-default class="placeholder" ng-click="addThumbnail(item)">
                             <i class="icon icon-add"></i>
                         </a>
