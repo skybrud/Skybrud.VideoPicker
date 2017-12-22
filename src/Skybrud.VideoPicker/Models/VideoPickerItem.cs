@@ -12,48 +12,49 @@ namespace Skybrud.VideoPicker.Models {
         #region Properties
 
         [JsonProperty("url")]
-        public string Url { get; private set; }
+        public string Url { get; }
 
         [JsonProperty("type")]
-        public string Type { get; private set; }
+        public string Type { get; }
 
         [JsonProperty("details")]
-        public VideoPickerDetails Details { get; private set; }
+        public VideoPickerDetails Details { get; }
 
         /// <summary>
         /// Gets the media ID of the selected thumbnail, or <code>0</code> if no thumbnail has been selected.
         /// </summary>
         [JsonProperty("thumbnailId")]
-        public int ThumbnailId { get; private set; }
+        public int ThumbnailId { get; }
 
         /// <summary>
         /// Gets a reference to the editorial thumbnail of the image, or <code>null</code> if not selected.
         /// </summary>
         [JsonProperty("thumbnail")]
-        public VideoPickerImage Thumbnail {
-            get {
-                return (_thumbnail == null && ThumbnailId > 0 ? _thumbnail = VideoPickerImage.GetFromId(ThumbnailId) : _thumbnail);
-            }
-        }
+        public VideoPickerImage Thumbnail => _thumbnail == null && ThumbnailId > 0 ? _thumbnail = VideoPickerImage.GetFromId(ThumbnailId) : _thumbnail;
 
-        public bool HasThumbnail {
-            get { return Thumbnail != null; }
-        }
+        [JsonIgnore]
+        public bool HasThumbnail => Thumbnail != null;
 
-        public string ThumbnailCropUrl {
-            get { return Thumbnail == null ? null : Thumbnail.CropUrl; }
-        }
+        [JsonIgnore]
+        public string ThumbnailCropUrl => Thumbnail?.CropUrl;
 
         /// <summary>
         /// Gets whether the item is valid.
         /// </summary>
-        public bool IsValid {
-            get { return Details != null; }
-        }
+        [JsonIgnore]
+        public bool IsValid => Details != null;
 
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Initializes an empty video picker item.
+        /// </summary>
+        internal VideoPickerItem() : base(null) {
+            Url = "";
+            Type = "";
+        }
 
         protected VideoPickerItem(JObject obj) : base(obj) {
             Url = obj.GetString("url");

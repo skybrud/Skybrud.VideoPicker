@@ -16,31 +16,31 @@ namespace Skybrud.VideoPicker.Models {
         /// Gets a reference to the underlying instance of <see cref="IPublishedContent"/>.
         /// </summary>
         [JsonIgnore]
-        public IPublishedContent Image { get; private set; }
+        public IPublishedContent Image { get; }
 
         /// <summary>
         /// Gets the width of the image.
         /// </summary>
         [JsonProperty("width")]
-        public int Width { get; private set; }
+        public int Width { get; }
         
         /// <summary>
         /// Gets the height of the image.
         /// </summary>
         [JsonProperty("height")]
-        public int Height { get; private set; }
+        public int Height { get; }
 
         /// <summary>
         /// Gets the URL of the image.
         /// </summary>
         [JsonProperty("url")]
-        public string Url { get; private set; }
+        public string Url { get; }
 
         /// <summary>
         /// Gets the crop URL of the image.
         /// </summary>
         [JsonProperty("cropUrl")]
-        public string CropUrl { get; private set; }
+        public string CropUrl { get; }
 
         #endregion
 

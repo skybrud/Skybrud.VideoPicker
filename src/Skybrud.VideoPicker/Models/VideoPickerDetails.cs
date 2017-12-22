@@ -1,6 +1,8 @@
 ﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json;
+using Skybrud.Essentials.Json.Converters.Time;
 using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Essentials.Time;
 
@@ -13,32 +15,39 @@ namespace Skybrud.VideoPicker.Models {
         /// <summary>
         /// Gets the ID of the video.
         /// </summary>
-        public string Id { get; private set; }
+        [JsonProperty("id")]
+        public string Id { get; }
 
         /// <summary>
         /// Gets a tiemstamp for when the video was originally published.
         /// </summary>
-        public DateTime Published { get; private set; }
+        [JsonProperty("published")]
+        public DateTime Published { get; }
 
         /// <summary>
         /// Gets the original title of the video.
         /// </summary>
-        public string Title { get; private set; }
+        [JsonProperty("title")]
+        public string Title { get; }
 
         /// <summary>
         /// Gets the original description of the video.
         /// </summary>
-        public string Description { get; private set; }
+        [JsonProperty("description")]
+        public string Description { get; }
 
         /// <summary>
         /// Gets the duration of the video.
         /// </summary>
-        public TimeSpan Duration { get; private set; }
+        [JsonProperty("duration")]
+        [JsonConverter(typeof(TimeSpanSecondsConverter))]
+        public TimeSpan Duration { get; }
 
         /// <summary>
         /// Gets an array of thumbnails of the video.
         /// </summary>
-        public VideoPickerThumbnail[] Thumbnails { get; private set; }
+        [JsonProperty("thumbnails")]
+        public VideoPickerThumbnail[] Thumbnails { get; }
 
         #endregion
 

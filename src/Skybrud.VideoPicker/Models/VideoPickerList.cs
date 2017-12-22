@@ -24,6 +24,10 @@ namespace Skybrud.VideoPicker.Models {
         #endregion
 
         #region Constructors
+        internal VideoPickerList() : base(null) {
+            Title = "";
+            Items = new VideoPickerItem[0];
+        }
 
         protected VideoPickerList(JObject obj) : base(obj) {
             Title = obj.GetString("title");
@@ -41,6 +45,19 @@ namespace Skybrud.VideoPicker.Models {
         /// <returns>An instance of <see cref="VideoPickerList"/>.</returns>
         public static VideoPickerList Parse(JObject obj) {
             return obj == null ? null : new VideoPickerList(obj );
+        }
+
+        /// <summary>
+        /// Parses the specified JSON <paramref name="str"/> into an instance of <see cref="VideoPickerList"/>. If
+        /// <paramref name="str"/> is not a valid JSON object, an empty instance of <see cref="VideoPickerList"/> will
+        /// be returned instead.
+        /// </summary>
+        /// <param name="str">The JSON string to be parsed.</param>
+        /// <returns>An instance of <see cref="ImagePickerList"/>.</returns>
+        public static VideoPickerList Deserialize(string str) {
+            if (str == null) return new VideoPickerList();
+            if (str.StartsWith("{") && str.EndsWith("}")) return Parse(JsonConvert.DeserializeObject<JObject>(str));
+            return new VideoPickerList();
         }
 
         #endregion

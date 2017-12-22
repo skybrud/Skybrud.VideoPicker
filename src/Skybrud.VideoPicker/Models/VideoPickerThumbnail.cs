@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json;
 using Skybrud.Essentials.Json.Extensions;
 
@@ -11,22 +12,26 @@ namespace Skybrud.VideoPicker.Models {
         /// <summary>
         /// Gets the alias of the thumbnail format/size. The alias is only available for YouTube videos.
         /// </summary>
-        public string Alias { get; private set; }
+        [JsonProperty("alias", NullValueHandling = NullValueHandling.Ignore)]
+        public string Alias { get; }
 
         /// <summary>
         /// Gets the URL of the thumbnail image.
         /// </summary>
-        public string Url { get; private set; }
+        [JsonProperty("url")]
+        public string Url { get; }
 
         /// <summary>
         /// Gets the width of the thumbnail.
         /// </summary>
-        public int Width { get; private set; }
+        [JsonProperty("width")]
+        public int Width { get; }
 
         /// <summary>
         /// Gets the height of the thumbnail.
         /// </summary>
-        public int Height { get; private set; }
+        [JsonProperty("height")]
+        public int Height { get; }
 
         #endregion
 

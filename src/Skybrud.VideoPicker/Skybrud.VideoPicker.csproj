@@ -284,6 +284,7 @@
     <Compile Include="Config\VideoPickerConfig.cs" />
     <Compile Include="Constants\VideoPickerConstants.cs" />
     <Compile Include="Controllers\Api\VideoPickerController.cs" />
+    <Compile Include="Extensions\PublishedContentExtensions.cs" />
     <Compile Include="Grid\Config\GridEditorVideoPickerConfig.cs" />
     <Compile Include="Grid\Converters\VideoPickerGridConverter.cs" />
     <Compile Include="Grid\Values\GridControlVideoPickerValue.cs" />
@@ -294,6 +295,7 @@
     <Compile Include="Models\VideoPickerThumbnail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="VideoPickerPropertyValueConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Skybrud.VideoPicker\package.manifest">
