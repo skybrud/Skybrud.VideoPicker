@@ -2,3 +2,4 @@ node_modules/
 src/packages/
 src/Skybrud.VideoPicker/bin/
 src/Skybrud.VideoPicker/obj/
+src/.vs/
