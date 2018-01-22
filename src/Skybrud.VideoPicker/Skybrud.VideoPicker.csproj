@@ -302,6 +302,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="App_Plugins\Skybrud.VideoPicker\Styles\Styles.less" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\AssemblyInfo.json" />
     <None Include="Skybrud.ImagePicker.nuspec" />
