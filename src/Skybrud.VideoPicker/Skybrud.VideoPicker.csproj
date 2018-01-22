@@ -297,6 +297,9 @@
     <Compile Include="VideoPickerPropertyValueConverter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Skybrud.VideoPicker\Lang\da-DK.xml" />
+    <Content Include="App_Plugins\Skybrud.VideoPicker\Lang\en-GB.xml" />
+    <Content Include="App_Plugins\Skybrud.VideoPicker\Lang\en-US.xml" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\package.manifest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
