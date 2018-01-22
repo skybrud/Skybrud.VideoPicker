@@ -2,8 +2,14 @@
 
     .umb-thumbnail .placeholder {
         display: block;
-        box-sizing: border-box; border: 1px solid #CCC; background: #efefef;
-        width: 320px; height: 180px; line-height: 180px; text-align: center; font-size: 50px;
+        box-sizing: border-box;
+        border: 1px solid #CCC;
+        background: #efefef;
+        width: 320px;
+        height: 180px;
+        line-height: 180px;
+        text-align: center;
+        font-size: 50px;
     }
 
     .umb-thumbnail a.placeholder {
@@ -12,12 +18,12 @@
     }
 
     .SkybrudVideoPickerItem {
-        /*border: 2px solid #999;*/
+        border: 1px solid #B2AFBC;
         padding: 10px;
         margin-bottom: 10px;
     }
 
-    input {
+    input[type=text] {
         box-sizing: border-box;
         width: 100%;
         max-width: initial;
@@ -26,7 +32,6 @@
     }
 
     .umb-thumbnail > div {
-
         position: relative;
 
         .actions {
@@ -63,7 +68,78 @@
             align-items: center;
             text-decoration: none;
         }
-
     }
 
+    div.actions {
+        line-height: 32px;
+        white-space: nowrap;
+        margin-left: 10px;
+    }
+
+    .option + .option {
+        margin-top: 15px;
+    }
+}
+
+
+
+
+
+
+
+.prevalue-title {
+    font-size: 15px;
+    line-height: 15px;
+    color: #000;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+.prevalue-description {
+    font-size: 12px;
+    color: rgb(129, 127, 133);
+}
+
+
+
+
+.SkybrudVideoPicker .option-group {
+
+    .prevalue-title + &,
+    .prevalue-description + & {
+        margin-top: 20px;
+    }
+
+    .option-group-title {
+        margin-bottom: 20px;
+        background: #F3F3F5;
+        padding: 5px 10px;
+        font-weight: bold;
+        border-bottom: 1px solid #B2AFBC;
+    }
+
+    .option {
+        display: block;
+        margin-left: 20px;
+
+        > div {
+            margin: 0 0 5px 0;
+        }
+
+        small {
+            padding: 0;
+        }
+
+        & + .option {
+            margin-top: 15px;
+        }
+
+        input.placeholder {
+            width: 100%;
+        }
+    }
+
+    & + .option-group {
+        margin-top: 40px;
+    }
 }

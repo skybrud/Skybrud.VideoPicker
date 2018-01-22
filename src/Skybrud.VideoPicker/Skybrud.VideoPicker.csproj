@@ -310,6 +310,7 @@
     <None Include="Skybrud.ImagePicker.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Controllers\PreValueEditor.js" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Controllers\VideosEditor.js" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Controllers\VideosGridEditor.js" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Directives\Videos.js" />
@@ -319,6 +320,7 @@
     <Content Include="App_Plugins\Skybrud.VideoPicker\Styles\Styles.min.css">
       <DependentUpon>Styles.css</DependentUpon>
     </Content>
+    <Content Include="App_Plugins\Skybrud.VideoPicker\Views\VideoPickerPreValues.html" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Views\VideosDirective.html" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Views\VideosEditor.html" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Views\VideosGridEditor.html" />

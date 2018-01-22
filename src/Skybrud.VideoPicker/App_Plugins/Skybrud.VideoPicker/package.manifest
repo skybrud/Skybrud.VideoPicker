@@ -1,37 +1,33 @@
 ﻿{
-    "propertyEditors": [ 
-        {
-			"alias": "Skybrud.VideoPicker",
-			"name": "Skybrud.Social - Videos",
-			"editor": {
-				"view": "~/App_Plugins/Skybrud.VideoPicker/Views/VideosEditor.html",
-				"hideLabel": false,
-				"valueType": "JSON"	
-			},
-            "prevalues": {
-                "fields": [
-                    {
-                        "label": "Limit",
-                        "description": "The maximum amount of videos allowed. If set to <strong>0</strong>, no limit is applied.",
-                        "key": "limit",
-                        "view": "number"
-                    },
-                    {
-                        "label": "Hide original description",
-                        "description": "If checked, the original description of the video will be hidden.",
-                        "key": "hideDescription",
-                        "view": "boolean"
-                    }
-                ]
-            }
-		}
-    ],
-	"javascript": [
-        "~/App_Plugins/Skybrud.VideoPicker/Scripts/Directives/Videos.js",
-        "~/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/VideosEditor.js",
-        "~/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/VideosGridEditor.js"
-    ],
-	"css": [
-        "~/App_Plugins/Skybrud.VideoPicker/Styles/Styles.css"
-    ]
+  "propertyEditors": [
+    {
+      "alias": "Skybrud.VideoPicker",
+      "name": "Skybrud.Social - Videos",
+      "editor": {
+        "view": "~/App_Plugins/Skybrud.VideoPicker/Views/VideosEditor.html",
+        "hideLabel": false,
+        "valueType": "JSON"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Configiguration",
+            "description": "Use the fields below to configure the options for the video picker.",
+            "key": "config",
+            "view": "~/App_Plugins/Skybrud.VideoPicker/Views/VideoPickerPreValues.html",
+            "hideLabel": true
+          }
+        ]
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Directives/Videos.js",
+    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/VideosEditor.js",
+    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/VideosGridEditor.js",
+    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/PreValueEditor.js"
+  ],
+  "css": [
+    "~/App_Plugins/Skybrud.VideoPicker/Styles/Styles.css"
+  ]
 }

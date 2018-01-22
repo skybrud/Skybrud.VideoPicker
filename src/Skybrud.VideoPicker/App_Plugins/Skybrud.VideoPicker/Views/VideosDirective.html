@@ -2,16 +2,19 @@
     <div>
         <div class="SkybrudVideoPickerItem" ng-repeat="item in shadowValue.items">
             <div style="display: flex;">
-                <input type="text" ng-model="item.url" ng-change="urlChanged(item)" placeholder="Angiv adressen til videoen her..." />
-                <!--<div class="actions">
-                <a href="#" ng-click="removeItem($index);" prevent-default>
-                    <i class="icon icon-delete red"></i>
-                </a>
-                <i class="icon icon-navigation handle" ng-show="shadowValue.items.length > 1"></i>
-            </div>-->
+                <input type="text" ng-model="item.url" ng-change="urlChanged(item)" placeholder="Enter the URL of the video here..." />
+                <div class="actions" ng-if="config.list.limit > 1">
+                    <a href="#" ng-click="removeItem($index);" prevent-default>
+                        <i class="icon icon-delete red"></i>
+                    </a>
+                    <i class="icon icon-navigation handle" ng-show="shadowValue.items.length != 1"></i>
+                </div>
             </div>
             <div ng-show="!!item.details">
                 <hr style="margin: 10px 0; border: 0; height: 2px; background: #999;" />
+
+                
+
                 <p style="margin-top: 0;"><strong>{{item.details.title}}</strong></p>
                 <p style="font-size: 11px;">
                     <localize key="skyVideoPicker_type">Type</localize>: {{item.$typeName}}
@@ -20,10 +23,26 @@
                     <span ng-show="item.details.duration == 1"><localize key="skyVideoPicker_second">second</localize></span>
                     <span ng-show="item.details.duration != 1"><localize key="skyVideoPicker_seconds">seconds</localize></span>
                 </p>
-                <p ng-show="!config.hideDescription && item.details.description">
+                <p ng-show="config.details.description.visible">
                     {{item.details.description}}
                 </p>
-                <div style="display: flex;">
+                <div class="option" ng-if="config.items.title.visible">
+                    <div>
+                        <strong style="font-size: 11px; text-transform: uppercase;">Title</strong><br />
+                    </div>
+                    <div>
+                        <input type="text" ng-model="item.title" placeholder="{{config.items.title.placeholder}}" ng-required="config.items.title.required" />
+                    </div>
+                </div>
+                <div class="option" ng-if="config.items.description.visible">
+                    <div>
+                        <strong style="font-size: 11px; text-transform: uppercase;">Description</strong><br />
+                    </div>
+                    <div>
+                        <input type="text" ng-model="item.description" placeholder="{{config.items.description.placeholder}}" ng-required="config.items.description.required" />
+                    </div>
+                </div>
+                <div class="option" style="display: flex;">
                     <div>
                         <strong style="font-size: 11px; text-transform: uppercase;">
                             <localize key="skyVideoPicker_thumbnailFrom">Thumbnail from</localize>
@@ -52,7 +71,7 @@
             </div>
         </div>
         <div>
-            <a href="#" prevent-default ng-click="addVideo()" class="blue" ng-show="config.limit != 1">
+            <a href="#" prevent-default ng-click="addVideo()" class="blue" ng-show="config.limit > shadowValue.items.length">
                 <i class="icon icon-add"></i>
                 <localize key="skyVideoPicker_addVideo">Add new video</localize>
             </a>

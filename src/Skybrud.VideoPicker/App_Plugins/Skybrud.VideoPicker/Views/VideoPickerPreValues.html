@@ -1,0 +1,71 @@
+﻿<div class="SkybrudVideoPicker" ng-controller="SkybrudVideoPicker.VideosPreValueEditor.Controller">
+    
+    <div class="option-group">
+        <div class="option-group-title">General</div>
+        <label class="option">
+            <div>
+                <strong>Limit</strong>
+                <small>Select the maximum amount of videos allowed in the list. If set to <strong>0</strong>, no limit is applied.</small>
+            </div>
+            <input type="number" min="0" ng-model="model.value.list.limit" />
+        </label>
+        <label class="option">
+            <div>
+                <strong>List title</strong>
+                <small>Select whether it should be possible to specify a title for the entire video list.</small>
+            </div>
+            <select ng-model="model.value.list.title.mode">
+                <option value="optional">Optinoal</option>
+                <option value="required">Required</option>
+                <option value="hidden">Hidden</option>
+            </select>
+        </label>
+        <label class="option" ng-if="model.value.list.title.mode != 'hidden'">
+            <div>
+                <strong>List title placeholder</strong>
+            </div>
+            <input type="text" class="placeholder" ng-model="model.value.list.title.placeholder" />
+        </label>
+    </div>
+
+    <div class="option-group">
+        <div class="option-group-title">Custom details</div>
+        <label class="option">
+            <div>
+                <strong>Title</strong>
+                <small>Select how the field for a custom video title should be displayed.</small>
+            </div>
+            <select ng-model="model.value.items.title.mode">
+                <option value="optional">Optinoal</option>
+                <option value="required">Required</option>
+                <option value="hidden">Hidden</option>
+            </select>
+        </label>
+        <label class="option">
+            <div>
+                <strong>Description</strong>
+                <small>Select how the field for a custom video desciption should be displayed.</small>
+            </div>
+            <select ng-model="model.value.items.description.mode">
+                <option value="optional">Optinoal</option>
+                <option value="required">Required</option>
+                <option value="hidden">Hidden</option>
+            </select>
+        </label>
+    </div>
+
+    <div class="option-group">
+        <div class="option-group-title">Video details</div>
+        <label class="option">
+            <div>
+                <strong>Show video description</strong>
+                <small>Select whether the original description of the video should be visible.</small>
+            </div>
+            <input type="checkbox" ng-model="model.value.details.description.visible"/>
+        </label>
+    </div>
+    
+    <br /><br />
+    <pre style="white-space: pre;">{{model.value | json}}</pre>
+    <pre style="white-space: pre;">{{model | json}}</pre>
+</div>
