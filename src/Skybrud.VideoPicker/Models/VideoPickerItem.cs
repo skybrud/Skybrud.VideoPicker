@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json;
 using Skybrud.Essentials.Json.Extensions;
@@ -16,6 +17,18 @@ namespace Skybrud.VideoPicker.Models {
 
         [JsonProperty("type")]
         public string Type { get; }
+
+        [JsonProperty("title")]
+        public string Title { get; }
+
+        [JsonIgnore]
+        public bool HasTitle => !String.IsNullOrWhiteSpace(Title);
+
+        [JsonProperty("description")]
+        public string Description { get; }
+
+        [JsonIgnore]
+        public bool HasDescription => !String.IsNullOrWhiteSpace(Description);
 
         [JsonProperty("details")]
         public VideoPickerDetails Details { get; }
@@ -54,11 +67,15 @@ namespace Skybrud.VideoPicker.Models {
         internal VideoPickerItem() : base(null) {
             Url = "";
             Type = "";
+            Title = "";
+            Description = "";
         }
 
         protected VideoPickerItem(JObject obj) : base(obj) {
             Url = obj.GetString("url");
             Type = obj.GetString("type");
+            Title = obj.GetString("title");
+            Description = obj.GetString("description");
             Details = obj.GetObject("details", VideoPickerDetails.Parse);
             ThumbnailId = obj.GetInt32("thumbnailId");
         }

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Globalization;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Skybrud.Umbraco.GridData;
+using Skybrud.Umbraco.GridData.Converters;
 using Skybrud.Umbraco.GridData.Interfaces;
 using Skybrud.Umbraco.GridData.Rendering;
 using Skybrud.VideoPicker.Constants;
 using Skybrud.VideoPicker.Grid.Config;
 using Skybrud.VideoPicker.Grid.Values;
-using Umbraco.Core;
 
 namespace Skybrud.VideoPicker.Grid.Converters {
 
-    public class VideoPickerGridConverter : IGridConverter {
+    public class VideoPickerGridConverter : GridConverterBase {
 
         /// <summary>
         /// Converts the specified <paramref name="token"/> into an instance of <see cref="IGridControlValue"/>.
@@ -19,7 +17,7 @@ namespace Skybrud.VideoPicker.Grid.Converters {
         /// <param name="control">A reference to the parent <see cref="GridControl"/>.</param>
         /// <param name="token">The instance of <see cref="JToken"/> representing the control value.</param>
         /// <param name="value">The converted control value.</param>
-        public bool ConvertControlValue(GridControl control, JToken token, out IGridControlValue value) {
+        public override bool ConvertControlValue(GridControl control, JToken token, out IGridControlValue value) {
             value = null;
             if (IsVideoPicker(control.Editor)) {
                 value = GridControlVideoPickerValue.Parse(control, token as JObject);
@@ -33,7 +31,7 @@ namespace Skybrud.VideoPicker.Grid.Converters {
         /// <param name="editor"></param>
         /// <param name="token">The instance of <see cref="JToken"/> representing the editor config.</param>
         /// <param name="config">The converted editor config.</param>
-        public bool ConvertEditorConfig(GridEditor editor, JToken token, out IGridEditorConfig config) {
+        public override bool ConvertEditorConfig(GridEditor editor, JToken token, out IGridEditorConfig config) {
             config = null;
             if (IsVideoPicker(editor)) {
                 config = GridEditorVideoPickerConfig.Parse(editor, token as JObject);
@@ -46,7 +44,7 @@ namespace Skybrud.VideoPicker.Grid.Converters {
         /// </summary>
         /// <param name="control">The control to be wrapped.</param>
         /// <param name="wrapper">The wrapper.</param>
-        public bool GetControlWrapper(GridControl control, out GridControlWrapper wrapper) {
+        public override bool GetControlWrapper(GridControl control, out GridControlWrapper wrapper) {
             wrapper = null;
             if (IsVideoPicker(control.Editor)) {
                 wrapper = control.GetControlWrapper<GridControlVideoPickerValue>();
@@ -55,13 +53,18 @@ namespace Skybrud.VideoPicker.Grid.Converters {
         }
 
         private bool IsVideoPicker(GridEditor editor) {
+
+            // The editor may be NULL if it no longer exists in a package.manifest file
+            if (editor == null) return false;
+            
             return (
-                CultureInfo.InvariantCulture.CompareInfo.IndexOf(editor.View, VideoPickerConstants.GridEditorView, CompareOptions.IgnoreCase) >= 0
+                ContainsIgnoreCase(editor.View.Split('?')[0], VideoPickerConstants.GridEditorView)
                 ||
-                editor.Alias.Equals(VideoPickerConstants.GridEditorAlias, StringComparison.InvariantCultureIgnoreCase)
+                EqualsIgnoreCase(editor.Alias, VideoPickerConstants.GridEditorAlias)
                 ||
-                CultureInfo.InvariantCulture.CompareInfo.IndexOf(editor.Alias, VideoPickerConstants.GridEditorAlias + ".", CompareOptions.IgnoreCase) >= 0
+                ContainsIgnoreCase(editor.Alias, VideoPickerConstants.GridEditorAlias + ".")
             );
+
         }
 
     }
