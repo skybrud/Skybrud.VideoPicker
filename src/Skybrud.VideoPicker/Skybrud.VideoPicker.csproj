@@ -314,7 +314,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Controllers\PreValueEditor.js" />
-    <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Controllers\VideosEditor.js" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Controllers\VideosGridEditor.js" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Directives\Videos.js" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Styles\Styles.css">
