@@ -78,7 +78,7 @@ The package also supports adding a grid editor - the JSON configuration for the 
     },
     "details": {
       "description": {
-        "mode": "hidden"
+        "visible": false
       }
     }
   }
