@@ -1,4 +1,4 @@
-﻿<div class="SkybrudVideoPicker" ng-class="{SingleVideoPicker: config.limit == 1, MultiVideoPicker: config.limit != 1}">
+﻿<div class="SkybrudVideoPicker" ng-class="{SingleVideoPicker: config.list.limit == 1, MultiVideoPicker: config.list.limit != 1}">
     <div>
         <div class="SkybrudVideoPickerItem" ng-repeat="item in shadowValue.items">
             <div style="display: flex;">
@@ -71,7 +71,7 @@
             </div>
         </div>
         <div>
-            <a href="#" prevent-default ng-click="addVideo()" class="blue" ng-show="config.limit > shadowValue.items.length">
+            <a href="#" prevent-default ng-click="addVideo()" class="blue" ng-show="config.list.limit > shadowValue.items.length">
                 <i class="icon icon-add"></i>
                 <localize key="skyVideoPicker_addVideo">Add new video</localize>
             </a>
