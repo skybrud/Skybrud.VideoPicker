@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Linq;
+using System.Text;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Umbraco.GridData;
 using Skybrud.Umbraco.GridData.Interfaces;
@@ -26,7 +28,20 @@ namespace Skybrud.VideoPicker.Grid.Values {
         #region Member methods
 
         public string GetSearchableText() {
-            return "";
+
+			StringBuilder combined = new StringBuilder();
+
+	        combined.AppendLine(Title);
+
+	        foreach (VideoPickerItem item in Items)
+	        {
+		        combined.AppendLine(item.Title);
+		        combined.AppendLine(item.Description);
+		        combined.AppendLine(item.Details.Title);
+		        combined.AppendLine(item.Details.Description);
+			}
+
+	        return combined.ToString();
         }
 
         #endregion
