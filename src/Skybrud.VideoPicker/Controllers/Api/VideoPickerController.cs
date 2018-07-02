@@ -7,10 +7,10 @@ using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json;
 using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Essentials.Time;
-using Skybrud.Social.Google;
-using Skybrud.Social.Google.YouTube.Objects.Videos;
-using Skybrud.Social.Google.YouTube.Options;
-using Skybrud.Social.Google.YouTube.Responses;
+using Skybrud.Social.Google.Common;
+using Skybrud.Social.Google.YouTube.Models.Videos;
+using Skybrud.Social.Google.YouTube.Options.Videos;
+using Skybrud.Social.Google.YouTube.Responses.Videos;
 using Skybrud.Social.Http;
 using Skybrud.VideoPicker.Config;
 using Skybrud.WebApi.Json;
@@ -138,8 +138,8 @@ namespace Skybrud.VideoPicker.Controllers.Api {
 
                 GoogleService service = GoogleService.CreateFromServerKey(Config.GoogleServerKey);
 
-                YouTubeVideoListResponse response = service.YouTube.Videos.GetVideos(new YouTubeVideoListOptions {
-                    Part = YouTubeVideoPart.Snippet + YouTubeVideoPart.ContentDetails,
+                YouTubeGetVideoListResponse response = service.YouTube.Videos.GetVideos(new YouTubeGetVideoListOptions {
+                    Part = YouTubeVideoParts.Snippet + YouTubeVideoParts.ContentDetails,
                     Ids = new[] { videoId }
                 });
 
