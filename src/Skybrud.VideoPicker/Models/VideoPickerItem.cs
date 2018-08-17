@@ -43,7 +43,7 @@ namespace Skybrud.VideoPicker.Models {
         /// Gets a reference to the editorial thumbnail of the image, or <code>null</code> if not selected.
         /// </summary>
         [JsonProperty("thumbnail")]
-        public VideoPickerImage Thumbnail { get; }
+        public VideoPickerImage Thumbnail => _thumbnail == null && ThumbnailId > 0 ? _thumbnail = VideoPickerImage.GetFromId(ThumbnailId) : _thumbnail;
 
         [JsonIgnore]
         public bool HasThumbnail => Thumbnail != null;
@@ -78,10 +78,6 @@ namespace Skybrud.VideoPicker.Models {
             Description = obj.GetString("description");
             Details = obj.GetObject("details", VideoPickerDetails.Parse);
             ThumbnailId = obj.GetInt32("thumbnailId");
-            if (ThumbnailId > 0)
-            {
-                Thumbnail = VideoPickerImage.GetFromId(ThumbnailId);
-            }
         }
 
         #endregion
