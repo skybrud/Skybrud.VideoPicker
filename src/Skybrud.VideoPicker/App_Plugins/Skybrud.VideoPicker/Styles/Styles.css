@@ -1,8 +1,11 @@
-﻿.SkybrudVideoPicker .umb-thumbnail .placeholder {
+﻿.SkybrudVideoPicker {
+  max-width: 66.6%;
+  max-width: 800px;
+}
+.SkybrudVideoPicker .umb-thumbnail .placeholder {
   display: block;
   box-sizing: border-box;
-  border: 1px solid #CCC;
-  background: #efefef;
+  background: #F3F3F5;
   width: 320px;
   height: 180px;
   line-height: 180px;
@@ -11,10 +14,13 @@
 }
 .SkybrudVideoPicker .umb-thumbnail a.placeholder {
   text-decoration: none;
-  color: #CCC;
+  color: #817f85;
+}
+.SkybrudVideoPicker .umb-thumbnail a.placeholder:hover {
+  color: #03bfb3;
 }
 .SkybrudVideoPicker .SkybrudVideoPickerItem {
-  border: 1px solid #B2AFBC;
+  border: 1px dashed #d8d7d9;
   padding: 10px;
   margin-bottom: 10px;
 }
@@ -24,6 +30,15 @@
   max-width: initial;
   line-height: 32px;
   height: 32px;
+}
+.SkybrudVideoPicker textarea {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: initial;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  min-height: 100px;
+  resize: vertical;
 }
 .SkybrudVideoPicker .umb-thumbnail > div {
   position: relative;
@@ -68,6 +83,31 @@
 .SkybrudVideoPicker .option + .option {
   margin-top: 15px;
 }
+.SkybrudVideoPicker .videopicker-add-link {
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px 15px;
+  font-weight: bold;
+  color: #2e8aea;
+  border: 1px dashed #d8d7d9;
+  box-sizing: border-box;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.SkybrudVideoPicker.umbraco-gte76 .videopicker-add-link {
+  color: #00aea2;
+}
+.SkybrudVideoPicker .videopicker-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -10px;
+}
+.SkybrudVideoPicker .videopicker-thumbnail {
+  margin-top: 10px;
+  padding-right: 10px;
+}
 .prevalue-title {
   font-size: 15px;
   line-height: 15px;
@@ -93,6 +133,7 @@
 .SkybrudVideoPicker .option-group .option {
   display: block;
   margin-left: 20px;
+  margin-right: 20px;
 }
 .SkybrudVideoPicker .option-group .option > div {
   margin: 0 0 5px 0;
@@ -108,4 +149,7 @@
 }
 .SkybrudVideoPicker .option-group + .option-group {
   margin-top: 40px;
+}
+.umb-control.-active .SkybrudVideoPicker {
+  padding: 10px;
 }

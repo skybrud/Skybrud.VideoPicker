@@ -14,6 +14,9 @@
             if (!scope.value.title) scope.value.title = '';
             if (!scope.value.items) scope.value.items = [];
 
+            var v = Umbraco.Sys.ServerVariables.application.version.split('.');
+            scope.umbVersion = v = parseFloat(v[0] + '.' + (v[1].length === 1 ? "0" + v[1] : v[1]));
+
             // Image picker related
             var startNodeId = null;
 
@@ -56,6 +59,10 @@
 
                 if (!c.details.description) c.details.description = {};
                 if (c.details.description.visible !== false) c.details.description.visible = true;
+
+                if (!c.services) c.services = {};
+                c.services.youtube = c.services.youtube !== false;
+                c.services.vimeo = c.services.vimeo !== false;
 
             }
 
@@ -221,10 +228,29 @@
 
                 $http.get('/umbraco/Skybrud/VideoPicker/GetVideoFromUrl?url=' + item.url).success(function (video) {
 
-                    item.url = video.url;
-                    item.type = video.type;
-                    item.details = video.details;
-                    hest(item);
+                    if (video.type == "youtube" && scope.config.services.youtube === false) {
+
+                        item.error = "Videos from YouTube is not permitted for this picker.";
+
+                        item.type = null;
+                        item.details = null;
+
+                    } else if (video.type == "vimeo" && scope.config.services.vimeo === false) {
+
+                        item.error = "Videos from Vimeo is not permitted for this picker.";
+
+                        item.type = null;
+                        item.details = null;
+
+                    } else {
+
+                        item.url = video.url;
+                        item.type = video.type;
+                        item.details = video.details;
+                        hest(item);
+
+                    }
+
 
                 }).error(function (r) {
 

@@ -21,6 +21,10 @@
         if (!c.details.description) c.details.description = {};
         if (c.details.description.visible !== false) c.details.description.visible = true;
 
+        if (!c.services) c.services = {};
+        c.services.youtube = c.services.youtube !== false;
+        c.services.vimeo = c.services.vimeo !== false;
+
     }
 
     init();

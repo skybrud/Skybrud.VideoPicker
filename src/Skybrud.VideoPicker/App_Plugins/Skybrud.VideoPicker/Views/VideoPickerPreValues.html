@@ -1,5 +1,5 @@
 ﻿<div class="SkybrudVideoPicker" ng-controller="SkybrudVideoPicker.VideosPreValueEditor.Controller">
-    
+
     <div class="option-group">
         <div class="option-group-title">General</div>
         <label class="option">
@@ -41,6 +41,13 @@
                 <option value="hidden">Hidden</option>
             </select>
         </label>
+        <label class="option" ng-show="model.value.items.title.mode != 'hidden'">
+            <div>
+                <strong>Title placeholder</strong>
+                <small>Enter the placeholder text that will be shown in the title field when empty.</small>
+            </div>
+            <input type="text" ng-model="model.value.items.title.placeholder" />
+        </label>
         <label class="option">
             <div>
                 <strong>Description</strong>
@@ -52,6 +59,13 @@
                 <option value="hidden">Hidden</option>
             </select>
         </label>
+        <label class="option" ng-show="model.value.items.description.mode != 'hidden'">
+            <div>
+                <strong>Description placeholder</strong>
+                <small>Enter the placeholder text that will be shown in the description field when empty.</small>
+            </div>
+            <input type="text" ng-model="model.value.items.description.placeholder" />
+        </label>
     </div>
 
     <div class="option-group">
@@ -61,11 +75,29 @@
                 <strong>Show video description</strong>
                 <small>Select whether the original description of the video should be visible.</small>
             </div>
-            <input type="checkbox" ng-model="model.value.details.description.visible"/>
+            <input type="checkbox" ng-model="model.value.details.description.visible" />
         </label>
     </div>
-    
-    <br /><br />
+
+    <div class="option-group">
+        <div class="option-group-title">Services</div>
+        <label class="option">
+            <div>
+                <strong>YouTube</strong>
+                <small>Allow videos from YouTube.</small>
+            </div>
+            <input type="checkbox" ng-model="model.value.services.youtube" />
+        </label>
+        <label class="option">
+            <div>
+                <strong>Vimeo</strong>
+                <small>Allow videos from Vimeo.</small>
+            </div>
+            <input type="checkbox" ng-model="model.value.services.vimeo" />
+        </label>
+    </div>
+
+    <!--<br /><br />
     <pre style="white-space: pre;">{{model.value | json}}</pre>
-    <pre style="white-space: pre;">{{model | json}}</pre>
+    <pre style="white-space: pre;">{{model | json}}</pre>-->
 </div>

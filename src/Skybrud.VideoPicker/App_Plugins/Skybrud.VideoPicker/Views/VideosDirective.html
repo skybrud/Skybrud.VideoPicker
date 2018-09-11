@@ -1,20 +1,19 @@
-﻿<div class="SkybrudVideoPicker" ng-class="{SingleVideoPicker: config.list.limit == 1, MultiVideoPicker: config.list.limit != 1}">
+﻿<div class="SkybrudVideoPicker" ng-class="{SingleVideoPicker: config.list.limit == 1, MultiVideoPicker: config.list.limit != 1, 'umbraco-gte76': umbVersion >= 7.06}">
     <div>
         <div class="SkybrudVideoPickerItem" ng-repeat="item in shadowValue.items">
             <div style="display: flex;">
                 <input type="text" ng-model="item.url" ng-change="urlChanged(item)" placeholder="Enter the URL of the video here..." />
-                <div class="actions" ng-if="config.list.limit > 1">
+                <div class="actions" ng-if="config.list.limit != 1">
                     <a href="#" ng-click="removeItem($index);" prevent-default>
                         <i class="icon icon-delete red"></i>
                     </a>
                     <i class="icon icon-navigation handle" ng-show="shadowValue.items.length != 1"></i>
                 </div>
             </div>
-            <div ng-show="!!item.details">
-                <hr style="margin: 10px 0; border: 0; height: 2px; background: #999;" />
-
-                
-
+            <div ng-show="item.error" style="margin-top: 10px;">
+                <div class="alert alert-danger">{{item.error}}</div>
+            </div>
+            <div ng-show="!!item.details" style="margin-top: 10px;">
                 <p style="margin-top: 0;"><strong>{{item.details.title}}</strong></p>
                 <p style="font-size: 11px;">
                     <localize key="skyVideoPicker_type">Type</localize>: {{item.$typeName}}
@@ -23,9 +22,7 @@
                     <span ng-show="item.details.duration == 1"><localize key="skyVideoPicker_second">second</localize></span>
                     <span ng-show="item.details.duration != 1"><localize key="skyVideoPicker_seconds">seconds</localize></span>
                 </p>
-                <p ng-show="config.details.description.visible">
-                    {{item.details.description}}
-                </p>
+                <p ng-show="config.details.description.visible" style="white-space: pre-wrap;">{{item.details.description}}</p>
                 <div class="option" ng-if="config.items.title.visible">
                     <div>
                         <strong style="font-size: 11px; text-transform: uppercase;">Title</strong><br />
@@ -39,11 +36,11 @@
                         <strong style="font-size: 11px; text-transform: uppercase;">Description</strong><br />
                     </div>
                     <div>
-                        <input type="text" ng-model="item.description" placeholder="{{config.items.description.placeholder}}" ng-required="config.items.description.required" />
+                        <textarea ng-model="item.description" placeholder="{{config.items.description.placeholder}}" ng-required="config.items.description.required"></textarea>
                     </div>
                 </div>
-                <div class="option" style="display: flex;">
-                    <div>
+                <div class="option videopicker-thumbnails">
+                    <div class="videopicker-thumbnail">
                         <strong style="font-size: 11px; text-transform: uppercase;">
                             <localize key="skyVideoPicker_thumbnailFrom">Thumbnail from</localize>
                             {{item.$typeName}}
@@ -51,7 +48,7 @@
                         <img ng-show="item.type == 'vimeo'" ng-src="{{item.details.thumbnails[1].url.replace('200x150', '320x180')}}" />
                         <img ng-show="item.type == 'youtube'" ng-src="{{item.details.thumbnails[1].url}}" />
                     </div>
-                    <div style="padding-left: 10px;" class="umb-thumbnail">
+                    <div class="videopicker-thumbnail umb-thumbnail">
                         <strong style="font-size: 11px; text-transform: uppercase;">
                             <localize key="skyVideoPicker_thumbnailFrom">Thumbnail from</localize> Umbraco
                         </strong><br />
@@ -71,9 +68,8 @@
             </div>
         </div>
         <div>
-            <a href="#" prevent-default ng-click="addVideo()" class="blue" ng-show="config.list.limit > shadowValue.items.length">
-                <i class="icon icon-add"></i>
-                <localize key="skyVideoPicker_addVideo">Add new video</localize>
+            <a class="videopicker-add-link" href="#" prevent-default ng-click="addVideo()" ng-show="config.list.limit == 0 || config.list.limit > shadowValue.items.length">
+                <localize key="skyVideoPicker_addVideo">Add video</localize>
             </a>
         </div>
     </div>

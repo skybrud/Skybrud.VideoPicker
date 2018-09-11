@@ -7,7 +7,7 @@
     <key alias="second">second</key>
     <key alias="seconds">seconds</key>
     <key alias="thumbnailFrom">Thumbnail from</key>
-    <key alias="addVideo">Add new video</key>
+    <key alias="addVideo">Add video</key>
     <key alias="urlPlaceholder">Enter the URL of the video here...</key>
   </area>
 </language>
