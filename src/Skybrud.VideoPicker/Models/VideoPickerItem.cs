@@ -34,13 +34,13 @@ namespace Skybrud.VideoPicker.Models {
         public VideoPickerDetails Details { get; }
 
         /// <summary>
-        /// Gets the media ID of the selected thumbnail, or <code>0</code> if no thumbnail has been selected.
+        /// Gets the media ID of the selected thumbnail, or <c>0</c> if no thumbnail has been selected.
         /// </summary>
         [JsonProperty("thumbnailId")]
         public int ThumbnailId { get; }
 
         /// <summary>
-        /// Gets a reference to the editorial thumbnail of the image, or <code>null</code> if not selected.
+        /// Gets a reference to the editorial thumbnail of the image, or <c>null</c> if not selected.
         /// </summary>
         [JsonProperty("thumbnail")]
         public VideoPickerImage Thumbnail => _thumbnail == null && ThumbnailId > 0 ? _thumbnail = VideoPickerImage.GetFromId(ThumbnailId) : _thumbnail;
