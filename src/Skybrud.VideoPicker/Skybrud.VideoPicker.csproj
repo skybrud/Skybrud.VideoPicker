@@ -169,11 +169,14 @@
     <Reference Include="Skybrud.Essentials, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Skybrud.Essentials.1.1.5\lib\net45\Skybrud.Essentials.dll</HintPath>
     </Reference>
-    <Reference Include="Skybrud.Social.Core, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Skybrud.Social.Core.1.0.8\lib\net45\Skybrud.Social.Core.dll</HintPath>
+    <Reference Include="Skybrud.Social.Core, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Skybrud.Social.Core.1.0.10\lib\net45\Skybrud.Social.Core.dll</HintPath>
     </Reference>
     <Reference Include="Skybrud.Social.Google, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Skybrud.Social.Google.1.0.0-beta004\lib\net45\Skybrud.Social.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Skybrud.Social.TwentyThree, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Skybrud.Social.TwentyThree.1.0.0\lib\net45\Skybrud.Social.TwentyThree.dll</HintPath>
     </Reference>
     <Reference Include="Skybrud.Umbraco.GridData, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Skybrud.Umbraco.GridData.2.0.5\lib\net45\Skybrud.Umbraco.GridData.dll</HintPath>
@@ -293,6 +296,7 @@
     <Compile Include="Models\VideoPickerImage.cs" />
     <Compile Include="Models\VideoPickerItem.cs" />
     <Compile Include="Models\VideoPickerList.cs" />
+    <Compile Include="Models\VideoPickerFormat.cs" />
     <Compile Include="Models\VideoPickerThumbnail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

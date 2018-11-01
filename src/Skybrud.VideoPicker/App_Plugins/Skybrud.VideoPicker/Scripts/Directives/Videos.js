@@ -21,11 +21,31 @@
             var startNodeId = null;
 
             function hest(item) {
+
                 switch (item.type) {
-                    case 'vimeo': item.$typeName = 'Vimeo'; break;
-                    case 'youtube': item.$typeName = 'YouTube'; break;
-                    default: item.$typeName = 'Ukendt'; break;
+
+                case 'vimeo':
+                    item.$typeName = 'Vimeo';
+                    item.details.$thumbnail = item.details.thumbnails[0];
+                    break;
+
+                case 'youtube':
+                    item.$typeName = 'YouTube';
+                    item.details.$thumbnail = item.details.thumbnails[0];
+                    break;
+
+                case 'twentythree':
+                    item.$typeName = 'Twenty Three';
+                    item.details.$thumbnail = _.findWhere(item.details.thumbnails, { alias: 'portrait' });
+                    break;
+
+                default:
+                    item.$typeName = 'Ukendt';
+                    item.details.$thumbnail = item.details.thumbnails[0];
+                    break;
+
                 }
+
             }
 
             function initConfig() {
@@ -55,14 +75,13 @@
                 c.items.description.visible = c.items.description.mode != 'hidden';
                 c.items.description.required = c.items.description.mode == 'required';
 
-                console.log(c.details);
-
                 if (!c.details.description) c.details.description = {};
                 if (c.details.description.visible !== false) c.details.description.visible = true;
 
                 if (!c.services) c.services = {};
                 c.services.youtube = c.services.youtube !== false;
                 c.services.vimeo = c.services.vimeo !== false;
+                c.services.twentythree = c.services.twentythree !== false;
 
             }
 
@@ -219,8 +238,9 @@
 
                 var m1 = item.url.match('vimeo.com/([0-9]+)$');
                 var m2 = item.url.match('youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)');
+                var m3 = item.url.match('/manage/video/([0-9]+)$');
 
-                if (!m1 && !m2) {
+                if (!m1 && !m2 && !m3) {
                     delete item.type;
                     delete item.details;
                     return;
@@ -228,14 +248,21 @@
 
                 $http.get('/umbraco/Skybrud/VideoPicker/GetVideoFromUrl?url=' + item.url).success(function (video) {
 
-                    if (video.type == "youtube" && scope.config.services.youtube === false) {
+                    if (video.type === "youtube" && scope.config.services.youtube === false) {
 
                         item.error = "Videos from YouTube is not permitted for this picker.";
 
                         item.type = null;
                         item.details = null;
 
-                    } else if (video.type == "vimeo" && scope.config.services.vimeo === false) {
+                    } else if (video.type === "vimeo" && scope.config.services.vimeo === false) {
+
+                        item.error = "Videos from Vimeo is not permitted for this picker.";
+
+                        item.type = null;
+                        item.details = null;
+
+                    } else if (video.type === "twentythree" && scope.config.services.twentythree === false) {
 
                         item.error = "Videos from Vimeo is not permitted for this picker.";
 
@@ -250,7 +277,6 @@
                         hest(item);
 
                     }
-
 
                 }).error(function (r) {
 

@@ -13,25 +13,25 @@ namespace Skybrud.VideoPicker.Models {
         #region Properties
 
         [JsonProperty("url")]
-        public string Url { get; }
+        public string Url { get; internal set; }
 
         [JsonProperty("type")]
-        public string Type { get; }
+        public string Type { get; internal set; }
 
-        [JsonProperty("title")]
-        public string Title { get; }
+        [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
+        public string Title { get; internal set; }
 
         [JsonIgnore]
         public bool HasTitle => !String.IsNullOrWhiteSpace(Title);
 
-        [JsonProperty("description")]
-        public string Description { get; }
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; internal set; }
 
         [JsonIgnore]
         public bool HasDescription => !String.IsNullOrWhiteSpace(Description);
 
         [JsonProperty("details")]
-        public VideoPickerDetails Details { get; }
+        public VideoPickerDetails Details { get; internal set; }
 
         /// <summary>
         /// Gets the media ID of the selected thumbnail, or <c>0</c> if no thumbnail has been selected.

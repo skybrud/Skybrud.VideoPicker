@@ -1,6 +1,6 @@
 ﻿<div class="SkybrudVideoPicker" ng-class="{SingleVideoPicker: config.list.limit == 1, MultiVideoPicker: config.list.limit != 1, 'umbraco-gte76': umbVersion >= 7.06}">
     <div>
-        <div class="SkybrudVideoPickerItem" ng-repeat="item in shadowValue.items">
+        <div class="SkybrudVideoPickerItem videopicker-{{item.type}}" ng-repeat="item in shadowValue.items">
             <div style="display: flex;">
                 <input type="text" ng-model="item.url" ng-change="urlChanged(item)" placeholder="Enter the URL of the video here..." />
                 <div class="actions" ng-if="config.list.limit != 1">
@@ -47,6 +47,7 @@
                         </strong><br />
                         <img ng-show="item.type == 'vimeo'" ng-src="{{item.details.thumbnails[1].url.replace('200x150', '320x180')}}" />
                         <img ng-show="item.type == 'youtube'" ng-src="{{item.details.thumbnails[1].url}}" />
+                        <img ng-show="item.type == 'twentythree'" ng-src="{{item.details.$thumbnail.url}}" />
                     </div>
                     <div class="videopicker-thumbnail umb-thumbnail">
                         <strong style="font-size: 11px; text-transform: uppercase;">
