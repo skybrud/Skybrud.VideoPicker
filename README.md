@@ -64,7 +64,7 @@ The video picker also supports videos from TwentyThree. However the configuratio
 
 If the parent TwentyThree account allows anonymous access, the access token and access token may be omitted.
 
-Also, as a result of limitions in the Twenty Three API, entered URls must look like `https://videos.yourdomain.com/manage/video/12345678` instead of `https://videos.yourdomain.com/friendlyVideoName`.
+Also, as a result of limitions in the Twenty Three API, entered URLs must look like `https://videos.yourdomain.com/manage/video/12345678` instead of `https://videos.yourdomain.com/friendlyVideoName`.
 
 ### Grid editor
 
