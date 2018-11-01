@@ -51,6 +51,21 @@ In a similar way, you need to configure Vimeo so we can fetch information about 
 
 You can find a list of your existing Vimeo apps [**here**](https://developer.vimeo.com/apps), or create a new app [**here**](https://developer.vimeo.com/apps/new). Once you have created an app, click on it in the list, and then go to the *Authentication* tab/page - here you'll be able to generate a new access token.
 
+### TwentyThree
+
+The video picker also supports videos from TwentyThree. However the configuration is a bit special, as you're using a custom domain - as a result of this, the configuration should be as following:
+
+```xml
+<add key="SkybrudVideoPicker:TwentyThree{videos.yourdomain.com}:ConsumerKey" value="TwentyThree consumer key" />
+<add key="SkybrudVideoPicker:TwentyThree{videos.yourdomain.com}:ConsumerSecret" value="TwentyThree consumer secret" />
+<add key="SkybrudVideoPicker:TwentyThree{videos.yourdomain.com}:AccessToken" value="TwentyThree access token" />
+<add key="SkybrudVideoPicker:TwentyThree{videos.yourdomain.com}:AccessTokenSecret" value="TwentyThree access token secret" />
+```
+
+If the parent TwentyThree account allows anonymous access, the access token and access token may be omitted.
+
+Also, as a result of limitions in the Twenty Three API, entered URls must look like `https://videos.yourdomain.com/manage/video/12345678` instead of `https://videos.yourdomain.com/friendlyVideoName`.
+
 ### Grid editor
 
 The package also supports adding a grid editor - the JSON configuration for the editor could look like this:
