@@ -246,6 +246,8 @@
                     return;
                 }
 
+                item.loading = true;
+
                 $http.get('/umbraco/Skybrud/VideoPicker/GetVideoFromUrl?url=' + item.url).success(function (video) {
 
                     if (video.type === "youtube" && scope.config.services.youtube === false) {
@@ -278,7 +280,11 @@
 
                     }
 
+                    item.loading = false;
+
                 }).error(function (r) {
+
+                    item.loading = false;
 
                     item.type = null;
                     item.details = null;

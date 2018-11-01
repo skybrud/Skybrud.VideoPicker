@@ -23,6 +23,15 @@
   border: 1px dashed #d8d7d9;
   padding: 10px;
   margin-bottom: 10px;
+  position: relative;
+}
+.SkybrudVideoPicker .SkybrudVideoPickerItem.loading > .load-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.75);
 }
 .SkybrudVideoPicker input[type=text] {
   box-sizing: border-box;

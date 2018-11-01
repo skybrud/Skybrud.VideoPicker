@@ -1,8 +1,11 @@
 ﻿<div class="SkybrudVideoPicker" ng-class="{SingleVideoPicker: config.list.limit == 1, MultiVideoPicker: config.list.limit != 1, 'umbraco-gte76': umbVersion >= 7.06}">
     <div>
-        <div class="SkybrudVideoPickerItem videopicker-{{item.type}}" ng-repeat="item in shadowValue.items">
+        <div class="SkybrudVideoPickerItem videopicker-{{item.type}}" ng-repeat="item in shadowValue.items" ng-class="{loading: item.loading}">
             <div style="display: flex;">
                 <input type="text" ng-model="item.url" ng-change="urlChanged(item)" placeholder="Enter the URL of the video here..." />
+                <a href="#" prevent-default class="btn btn-default" ng-click="urlChanged(item)" style="border-radius: 3px; margin-left: 10px; line-height: 18px;">
+                    <i class="icon icon-refresh"></i>
+                </a>
                 <div class="actions" ng-if="config.list.limit != 1">
                     <a href="#" ng-click="removeItem($index);" prevent-default>
                         <i class="icon icon-delete red"></i>
@@ -66,6 +69,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="load-indicator">
+                <umb-load-indicator ng-show="item.loading"></umb-load-indicator>
             </div>
         </div>
         <div>
