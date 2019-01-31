@@ -41,7 +41,7 @@
 
                 default:
                     item.$typeName = 'Ukendt';
-                    item.details.$thumbnail = item.details.thumbnails[0];
+                    if (item.details && item.detailsitem.details.thumbnails) item.details.$thumbnail = item.details.thumbnails[0];
                     break;
 
                 }
