@@ -3,8 +3,8 @@
   "description": "Skybrud.VideoPicker is a package for Umbraco 7+ containing a property editor and a grid editor for inserting videos from YouTube or Vimeo.",
   "company": "Skybrud.dk",
   "product": "Skybrud.VideoPicker",
-  "copyright": "Copyright © 2018",
+  "copyright": "Copyright © 2019",
   "version": "1.0.0.0",
-  "informationalVersion": "1.0.0-beta003",
+  "informationalVersion": "1.0.0-beta004",
   "fileVersion": "1.0.0.0"
 }
