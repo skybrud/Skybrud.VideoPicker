@@ -180,13 +180,9 @@
 
             scope.addThumbnail = function (item) {
 
-                // Get the Umbraco version
-                var v = Umbraco.Sys.ServerVariables.application.version.split('.');
-                v = parseFloat(v[0] + '.' + v[1]);
-
                 // The new overlay only works from 7.4 and up, so for older
                 // versions we should use the dialogService instead
-                if (v < 7.4) {
+                if (v < 7.04) {
 
                     dialogService.mediaPicker({
                         startNodeId: startNodeId,
