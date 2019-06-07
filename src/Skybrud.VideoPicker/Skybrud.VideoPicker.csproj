@@ -292,6 +292,7 @@
     <Compile Include="Grid\Config\GridEditorVideoPickerConfig.cs" />
     <Compile Include="Grid\Converters\VideoPickerGridConverter.cs" />
     <Compile Include="Grid\Values\GridControlVideoPickerValue.cs" />
+    <Compile Include="Models\TwentyThree\TwentyThreeVideoDetails.cs" />
     <Compile Include="Models\VideoPickerDetails.cs" />
     <Compile Include="Models\VideoPickerImage.cs" />
     <Compile Include="Models\VideoPickerItem.cs" />

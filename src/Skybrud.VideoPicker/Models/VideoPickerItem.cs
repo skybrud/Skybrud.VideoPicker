@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json;
 using Skybrud.Essentials.Json.Extensions;
+using Skybrud.VideoPicker.Models.TwentyThree;
 
 namespace Skybrud.VideoPicker.Models {
     
@@ -57,6 +58,12 @@ namespace Skybrud.VideoPicker.Models {
         [JsonIgnore]
         public bool IsValid => Details != null;
 
+        [JsonProperty("twentythree", Order = 250, NullValueHandling = NullValueHandling.Ignore)]
+        public TwentyThreeVideoDetails TwentyThree { get; }
+
+        [JsonIgnore]
+        public bool IsTwentyThree => TwentyThree != null;
+
         #endregion
 
         #region Constructors
@@ -78,6 +85,7 @@ namespace Skybrud.VideoPicker.Models {
             Description = obj.GetString("description");
             Details = obj.GetObject("details", VideoPickerDetails.Parse);
             ThumbnailId = obj.GetInt32("thumbnailId");
+            if (Type == "twentythree") TwentyThree = new TwentyThreeVideoDetails(this);
         }
 
         #endregion
