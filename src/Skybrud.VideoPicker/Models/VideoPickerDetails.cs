@@ -28,6 +28,7 @@ namespace Skybrud.VideoPicker.Models {
         /// Gets a tiemstamp for when the video was originally published.
         /// </summary>
         [JsonProperty("published")]
+        [JsonConverter(typeof(TimeConverter), TimeFormat.UnixTime)]
         public EssentialsTime Published { get; internal set; }
 
         /// <summary>
