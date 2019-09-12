@@ -267,7 +267,7 @@
 }
 .sky-video-title {
   position: relative;
-  background: #10ACA1;
+  background: #03BEB3;
   color: #fff;
   display: flex;
   padding: 2px 10px 2px 10px;
@@ -280,8 +280,11 @@
   color: #fff;
 }
 .sky-video-content {
-  border: 1px solid #10ACA1;
+  border: 1px solid #03BEB3;
   padding: 10px;
+}
+.umb-control .sky-video-list {
+  margin: 10px;
 }
 .sky-video-list-add {
   display: -ms-flexbox;
