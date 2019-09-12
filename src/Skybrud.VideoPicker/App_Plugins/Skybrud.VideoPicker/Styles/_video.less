@@ -1,15 +1,5 @@
 ﻿.sky-video {
-
     position: relative;
-
-    label {
-        display: block;
-        > div {
-            height: 21px;
-            overflow: hidden;
-            line-height: 21px;
-        }
-    }
 
     input {
         width: 100%;
@@ -23,6 +13,34 @@
 
     &.loading > div {
         opacity: 0.5;
+    }
+
+    .sky-video-option {
+        margin-bottom: 10px;
+
+        label {
+            display: block;
+
+            strong {
+                font-size: 12px;
+                text-transform: uppercase;
+            }
+
+            > div {
+                height: 21px;
+                overflow: hidden;
+                line-height: 21px;
+            }
+
+            > span {
+                display: block;
+                .comment {
+                    font-style: italic;
+                    font-size: 12px;
+                    color: #666;
+                }
+            }
+        }
     }
 
     .sky-video-thumbnails {
@@ -48,12 +66,12 @@
             line-height: 180px;
             text-align: center;
             font-size: 50px;
-
         }
 
         a.placeholder {
             text-decoration: none;
             color: #817f85;
+
             &:hover {
                 color: #03bfb3;
             }

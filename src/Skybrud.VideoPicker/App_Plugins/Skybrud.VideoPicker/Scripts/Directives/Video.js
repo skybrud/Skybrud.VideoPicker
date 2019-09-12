@@ -1,7 +1,8 @@
 ﻿angular.module("umbraco").directive("skyVideo", function ($http, $timeout, userService, entityResource, notificationsService, mediaHelper) {
     return {
         scope: {
-            value: "="
+            value: "=",
+            config: "=?"
         },
         transclude: true,
         restrict: "E",
@@ -13,11 +14,6 @@
 
             var textarea = element[0].querySelector("label textarea");
 
-
-
-
-
-
             // Image picker related
             var startNodeId = null;
 
@@ -26,14 +22,36 @@
             scope.loading = false;
             scope.thumbnail = null;
 
-            function init() {
+            scope.originalThumbnail = null;
 
-                scope.config = {
-                    services: {
-                        youtube: true,
-                        vimeo: true
-                    }
-                };
+            function initConfig() {
+
+                if (!scope.config) scope.config = {};
+
+                var c = scope.config;
+
+                if (!c.services) c.services = {};
+                c.services.youtube = c.services.youtube !== false;
+                c.services.vimeo = c.services.vimeo !== false;
+                c.services.twentythree = c.services.twentythree !== false;
+
+                if (!c.title) c.title = {};
+                if (!c.title.mode) c.title.mode = "hidden";
+                c.title.visible = c.title.mode !== "hidden";
+                c.title.required = c.title.mode === "required";
+
+                if (!c.description) c.description = {};
+                if (!c.description.mode) c.description.mode = "hidden";
+                c.description.visible = c.description.mode !== "hidden";
+                c.description.required = c.description.mode === "required";
+
+                if (!c.details.description) c.details.description = {};
+                if (c.details.description.visible !== false) c.details.description.visible = true;
+
+
+            }
+
+            function init() {
 
                 // Get the start node of the user (for the thumbnail picker)
                 userService.getCurrentUser().then(function (userData) {
@@ -54,23 +72,59 @@
 
             function hest(item) {
 
+                scope.duration = null;
+
                 if (!item) return;
+
+                if (item.details) item.details.$thumbnail = null;
+                scope.originalThumbnail = null;
+
+                scope.thumbnailWidth = 320;
+                scope.thumbnailHeight = 180;
+
+                // Get user friendly duration
+                var seconds = item.details.duration;
+                var hours = Math.floor(seconds / 60 / 60);
+                seconds = seconds - (hours * 60 * 60);
+                var minutes = Math.floor(seconds / 60);
+                seconds = seconds - (minutes * 60);
+                scope.duration = [];
+                if (hours > 0) scope.duration.push(hours);
+                if (hours > 0 || minutes > 0) scope.duration.push(minutes);
+                scope.duration.push(seconds);
+                scope.duration = scope.duration.join(":");
 
                 switch (item.type) {
 
                     case "vimeo":
                         scope.typeName = "Vimeo";
-                        item.details.$thumbnail = item.details.thumbnails[0];
+                        var t = item.details.thumbnails.length > 1 ? item.details.thumbnails[1] : null;
+                        if (t) {
+                            item.details.$thumbnail = scope.originalThumbnail = t;
+                            scope.originalThumbnail = {
+                                width: 320,
+                                height: 180,
+                                url: t.url.replace("200x150", "320x180")
+                            };
+                        }
                         break;
 
                     case "youtube":
                         scope.typeName = "YouTube";
-                        item.details.$thumbnail = item.details.thumbnails[0];
+                        item.details.$thumbnail = item.details.thumbnails[1];
+                        scope.originalThumbnail = item.details.thumbnails[1];
+                        scope.thumbnailWidth = scope.originalThumbnail.width;
+                        scope.thumbnailHeight = scope.originalThumbnail.height;
                         break;
 
                     case "twentythree":
                         scope.typeName = "Twenty Three";
-                        item.details.$thumbnail = _.findWhere(item.details.thumbnails, { alias: "portrait" });
+                        var t = _.findWhere(item.details.thumbnails, { alias: "portrait" });
+                        if (t) {
+                            item.details.$thumbnail = scope.originalThumbnail = t;
+                            scope.thumbnailWidth = t.width;
+                            scope.thumbnailHeight = t.height;
+                        }
                         break;
 
                     default:
@@ -86,12 +140,16 @@
 
                 if (!html) html = item.embed;
 
-                console.log("html");
-                console.log(html);
-
                 var m = html.match(/:\/\/(.+?)\/(v|[0-9]+)\.ihtml\/player\.html\?token=([a-z0-9]+)&source=embed&photo%5fid=([0-9]+)/);
 
                 if (!m) {
+                    delete item.type;
+                    delete item.details;
+                    return;
+                }
+
+                if (scope.config.services.twentythree === false) {
+                    item.error = "Videos from Twenty Three is not permitted for this picker.";
                     delete item.type;
                     delete item.details;
                     return;
@@ -152,7 +210,7 @@
 
                     } else if (video.type === "twentythree" && scope.config.services.twentythree === false) {
 
-                        item.error = "Videos from Vimeo is not permitted for this picker.";
+                        item.error = "Videos from Twenty Three is not permitted for this picker.";
 
                         item.type = null;
                         item.details = null;
@@ -201,7 +259,6 @@
                         // Add a little timeout so Angular has time to update first
                         $timeout(function () {
                             input.focus();
-                            console.log("Focus on input");
                         }, 10);
 
                         return;
@@ -228,7 +285,6 @@
                     // Add a little timeout so Angular has time to update first
                     $timeout(function () {
                         textarea.focus();
-                        console.log("Focus on textarea");
                     }, 10);
 
                     fromEmbed(scope.value);
@@ -288,6 +344,7 @@
                 scope.thumbnailUrl = null;
             };
 
+            initConfig();
             init();
 
         }

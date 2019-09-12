@@ -49,6 +49,13 @@
                 c.services.vimeo = c.services.vimeo !== false;
                 c.services.twentythree = c.services.twentythree !== false;
 
+                scope.itemConfig = {
+                    services: scope.config.services,
+                    title: scope.config.items.title,
+                    description: scope.config.items.description,
+                    details: scope.config.details
+                };
+
             }
 
             function init() {

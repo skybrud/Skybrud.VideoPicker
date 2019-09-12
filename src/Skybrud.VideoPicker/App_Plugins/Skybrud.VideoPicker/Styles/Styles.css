@@ -170,14 +170,6 @@
 .sky-video {
   position: relative;
 }
-.sky-video label {
-  display: block;
-}
-.sky-video label > div {
-  height: 21px;
-  overflow: hidden;
-  line-height: 21px;
-}
 .sky-video input {
   width: 100%;
 }
@@ -188,6 +180,29 @@
 }
 .sky-video.loading > div {
   opacity: 0.5;
+}
+.sky-video .sky-video-option {
+  margin-bottom: 10px;
+}
+.sky-video .sky-video-option label {
+  display: block;
+}
+.sky-video .sky-video-option label strong {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.sky-video .sky-video-option label > div {
+  height: 21px;
+  overflow: hidden;
+  line-height: 21px;
+}
+.sky-video .sky-video-option label > span {
+  display: block;
+}
+.sky-video .sky-video-option label > span .comment {
+  font-style: italic;
+  font-size: 12px;
+  color: #666;
 }
 .sky-video .sky-video-thumbnails {
   display: flex;
