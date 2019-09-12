@@ -167,3 +167,126 @@
   height: 158px;
   line-height: 158px;
 }
+.sky-video {
+  position: relative;
+}
+.sky-video label {
+  display: block;
+}
+.sky-video label > div {
+  height: 21px;
+  overflow: hidden;
+  line-height: 21px;
+}
+.sky-video input {
+  width: 100%;
+}
+.sky-video textarea {
+  height: 150px;
+  width: 100%;
+  resize: vertical;
+}
+.sky-video.loading > div {
+  opacity: 0.5;
+}
+.sky-video .sky-video-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -10px;
+}
+.sky-video .sky-video-thumbnail {
+  margin-top: 10px;
+  padding-right: 10px;
+}
+.sky-video .umb-thumbnail .placeholder {
+  display: block;
+  box-sizing: border-box;
+  background: #F3F3F5;
+  width: 320px;
+  height: 180px;
+  line-height: 180px;
+  text-align: center;
+  font-size: 50px;
+}
+.sky-video .umb-thumbnail a.placeholder {
+  text-decoration: none;
+  color: #817f85;
+}
+.sky-video .umb-thumbnail a.placeholder:hover {
+  color: #03bfb3;
+}
+.sky-video .umb-thumbnail > div {
+  position: relative;
+}
+.sky-video .umb-thumbnail > div .actions {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: -ms-flexbox;
+  display: flex;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+.sky-video .umb-thumbnail > div:hover .actions {
+  opacity: 1;
+  visibility: visible;
+}
+.sky-video .umb-thumbnail > div a.action {
+  display: -ms-flexbox;
+  display: flex;
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+  font-size: 16px;
+  color: #222;
+  background: white;
+  border-radius: 15px;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-decoration: none;
+}
+.sky-video-title {
+  position: relative;
+  background: #10ACA1;
+  color: #fff;
+  display: flex;
+  padding: 2px 10px 2px 10px;
+  font-size: 12px;
+}
+.sky-video-title > div:first-child {
+  flex: 1;
+}
+.sky-video-title a {
+  color: #fff;
+}
+.sky-video-content {
+  border: 1px solid #10ACA1;
+  padding: 10px;
+}
+.sky-video-list-add {
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px 15px;
+  font-weight: bold;
+  color: #00aea2;
+  border: 1px dashed #d8d7d9;
+  box-sizing: border-box;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.sky-video-list-item + .sky-video-list-add {
+  margin-top: 20px;
+}
+.sky-video-list .umb-tools {
+  position: relative;
+}
+.sky-video-list .sky-video-list-item + .sky-video-list-item {
+  margin-top: 20px;
+}

@@ -154,9 +154,8 @@
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -166,8 +165,11 @@
       <HintPath>..\packages\semver.1.1.2\lib\net45\Semver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Skybrud.Essentials, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Skybrud.Essentials.1.1.5\lib\net45\Skybrud.Essentials.dll</HintPath>
+    <Reference Include="Skybrud.Essentials, Version=1.1.15.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Skybrud.Essentials.1.1.15\lib\net45\Skybrud.Essentials.dll</HintPath>
+    </Reference>
+    <Reference Include="Skybrud.Essentials.Http, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Skybrud.Essentials.Http.1.0.7\lib\net45\Skybrud.Essentials.Http.dll</HintPath>
     </Reference>
     <Reference Include="Skybrud.Social.Core, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Skybrud.Social.Core.1.0.10\lib\net45\Skybrud.Social.Core.dll</HintPath>
@@ -175,8 +177,8 @@
     <Reference Include="Skybrud.Social.Google, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Skybrud.Social.Google.1.0.0-beta004\lib\net45\Skybrud.Social.Google.dll</HintPath>
     </Reference>
-    <Reference Include="Skybrud.Social.TwentyThree, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Skybrud.Social.TwentyThree.1.0.0\lib\net45\Skybrud.Social.TwentyThree.dll</HintPath>
+    <Reference Include="Skybrud.Social.TwentyThree, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Skybrud.Social.TwentyThree.1.0.1\lib\net45\Skybrud.Social.TwentyThree.dll</HintPath>
     </Reference>
     <Reference Include="Skybrud.Umbraco.GridData, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Skybrud.Umbraco.GridData.2.0.5\lib\net45\Skybrud.Umbraco.GridData.dll</HintPath>
@@ -311,6 +313,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="App_Plugins\Skybrud.VideoPicker\Styles\Styles.less" />
+    <None Include="App_Plugins\Skybrud.VideoPicker\Styles\_video.less" />
+    <None Include="App_Plugins\Skybrud.VideoPicker\Styles\_videoList.less" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -322,6 +326,8 @@
   <ItemGroup>
     <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Controllers\PreValueEditor.js" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Controllers\VideosGridEditor.js" />
+    <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Directives\Video.js" />
+    <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Directives\VideoList.js" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Directives\Videos.js" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Styles\Styles.css">
       <DependentUpon>Styles.less</DependentUpon>
@@ -329,6 +335,8 @@
     <Content Include="App_Plugins\Skybrud.VideoPicker\Styles\Styles.min.css">
       <DependentUpon>Styles.css</DependentUpon>
     </Content>
+    <Content Include="App_Plugins\Skybrud.VideoPicker\Views\Directives\Video.html" />
+    <Content Include="App_Plugins\Skybrud.VideoPicker\Views\Directives\VideoList.html" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Views\VideoPickerPreValues.html" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Views\VideosDirective.html" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Views\VideosEditor.html" />

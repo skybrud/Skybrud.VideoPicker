@@ -201,6 +201,65 @@ namespace Skybrud.VideoPicker.Controllers.Api {
 
         }
 
+        [HttpGet]
+        public object GetTwentyThreeVideo(string domain, string player, string token, string video) {
+
+            if (Regex.IsMatch(domain, "^[a-z0-9-\\.]+$") == false) return "Bah";
+            
+            // Get a reference to the API service implementation
+            TwentyThreeService api = GetTwentyThreeServiceFromDomain(domain);
+            
+            // Get information about the video (also called photo)
+            TwentyThreeGetPhotosResponse response = api.Photos.GetList(new TwentyThreeGetPhotosOptions {
+                PhotoId = video,
+                Token = token,
+                Video = TwentyThreeVideoParameter.OnlyVideos
+            });
+
+            var photo = response.Body.Photos[0];
+
+            // Get the scheme and host name
+            string schemeAndHost = "https://" + domain;
+
+            // Return a new video picker item
+            return new VideoPickerItem {
+                Url = schemeAndHost + "/manage/video/" + photo.Id,
+                Type = "twentythree",
+                Details = new VideoPickerDetails {
+                    Id  = photo.Id,
+                    Url = photo.AbsoluteUrl,
+                    Published = photo.PublishDate.DateTime,
+                    Title = photo.Title,
+                    Description = photo.Content,
+                    Duration = photo.VideoLength,
+                    Thumbnails = photo.Thumbnails.Select(x => new VideoPickerThumbnail(schemeAndHost, x)).ToArray(),
+                    Formats = photo.VideoFormats.Select(x => new VideoPickerFormat(schemeAndHost, x)).ToArray(),
+                }
+            };
+
+        }
+
+        private TwentyThreeService GetTwentyThreeServiceFromDomain(string domain) {
+
+            string prefix = "SkybrudVideoPicker:TwentyThree{" + domain + "}";
+
+            TwentyThreeOAuthClient client = new TwentyThreeOAuthClient {
+                HostName = domain,
+                ConsumerKey = WebConfigurationManager.AppSettings[prefix + ":ConsumerKey"],
+                ConsumerSecret = WebConfigurationManager.AppSettings[prefix + ":ConsumerSecret"],
+                Token = WebConfigurationManager.AppSettings[prefix + ":AccessToken"],
+                TokenSecret = WebConfigurationManager.AppSettings[prefix + ":AccessTokenSecret"]
+            };
+
+            if (string.IsNullOrWhiteSpace(client.ConsumerKey)) return null;
+            if (string.IsNullOrWhiteSpace(client.ConsumerSecret)) return null;
+            if (string.IsNullOrWhiteSpace(client.Token)) return null;
+            if (string.IsNullOrWhiteSpace(client.TokenSecret)) return null;
+
+            return TwentyThreeService.CreateFromOAuthClient(client);
+
+        }
+
         private object GetVideoFromTwentyThree(string videoId, string scheme, TwentyThreeOAuthClient client) {
 
             // Initialize a new service instance from the client

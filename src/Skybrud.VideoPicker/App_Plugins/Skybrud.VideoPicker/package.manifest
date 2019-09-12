@@ -22,6 +22,8 @@
     }
   ],
   "javascript": [
+    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Directives/Video.js",
+    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Directives/VideoList.js",
     "~/App_Plugins/Skybrud.VideoPicker/Scripts/Directives/Videos.js",
     "~/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/VideosGridEditor.js",
     "~/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/PreValueEditor.js"
