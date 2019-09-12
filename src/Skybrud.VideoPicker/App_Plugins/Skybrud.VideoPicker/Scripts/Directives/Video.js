@@ -73,14 +73,14 @@
             function hest(item) {
 
                 scope.duration = null;
-
-                if (!item) return;
-
-                if (item.details) item.details.$thumbnail = null;
                 scope.originalThumbnail = null;
 
                 scope.thumbnailWidth = 320;
                 scope.thumbnailHeight = 180;
+
+                if (!item || !item.details) return;
+
+                item.details.$thumbnail = null;
 
                 // Get user friendly duration
                 var seconds = item.details.duration;
