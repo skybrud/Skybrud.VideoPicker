@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -216,7 +217,8 @@ namespace Skybrud.VideoPicker.Controllers.Api {
                 Video = TwentyThreeVideoParameter.OnlyVideos
             });
 
-            var photo = response.Body.Photos[0];
+            // Get the first photo/video
+            TwentyThreePhoto photo = response.Body.Photos[0];
 
             // Get the scheme and host name
             string schemeAndHost = "https://" + domain;
@@ -226,9 +228,9 @@ namespace Skybrud.VideoPicker.Controllers.Api {
                 Url = schemeAndHost + "/manage/video/" + photo.Id,
                 Type = "twentythree",
                 Details = new VideoPickerDetails {
-                    Id  = photo.Id,
+                    Id = photo.Id,
                     Url = photo.AbsoluteUrl,
-                    Published = photo.PublishDate.DateTime,
+                    Published = photo.PublishDate,
                     Title = photo.Title,
                     Description = photo.Content,
                     Duration = photo.VideoLength,
@@ -308,7 +310,7 @@ namespace Skybrud.VideoPicker.Controllers.Api {
                 Details = new VideoPickerDetails {
                     Id  = videoId,
                     Url = video.AbsoluteUrl,
-                    Published = video.PublishDate.DateTime,
+                    Published = video.PublishDate,
                     Title = video.Title,
                     Description = video.Content,
                     Duration = video.VideoLength,

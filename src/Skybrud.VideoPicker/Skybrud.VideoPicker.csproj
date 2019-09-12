@@ -177,8 +177,8 @@
     <Reference Include="Skybrud.Social.Google, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Skybrud.Social.Google.1.0.0-beta004\lib\net45\Skybrud.Social.Google.dll</HintPath>
     </Reference>
-    <Reference Include="Skybrud.Social.TwentyThree, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Skybrud.Social.TwentyThree.1.0.1\lib\net45\Skybrud.Social.TwentyThree.dll</HintPath>
+    <Reference Include="Skybrud.Social.TwentyThree, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Skybrud.Social.TwentyThree.1.0.2\lib\net45\Skybrud.Social.TwentyThree.dll</HintPath>
     </Reference>
     <Reference Include="Skybrud.Umbraco.GridData, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Skybrud.Umbraco.GridData.2.0.5\lib\net45\Skybrud.Umbraco.GridData.dll</HintPath>
@@ -321,7 +321,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\AssemblyInfo.json" />
-    <None Include="Skybrud.ImagePicker.nuspec" />
+    <None Include="Skybrud.VideoPicker.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Skybrud.VideoPicker\Scripts\Controllers\PreValueEditor.js" />
