@@ -3,3 +3,5 @@ src/packages/
 src/Skybrud.VideoPicker/bin/
 src/Skybrud.VideoPicker/obj/
 src/.vs/
+src/Skybrud.VideoPicker.Providers.DreamBroker/bin/
+src/Skybrud.VideoPicker.Providers.DreamBroker/obj/

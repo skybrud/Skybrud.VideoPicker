@@ -1,14 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skybrud.VideoPicker", "Skybrud.VideoPicker\Skybrud.VideoPicker.csproj", "{D49F4F30-D59B-4E0E-AB2A-E4D22A8952FF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8AD7F9BC-52EB-4ADD-929E-D00083E847A4}"
-	ProjectSection(SolutionItems) = preProject
-		WebEssentials-Settings.json = WebEssentials-Settings.json
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skybrud.VideoPicker", "Skybrud.VideoPicker\Skybrud.VideoPicker.csproj", "{58C3EB8D-5822-4D11-838E-1D67FF033B18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D49F4F30-D59B-4E0E-AB2A-E4D22A8952FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D49F4F30-D59B-4E0E-AB2A-E4D22A8952FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D49F4F30-D59B-4E0E-AB2A-E4D22A8952FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D49F4F30-D59B-4E0E-AB2A-E4D22A8952FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58C3EB8D-5822-4D11-838E-1D67FF033B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58C3EB8D-5822-4D11-838E-1D67FF033B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58C3EB8D-5822-4D11-838E-1D67FF033B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58C3EB8D-5822-4D11-838E-1D67FF033B18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {327E59D8-5107-4F62-85A1-97EE17678C54}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,33 @@
+﻿<div class="skybrud-video-picker" ng-controller="Skybrud.VideoPicker.Video.Controller">
+
+    <div style="display: flex;">
+        <input type="text" ng-model="model.value.source" ng-change="change()" placeholder="Indsæt URL til vidoen..." style="width: 100%;" />
+        <button type="button" class="btn btn-default" ng-click="change()" style="margin-left: 10px;">
+            <i class="icon icon-sync"></i>
+        </button>
+    </div>
+    
+    
+    <div class="--details" ng-show="model.value.details">
+        
+        <h4>{{model.value.details.title}}</h4>
+
+        <div class="--meta">
+            <div ng-show="model.value.provider">Type: {{model.value.provider.name}}</div>
+            <div ng-show="model.value.details.duration">Længde: {{model.value.details.duration}}</div>
+        </div>
+        
+        <div class="--thumbnail">
+            <img ng-src="{{thumbnail.url}}" width="{{thumbnail.width}}" height="{{thumbnail.height}}" />
+        </div>
+
+    </div>
+    
+    
+    <pre>{{thumbnail | json}}</pre>
+
+    <pre>{{model.value | json}}</pre>
+
+    <pre>{{model | json}}</pre>
+
+</div>

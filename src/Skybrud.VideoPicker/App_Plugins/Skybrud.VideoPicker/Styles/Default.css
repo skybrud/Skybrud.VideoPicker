@@ -1,0 +1,20 @@
+﻿.skybrud-video-picker .--details {
+  margin-top: 20px;
+  border-top: 1px solid #E9E9EB;
+  padding-top: 20px;
+}
+.skybrud-video-picker h4 {
+  margin: 0;
+}
+.skybrud-video-picker .--meta {
+  margin-top: 5px;
+  font-size: 11px;
+}
+.skybrud-video-picker .--thumbnail {
+  margin-top: 5px;
+  font-size: 11px;
+}
+.skybrud-video-picker pre {
+  margin-top: 5px;
+  /*display: none;*/
+}

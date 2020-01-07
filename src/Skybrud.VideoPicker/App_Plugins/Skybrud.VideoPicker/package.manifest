@@ -1,34 +1,9 @@
 ﻿{
-  "propertyEditors": [
-    {
-      "alias": "Skybrud.VideoPicker",
-      "name": "Skybrud.Social - Videos",
-      "editor": {
-        "view": "~/App_Plugins/Skybrud.VideoPicker/Views/VideosEditor.html",
-        "hideLabel": false,
-        "valueType": "JSON"
-      },
-      "prevalues": {
-        "fields": [
-          {
-            "label": "Configiguration",
-            "description": "Use the fields below to configure the options for the video picker.",
-            "key": "config",
-            "view": "~/App_Plugins/Skybrud.VideoPicker/Views/VideoPickerPreValues.html",
-            "hideLabel": true
-          }
-        ]
-      }
-    }
+  "css": [
+    "/App_Plugins/Skybrud.VideoPicker/Styles/Default.css"
   ],
   "javascript": [
-    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Directives/Video.js",
-    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Directives/VideoList.js",
-    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Directives/Videos.js",
-    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/VideosGridEditor.js",
-    "~/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/PreValueEditor.js"
-  ],
-  "css": [
-    "~/App_Plugins/Skybrud.VideoPicker/Styles/Styles.css"
+    "/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/Video.js",
+    "/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/Videos.js"
   ]
 }
