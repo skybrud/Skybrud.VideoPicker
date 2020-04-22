@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Skybrud.VideoPicker.Models;
 using Skybrud.VideoPicker.Models.Options;
 using Skybrud.VideoPicker.Providers;
-using Skybrud.VideoPicker.Providers.DreamBroker;
+using Skybrud.VideoPicker.Services;
 using Skybrud.WebApi.Json;
 using Umbraco.Web.WebApi;
 
@@ -45,18 +43,6 @@ namespace Skybrud.VideoPicker.Controllers.Api {
         }
 
         #endregion
-
-    }
-
-    public class VideoService {
-
-        public List<IVideoProvider> Providers { get; }
-
-        public VideoService() {
-            Providers = new List<IVideoProvider> {
-                new DreamBrokerVideoProvider()
-            };
-        }
 
     }
 

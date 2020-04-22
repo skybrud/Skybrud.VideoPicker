@@ -5,6 +5,7 @@ using Skybrud.Essentials.Json;
 using Skybrud.Essentials.Json.Extensions;
 using Skybrud.VideoPicker.Controllers.Api;
 using Skybrud.VideoPicker.Models;
+using Skybrud.VideoPicker.Services;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
 

@@ -1,4 +1,5 @@
 ﻿using Skybrud.VideoPicker.Controllers.Api;
+using Skybrud.VideoPicker.Services;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
 
