@@ -37,6 +37,8 @@
             return;
         }
 
+        $scope.loading = true;
+
         $http({
             url: "/umbraco/api/Videos/GetVideo",
             method: "POST",
@@ -51,6 +53,8 @@
                 source: $scope.model.value.source
             }
         }).then(function(response) {
+
+            $scope.loading = false;
 
             $scope.model.value = {
                 source: $scope.model.value.source
@@ -69,6 +73,8 @@
             $scope.thumbnail = getThumbnail($scope.model.value.details);
 
         }, function (res) {
+
+            $scope.loading = false;
 
             if (res.status === 404) {
                 notificationsService.error("Video not found", "A video with the specified URL could not be found.");

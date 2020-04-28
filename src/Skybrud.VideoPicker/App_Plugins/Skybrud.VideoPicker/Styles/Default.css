@@ -18,3 +18,6 @@
   margin-top: 5px;
   /*display: none;*/
 }
+.skybrud-video-picker.loading > div {
+  opacity: 0.5;
+}
