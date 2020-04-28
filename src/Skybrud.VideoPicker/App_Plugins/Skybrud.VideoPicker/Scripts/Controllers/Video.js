@@ -78,13 +78,16 @@
 
             if (res.status === 404) {
                 notificationsService.error("Video not found", "A video with the specified URL could not be found.");
-            } else {
-                notificationsService.error("Video", "An error occured on the server.");
+                return;
             }
 
+            notificationsService.add({
+                headline: "Skybrud.VideoPicker",
+                message: res.data.Message || "An error occured on the server.",
+                type: "error"
         });
 
-    };
+        });
 
         };
 
