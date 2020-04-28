@@ -11,9 +11,9 @@ using Umbraco.Web.WebApi;
 
 namespace Skybrud.VideoPicker.Controllers.Api {
 
-    //[PluginController("Skybrud")]
+    [PluginController("Skybrud")]
     [JsonOnlyConfiguration]
-    public class VideosController : UmbracoApiController {
+    public class VideoPickerController : UmbracoApiController {
 
         private readonly VideoService _videoService;
 

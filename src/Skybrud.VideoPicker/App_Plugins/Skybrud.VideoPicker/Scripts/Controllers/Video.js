@@ -37,7 +37,7 @@
         $scope.loading = true;
 
         $http({
-            url: "/umbraco/api/Videos/GetVideo",
+            url: "/umbraco/Skybrud/VideoPicker/GetVideo",
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             umbIgnoreErrors: true,
