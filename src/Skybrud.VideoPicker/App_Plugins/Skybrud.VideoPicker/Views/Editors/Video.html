@@ -1,7 +1,7 @@
 ﻿<div class="skybrud-video-picker" ng-controller="Skybrud.VideoPicker.Video.Controller" ng-class="{loading: loading}">
 
     <div style="display: flex;">
-        <input type="text" ng-model="model.value.source" ng-change="change()" placeholder="Indsæt URL til vidoen..." style="width: 100%;" />
+        <input type="text" ng-model="model.value.source" ng-change="change()" placeholder="Indsæt URL til vidoen..." style="width: 100%;"  ng-model-options="{ debounce: 500 }" />
         <button type="button" class="btn btn-default" ng-click="change()" style="margin-left: 10px;">
             <i class="icon icon-sync"></i>
         </button>
