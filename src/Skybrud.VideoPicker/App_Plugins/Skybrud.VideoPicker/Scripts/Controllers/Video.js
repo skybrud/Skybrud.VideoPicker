@@ -3,6 +3,7 @@
     if (!$scope.model.value) $scope.model.value = {};
     if (!$scope.model.value.source) $scope.model.value.source = "";
 
+    // Attempt to get the parent properties group (if used with Elements)
     var group = null;
     var parent = $scope.$parent;
     for (var i = 0; i < 10; i++) {
@@ -14,7 +15,7 @@
         parent = parent.$parent;
     }
 
-
+    // Attempt to get the parent properties array (if used with Elements)
     var properties = null;
     parent = $scope.$parent;
     for (var j = 0; j < 10; j++) {
@@ -74,7 +75,7 @@
             $scope.loading = false;
 
             if (res.status === 404) {
-                notificationsService.error("Video not found", "A video with the specified URL could not be found.");
+                notificationsService.error("Skybrud.VideoPicker", "A video with the specified URL could not be found.");
                 return;
             }
 
