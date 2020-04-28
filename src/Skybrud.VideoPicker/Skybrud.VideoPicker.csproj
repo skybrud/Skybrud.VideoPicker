@@ -26,6 +26,7 @@
     <PackageReference Include="Skybrud.Essentials.Http" Version="1.0.12" />
     <PackageReference Include="Skybrud.WebApi.Json" Version="1.0.4" />
     <PackageReference Include="UmbracoCms.Web" Version="8.1.0" />
+    <PackageReference Include="Skybrud.Umbraco.Elements" Version="1.0.0-alpha011" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,12 +35,6 @@
     <Content Include="App_Plugins\Skybrud.VideoPicker\**\*.html" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\package.manifest" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Styles\Default.less" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Skybrud.InnerContent">
-      <HintPath>..\..\..\Skybrud.InnerContent\src\Skybrud.InnerContent\bin\Debug\net472\Skybrud.InnerContent.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
