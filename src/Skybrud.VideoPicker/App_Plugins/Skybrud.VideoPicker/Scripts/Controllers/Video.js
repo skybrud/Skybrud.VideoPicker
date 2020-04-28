@@ -64,10 +64,10 @@
 
             if (group) {
                 var matches = _.where(group.properties, { alias: "title" });
-                if (matches && !matches[0].value) matches[0].value = matches[0].value = $scope.model.value.details.title;
+                if (matches.length > 0 && !matches[0].value) matches[0].value = $scope.model.value.details.title;
             } else if (properties) {
                 var matches2 = _.where(properties, { alias: "title" });
-                if (matches2 && !matches2[0].value) matches2[0].value = matches2[0].value = $scope.model.value.details.title;
+                if (matches2.length > 0 && !matches2[0].value) matches2[0].value = $scope.model.value.details.title;
             }
 
             $scope.thumbnail = getThumbnail($scope.model.value.details);
