@@ -3,7 +3,6 @@
     if (!$scope.model.value) $scope.model.value = {};
     if (!$scope.model.value.source) $scope.model.value.source = "";
 
-
     var group = null;
     var parent = $scope.$parent;
     for (var i = 0; i < 10; i++) {
@@ -26,8 +25,6 @@
         }
         parent = parent.$parent;
     }
-
-
 
     $scope.change = function () {
 
@@ -52,7 +49,7 @@
             data: {
                 source: $scope.model.value.source
             }
-        }).then(function(response) {
+        }).then(function (response) {
 
             $scope.loading = false;
 
@@ -85,11 +82,11 @@
                 headline: "Skybrud.VideoPicker",
                 message: res.data.Message || "An error occured on the server.",
                 type: "error"
-        });
+            });
 
         });
 
-        };
+    };
 
     if ($scope.model.value.details) {
         $scope.thumbnail = getThumbnail($scope.model.value.details);
