@@ -66,11 +66,7 @@
                 if (matches2 && !matches2[0].value) matches2[0].value = matches2[0].value = $scope.model.value.details.title;
             }
 
-            $scope.thumbnail = {
-                url: $scope.model.value.details.thumbnails[0].url,
-                width: $scope.model.value.details.thumbnails[0].width,
-                height: $scope.model.value.details.thumbnails[0].height
-            };
+            $scope.thumbnail = getThumbnail($scope.model.value.details);
 
         }, function (res) {
 
@@ -84,12 +80,31 @@
 
     };
 
-    if ($scope.model.value.video) {
-        $scope.thumbnail = {
-            url: $scope.model.value.video.thumbnails[0].url,
-            width: $scope.model.value.video.thumbnails[0].width,
-            height: $scope.model.value.video.thumbnails[0].height
         };
+
+    if ($scope.model.value.details) {
+        $scope.thumbnail = getThumbnail($scope.model.value.details);
+    }
+
+    function getThumbnail(details, width) {
+
+        if (!details || !details.thumbnails) return null;
+
+        if (!width) width = 350;
+
+        // Grab the largest thumbnail by default
+        var thumbnail = details.thumbnails[details.thumbnails.length - 1];
+
+        for (var i = details.thumbnails.length - 1; i >= 0; i--) {
+
+            if (details.thumbnails[i].width > width) {
+                thumbnail = details.thumbnails[i];
+            }
+
+        }
+
+        return thumbnail || details.thumbnails[details.thumbnails.length - 1];
+
     }
 
 });
