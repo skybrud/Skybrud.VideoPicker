@@ -26,8 +26,12 @@
     <PackageReference Include="Skybrud.Essentials.Http" Version="1.0.12" />
     <PackageReference Include="Skybrud.Social.Google.YouTube" Version="1.0.0-beta001" />
     <PackageReference Include="Skybrud.WebApi.Json" Version="1.0.4" />
-    <PackageReference Include="UmbracoCms.Web" Version="8.1.0" />
-    <PackageReference Include="Skybrud.Umbraco.Elements" Version="1.0.0-alpha011" />
+    <PackageReference Include="Skybrud.Umbraco.Elements" Version="1.0.0-alpha011">
+      <ExcludeAssets>contentFiles</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Include="UmbracoCms.Web" Version="8.1.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -49,5 +53,9 @@
       <DependentUpon>Default.css</DependentUpon>
     </Content>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(ConfigurationName)'=='Release' AND '$(BuildTools)'=='1'">
+    <Exec Command="&quot;$(ProjectDir)..\build\Skybrud.BuildTools.Tasks.exe&quot; &quot;postBuild&quot; &quot;$(ConfigurationName)&quot; &quot;$(ProjectPath)&quot; &quot;$(TargetPath)&quot;" />
+  </Target>
 
 </Project>
