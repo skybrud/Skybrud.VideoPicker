@@ -14,7 +14,7 @@ namespace Skybrud.VideoPicker.Models {
         [JsonProperty("details")]
         public IVideoDetails Details { get; }
 
-        [JsonProperty("embed")]
+        [JsonProperty("embed", NullValueHandling = NullValueHandling.Ignore)]
         public string Embed { get; }
 
         #endregion
@@ -25,6 +25,11 @@ namespace Skybrud.VideoPicker.Models {
             Provider = provider;
             Details = details;
             Embed = embed;
+        }
+
+        public VideoPickerValue(IVideoProviderDetails provider, IVideoDetails details) {
+            Provider = provider;
+            Details = details;
         }
 
         #endregion

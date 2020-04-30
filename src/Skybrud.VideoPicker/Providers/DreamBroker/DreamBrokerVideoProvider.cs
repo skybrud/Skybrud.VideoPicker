@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using HtmlAgilityPack;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Http;
@@ -11,11 +11,13 @@ using Skybrud.Essentials.Json;
 using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Essentials.Strings;
 using Skybrud.VideoPicker.Models;
+using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Options;
 using Skybrud.VideoPicker.Models.Providers;
 using Skybrud.VideoPicker.Providers.DreamBroker.Models;
 using Skybrud.VideoPicker.Providers.DreamBroker.Models.Options;
 using Skybrud.VideoPicker.Providers.DreamBroker.Models.Videos;
+using Skybrud.VideoPicker.Services;
 
 namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
@@ -25,7 +27,7 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
         public string Name => "Dream Broker";
 
-        public bool IsMatch(string source, out IVideoOptions options) {
+        public bool IsMatch(VideoService service, string source, out IVideoOptions options) {
 
             Match m1 = Regex.Match(source?.Split('?')[0].Trim() ?? string.Empty, "//dreambroker\\.com/channel/(.+?)/(.+?)$");
             Match m2 = Regex.Match(source?.Split('?')[0].Trim() ?? string.Empty, "//www\\.dreambroker\\.com/channel/(.+?)/(.+?)$");
@@ -42,7 +44,7 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
         }
 
-        public VideoPickerValue GetVideo(IVideoOptions options) {
+        public VideoPickerValue GetVideo(VideoService service, IVideoOptions options) {
 
             if (!(options is DreamBrokerVideoOptions o)) return null;
             
@@ -109,7 +111,6 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
                 embed = iframe.OuterHtml.Replace("=\"\"", "");
 
-
             } catch {
                 
                 throw;
@@ -120,6 +121,10 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
             return new VideoPickerValue(provider, details, embed);
 
+        }
+
+        public IProviderConfig ParseConfig(XElement xml) {
+            return null;
         }
 
     }
