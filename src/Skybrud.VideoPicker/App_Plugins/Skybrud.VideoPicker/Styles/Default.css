@@ -81,3 +81,19 @@
   resize: vertical;
   min-height: 100px;
 }
+.skybrud-video-picker-preview .--details {
+  margin-top: 20px;
+  border-top: 1px solid #E9E9EB;
+  padding-top: 20px;
+}
+.skybrud-video-picker-preview h4 {
+  margin: 0;
+}
+.skybrud-video-picker-preview .--meta {
+  margin-top: 5px;
+  font-size: 11px;
+}
+.skybrud-video-picker-preview .--thumbnail {
+  margin-top: 5px;
+  font-size: 11px;
+}

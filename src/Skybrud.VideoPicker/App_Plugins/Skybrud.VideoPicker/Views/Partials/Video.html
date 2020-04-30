@@ -1,0 +1,21 @@
+﻿<div class="skybrud-elements-preview skybrud-video-picker-preview">
+    <div class="skybrud-elements-preview-content" ng-click="editItem(item)" ng-controller="Skybrud.VideoPicker.VideoPreview.Controller" style="text-align: left;">
+        <div ng-show="value">
+            <h4>{{value.details.title}}</h4>
+
+            <div class="--meta">
+                <div ng-show="value.provider">Type: {{value.provider.name}}</div>
+                <div ng-show="duration">Duration: {{duration.text}}</div>
+            </div>
+            <div class="--thumbnail" ng-show="thumbnail">
+                <img ng-src="{{thumbnail.url}}" width="350" />
+            </div>
+        </div>
+        <div ng-show="!value">
+            <em>No video selected.</em>
+        </div>
+    </div>
+    <div class="--actions">
+        <a href="#" class="-red" prevent-default ng-click="requestDeleteItem(item)" localize="title" title="general_delete"><i class="icon icon-delete"></i></a>
+    </div>
+</div>
