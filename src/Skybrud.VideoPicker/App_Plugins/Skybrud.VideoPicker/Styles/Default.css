@@ -21,3 +21,63 @@
 .skybrud-video-picker.loading > div {
   opacity: 0.5;
 }
+.skybrud-video-picker label {
+  display: block;
+}
+.skybrud-video-picker label > div {
+  height: 21px;
+  overflow: hidden;
+  line-height: 21px;
+}
+.skybrud-video-picker label > div strong {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.skybrud-video-picker label > div a {
+  font-size: 12px;
+  padding-left: 3px;
+}
+.skybrud-video-picker label > div button {
+  font-size: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.skybrud-video-picker label input {
+  width: 100%;
+}
+.skybrud-video-picker label textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 100px;
+}
+.skybrud-video-picker-option > div {
+  display: flex;
+  height: 17px;
+  overflow: hidden;
+  line-height: 17px;
+  margin-bottom: 5px;
+}
+.skybrud-video-picker-option > div strong {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.skybrud-video-picker-option > div button {
+  margin-left: 2px;
+  font-size: 12px;
+  padding: 0 2px;
+  border: 0;
+  background: none;
+}
+.skybrud-video-picker-option > div button:hover,
+.skybrud-video-picker-option > div button:active {
+  background: #F9F7F5;
+}
+.skybrud-video-picker-option input {
+  width: 100%;
+}
+.skybrud-video-picker-option textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 100px;
+}

@@ -1,12 +1,30 @@
 ﻿<div class="skybrud-video-picker" ng-controller="Skybrud.VideoPicker.Video.Controller" ng-class="{loading: loading}">
 
-    <div style="display: flex;">
-        <input type="text" ng-model="model.value.source" ng-change="change()" placeholder="Indsæt URL til vidoen..." style="width: 100%;"  ng-model-options="{ debounce: 500 }" />
-        <button type="button" class="btn btn-default" ng-click="change()" style="margin-left: 10px;">
-            <i class="icon icon-sync"></i>
-        </button>
+    <div class="skybrud-video-picker-option" ng-show="mode == 'url'">
+        <div>
+            <label for="{{uniqueId}}_url">
+                <strong>URL</strong>
+            </label>
+            <button type="button" ng-click="update()" ng-show="model.value.source" ng-disabled="loading" title="Fetch the video again">
+                <i class="icon icon-sync"></i>
+            </button>
+        </div>
+        <input id="{{uniqueId}}_url" type="text" ng-model="model.value.source" ng-change="change()" placeholder="Enter the URL of the video here..."/>
     </div>
     
+    <div class="skybrud-video-picker-option" ng-show="mode == 'embed'">
+        <div>
+            <label for="{{uniqueId}}_embed">
+                <strong>Embed code</strong>
+            </label>
+            <button type="button" ng-click="update()" ng-show="model.value.source" ng-disabled="loading" title="Fetch the video again">
+                <i class="icon icon-sync"></i>
+            </button>
+        </div>
+        <label>
+            <textarea id="{{uniqueId}}_embed" ng-model="model.value.source" ng-change="change()"></textarea>
+        </label>
+    </div>
     
     <div class="--details" ng-show="model.value.details">
         
@@ -14,7 +32,7 @@
 
         <div class="--meta">
             <div ng-show="model.value.provider">Type: {{model.value.provider.name}}</div>
-            <div ng-show="model.value.details.duration">Længde: {{model.value.details.duration}}</div>
+            <div ng-show="duration">Længde: {{duration.text}}</div>
         </div>
         
         <div class="--thumbnail">

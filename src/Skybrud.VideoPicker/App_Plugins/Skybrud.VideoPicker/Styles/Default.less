@@ -29,4 +29,81 @@
         opacity: .5;
     }
 
+
+    label {
+        display: block;
+
+        > div {
+            height: 21px;
+            overflow: hidden;
+            line-height: 21px;
+
+            strong {
+                font-size: 12px;
+                text-transform: uppercase;
+            }
+
+            a {
+                font-size: 12px;
+                padding-left: 3px;
+            }
+
+            button {
+                font-size: 12px;
+                padding: 0;
+                border: 0;
+                background: none;
+            }
+        
+        }
+
+        input {
+            width: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            resize: vertical;
+            min-height: 100px;
+        }
+    }
+}
+
+.skybrud-video-picker-option {
+
+    > div {
+        display: flex;
+        height: 17px;
+        overflow: hidden;
+        line-height: 17px;
+        margin-bottom: 5px;
+
+        strong {
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        button {
+            margin-left: 2px;
+            font-size: 12px;
+            padding: 0 2px;
+            border: 0;
+            background: none;
+
+            &:hover, &:active {
+                background: #F9F7F5;
+            }
+        }
+    }
+
+    input {
+        width: 100%;
+    }
+
+    textarea {
+        width: 100%;
+        resize: vertical;
+        min-height: 100px;
+    }
+
 }
