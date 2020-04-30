@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Lucene.Net.Search;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Social.Google;
@@ -17,8 +15,6 @@ using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Options;
 using Skybrud.VideoPicker.Models.Providers;
 using Skybrud.VideoPicker.Services;
-using Skybrud.WebApi.Json.Meta;
-using Umbraco.Core.Strings;
 
 namespace Skybrud.VideoPicker.Providers.YouTube {
     
