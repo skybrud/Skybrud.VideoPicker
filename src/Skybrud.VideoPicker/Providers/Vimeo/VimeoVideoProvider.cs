@@ -86,7 +86,9 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
             VimeoVideoDetails details = new VimeoVideoDetails(video);
 
-            return new VideoPickerValue(provider, details);
+            VimeoVideoEmbedOptions embed = new VimeoVideoEmbedOptions(details);
+
+            return new VideoPickerValue(provider, details, embed);
 
         }
 
@@ -96,7 +98,9 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
             VimeoVideoDetails details = obj.GetObject("details", VimeoVideoDetails.Parse);
 
-            return new VideoPickerValue(provider, details);
+            VimeoVideoEmbedOptions embed = new VimeoVideoEmbedOptions(details);
+
+            return new VideoPickerValue(provider, details, embed);
 
         }
 

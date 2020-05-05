@@ -15,21 +15,19 @@ namespace Skybrud.VideoPicker.Models {
         public IVideoDetails Details { get; }
 
         [JsonProperty("embed", NullValueHandling = NullValueHandling.Ignore)]
-        public string Embed { get; }
+        public IVideoEmbedOptions Embed { get; }
+
+        [JsonProperty("html", NullValueHandling = NullValueHandling.Ignore)]
+        public string Html => Embed?.GetHtml();
 
         #endregion
 
         #region Constructors
 
-        public VideoPickerValue(IVideoProviderDetails provider, IVideoDetails details, string embed) {
+        public VideoPickerValue(IVideoProviderDetails provider, IVideoDetails details, IVideoEmbedOptions embed) {
             Provider = provider;
             Details = details;
             Embed = embed;
-        }
-
-        public VideoPickerValue(IVideoProviderDetails provider, IVideoDetails details) {
-            Provider = provider;
-            Details = details;
         }
 
         #endregion

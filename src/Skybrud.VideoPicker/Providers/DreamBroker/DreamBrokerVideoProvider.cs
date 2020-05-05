@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using HtmlAgilityPack;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Http;
 using Skybrud.Essentials.Http.Collections;
 using Skybrud.Essentials.Json;
 using Skybrud.Essentials.Json.Extensions;
-using Skybrud.Essentials.Strings;
 using Skybrud.VideoPicker.Models;
 using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Options;
@@ -61,9 +57,11 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
             VideoProviderDetails provider = new VideoProviderDetails(Alias, Name);
 
-            DreamBrokerVideoDetails video = new DreamBrokerVideoDetails(o.VideoId, o.ChannelId, oembed);
+            DreamBrokerVideoDetails details = new DreamBrokerVideoDetails(o.VideoId, o.ChannelId, oembed);
+
+            DreamBrokerEmbedOptions embed = new DreamBrokerEmbedOptions(details);
             
-            return new VideoPickerValue(provider, video, oembed.Html);
+            return new VideoPickerValue(provider, details, embed);
 
         }
 
@@ -73,53 +71,57 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
             DreamBrokerVideoDetails details = obj.GetObject("details", DreamBrokerVideoDetails.Parse);
 
-            string embed = obj.GetString("embed");
-
-            try {
-
-                HtmlDocument document = new HtmlDocument();
-                document.LoadHtml(embed);
-
-                HtmlNode iframe = document.DocumentNode.FirstChild;
-
-                HtmlAttribute src = iframe.Attributes["src"];
-                HtmlAttribute allow = iframe.Attributes["allow"];
-
-                if (src != null && string.IsNullOrWhiteSpace(src.Value) == false) {
-                    if (src.Value.Contains("autoplay=") == false) {
-                        if (src.Value.Contains("?")) {
-                            src.Value += "&autoplay=true";
-                        } else {
-                            src.Value += "?autoplay=true";
-                        }
-                    }
-                }
-
-                if (allow == null) {
-
-                    iframe.Attributes.Add("allow", "autoplay");
-
-                } else {
-
-                    List<string> temp = StringUtils.ParseStringArray(allow.Value, ',').ToList();
-
-                    temp.Add("allow");
-
-                    allow.Value = string.Join(",", allow);
-
-                }
-
-                embed = iframe.OuterHtml.Replace("=\"\"", "");
-
-            } catch {
-                
-                throw;
-
-                // ignore
-
-            }
+            DreamBrokerEmbedOptions embed = new DreamBrokerEmbedOptions(details);
 
             return new VideoPickerValue(provider, details, embed);
+
+            //string embed = obj.GetString("embed");
+
+            //try {
+
+            //    HtmlDocument document = new HtmlDocument();
+            //    document.LoadHtml(embed);
+
+            //    HtmlNode iframe = document.DocumentNode.FirstChild;
+
+            //    HtmlAttribute src = iframe.Attributes["src"];
+            //    HtmlAttribute allow = iframe.Attributes["allow"];
+
+            //    if (src != null && string.IsNullOrWhiteSpace(src.Value) == false) {
+            //        if (src.Value.Contains("autoplay=") == false) {
+            //            if (src.Value.Contains("?")) {
+            //                src.Value += "&autoplay=true";
+            //            } else {
+            //                src.Value += "?autoplay=true";
+            //            }
+            //        }
+            //    }
+
+            //    if (allow == null) {
+
+            //        iframe.Attributes.Add("allow", "autoplay");
+
+            //    } else {
+
+            //        List<string> temp = StringUtils.ParseStringArray(allow.Value, ',').ToList();
+
+            //        temp.Add("allow");
+
+            //        allow.Value = string.Join(",", allow);
+
+            //    }
+
+            //    embed = iframe.OuterHtml.Replace("=\"\"", "");
+
+            //} catch {
+
+            //    throw;
+
+            //    // ignore
+
+            //}
+
+            //return new VideoPickerValue(provider, details);
 
         }
 
