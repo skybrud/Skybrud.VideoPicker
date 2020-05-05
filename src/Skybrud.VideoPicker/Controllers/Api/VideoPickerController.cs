@@ -22,12 +22,9 @@ namespace Skybrud.VideoPicker.Controllers.Api {
 
         private readonly VideoPickerService _videoPickerService;
 
-        private readonly VideoPickerConfig _config;
-
-        public VideoPickerController(ILogger logger, VideoPickerService service, VideoPickerConfig config) {
+        public VideoPickerController(ILogger logger, VideoPickerService service) {
             _logger = logger;
             _videoPickerService = service;
-            _config = config;
         }
 
         #region Public API methods
@@ -42,7 +39,7 @@ namespace Skybrud.VideoPicker.Controllers.Api {
             try {
 
                 // Attempt to get a video based on "source"
-                VideoPickerValue value = _videoPickerService.GetVideo(_config, source);
+                VideoPickerValue value = _videoPickerService.GetVideo(source);
 
                 // Return the video details (or 
                 return value == null ? Request.CreateResponse(HttpStatusCode.NotFound) : (object) value;

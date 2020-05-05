@@ -4,6 +4,8 @@ using System.Linq;
 using System.Xml.Linq;
 using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Providers;
+using Skybrud.VideoPicker.Providers.DreamBroker;
+using Skybrud.VideoPicker.Providers.YouTube;
 using Skybrud.VideoPicker.Services;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
@@ -18,6 +20,9 @@ namespace Skybrud.VideoPicker.Composers {
             composition.Register<VideoPickerService, VideoPickerService>();
 
             composition.Register(LoadConfiguration, Lifetime.Request);
+
+            composition.VideoPickerProviders().Append<YouTubeVideoProvider>();
+            composition.VideoPickerProviders().Append<DreamBrokerVideoProvider>();
 
         }
 

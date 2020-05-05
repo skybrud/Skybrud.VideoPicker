@@ -1,11 +1,23 @@
 ﻿using System.Collections.Generic;
 using Skybrud.VideoPicker.Providers;
+using Umbraco.Core;
 
 namespace Skybrud.VideoPicker.Models.Config {
     
     public class VideoPickerConfig {
-
+        
         private readonly Dictionary<string, IProviderConfig> _providers;
+
+        #region Properties
+
+        /// <summary>
+        /// Gets a reference to the current <see cref="VideoPickerConfig"/> instance.
+        /// </summary>
+        public static VideoPickerConfig Current => global::Umbraco.Core.Composing.Current.Factory.GetInstance<VideoPickerConfig>();
+
+        #endregion
+
+        #region Constructors
 
         public VideoPickerConfig() {
             _providers = new Dictionary<string, IProviderConfig>();
@@ -14,6 +26,10 @@ namespace Skybrud.VideoPicker.Models.Config {
         public VideoPickerConfig(Dictionary<string, IProviderConfig> providers) {
             _providers = providers ?? new Dictionary<string, IProviderConfig>();
         }
+
+        #endregion
+
+        #region Member methods
 
         public IProviderConfig GetConfig(string alias) {
             return _providers.TryGetValue(alias, out IProviderConfig config) ? config : null;
@@ -54,6 +70,8 @@ namespace Skybrud.VideoPicker.Models.Config {
         public bool TryGetConfig<T>(IVideoProvider provider, out T config) where T : IProviderConfig {
             return TryGetConfig(provider.Alias, out config);
         }
+
+        #endregion
 
     }
 

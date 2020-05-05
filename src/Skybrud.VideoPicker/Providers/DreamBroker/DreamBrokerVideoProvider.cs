@@ -17,6 +17,7 @@ using Skybrud.VideoPicker.Models.Providers;
 using Skybrud.VideoPicker.Providers.DreamBroker.Models;
 using Skybrud.VideoPicker.Providers.DreamBroker.Models.Options;
 using Skybrud.VideoPicker.Providers.DreamBroker.Models.Videos;
+using Skybrud.VideoPicker.Services;
 
 namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
@@ -26,7 +27,7 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
         public string Name => "Dream Broker";
 
-        public bool IsMatch(VideoPickerConfig config, string source, out IVideoOptions options) {
+        public bool IsMatch(VideoPickerService service, string source, out IVideoOptions options) {
 
             Match m1 = Regex.Match(source?.Split('?')[0].Trim() ?? string.Empty, "//dreambroker\\.com/channel/(.+?)/(.+?)$");
             Match m2 = Regex.Match(source?.Split('?')[0].Trim() ?? string.Empty, "//www\\.dreambroker\\.com/channel/(.+?)/(.+?)$");
@@ -43,7 +44,7 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
         }
 
-        public VideoPickerValue GetVideo(VideoPickerConfig config, IVideoOptions options) {
+        public VideoPickerValue GetVideo(VideoPickerService service, IVideoOptions options) {
 
             if (!(options is DreamBrokerVideoOptions o)) return null;
             

@@ -24,7 +24,7 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
         public string Name => "YouTube";
         
-        public virtual bool IsMatch(VideoPickerConfig config, string source, out IVideoOptions options) {
+        public virtual bool IsMatch(VideoPickerService service, string source, out IVideoOptions options) {
 
             options = null;
 
@@ -45,7 +45,7 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
             if (m1.Success == false) return false;
 
             // Get a reference to the YouTube provider configuration
-            YouTubeVideoConfig youtube = config.GetConfig<YouTubeVideoConfig>(this);
+            YouTubeVideoConfig youtube = service.Config.GetConfig<YouTubeVideoConfig>(this);
 
             // Get the first credentials (or trigger an error if none)
             YouTubeCredentials credentials = youtube?.Credentials.FirstOrDefault();
@@ -59,12 +59,12 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
         }
 
-        public VideoPickerValue GetVideo(VideoPickerConfig config, IVideoOptions options) {
+        public VideoPickerValue GetVideo(VideoPickerService service, IVideoOptions options) {
 
             if (!(options is YouTubeVideoOptions o)) return null;
 
             // Get a reference to the YouTube provider configuration
-            YouTubeVideoConfig youtube = config.GetConfig<YouTubeVideoConfig>(this);
+            YouTubeVideoConfig youtube = service.Config.GetConfig<YouTubeVideoConfig>(this);
 
             // Get the first credentials (or trigger an error if none)
             YouTubeCredentials credentials = youtube?.Credentials.FirstOrDefault();
