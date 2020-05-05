@@ -23,8 +23,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Skybrud.Essentials.Http" Version="1.0.12" />
+    <PackageReference Include="Skybrud.Essentials.Http" Version="1.0.13" />
     <PackageReference Include="Skybrud.Social.Google.YouTube" Version="1.0.0-beta001" />
+    <PackageReference Include="skybrud.social.vimeo" Version="1.0.0-beta004" />
     <PackageReference Include="Skybrud.WebApi.Json" Version="1.0.4" />
     <PackageReference Include="Skybrud.Umbraco.Elements" Version="1.0.0-alpha011">
       <ExcludeAssets>contentFiles</ExcludeAssets>
