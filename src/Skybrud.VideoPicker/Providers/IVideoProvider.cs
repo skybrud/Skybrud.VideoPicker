@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 using Skybrud.VideoPicker.Models;
 using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Options;
-using Skybrud.VideoPicker.Services;
 
 namespace Skybrud.VideoPicker.Providers {
 
@@ -13,9 +12,9 @@ namespace Skybrud.VideoPicker.Providers {
 
         string Name { get; }
 
-        bool IsMatch(VideoService service, string source, out IVideoOptions options);
+        bool IsMatch(VideoPickerConfig config, string source, out IVideoOptions options);
 
-        VideoPickerValue GetVideo(VideoService service, IVideoOptions options);
+        VideoPickerValue GetVideo(VideoPickerConfig config, IVideoOptions options);
 
         VideoPickerValue ParseValue(JObject obj);
 

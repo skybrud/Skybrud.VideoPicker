@@ -3,8 +3,8 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json;
 using Skybrud.Essentials.Json.Extensions;
-using Skybrud.VideoPicker.Controllers.Api;
 using Skybrud.VideoPicker.Models;
+using Skybrud.VideoPicker.Providers;
 using Skybrud.VideoPicker.Services;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
@@ -13,12 +13,12 @@ namespace Skybrud.VideoPicker.PropertyEditors.ValueConverters {
 
     public class VideoValueConverter : PropertyValueConverterBase {
 
-        private readonly VideoService _videoService;
+        private readonly VideoPickerService _videoPickerService;
 
         #region Constructors
 
         public VideoValueConverter() {
-            _videoService = new VideoService();
+            _videoPickerService = new VideoPickerService();
         }
 
         #endregion
@@ -36,10 +36,9 @@ namespace Skybrud.VideoPicker.PropertyEditors.ValueConverters {
 
             string providerAlias = obj.GetString("provider.alias");
 
-            var provider = _videoService.Providers.FirstOrDefault(x => x.Alias == providerAlias);
-            if (provider == null) return null;
+            IVideoProvider provider = _videoPickerService.Providers.FirstOrDefault(x => x.Alias == providerAlias);
 
-            return provider.ParseValue(obj);
+            return provider?.ParseValue(obj);
 
         }
         

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Http;
 using Skybrud.VideoPicker.Exceptions;
 using Skybrud.VideoPicker.Models;
+using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Services;
 using Skybrud.WebApi.Json;
 using Umbraco.Core.Logging;
@@ -18,12 +19,15 @@ namespace Skybrud.VideoPicker.Controllers.Api {
     public class VideoPickerController : UmbracoApiController {
 
         private readonly ILogger _logger;
-        
-        private readonly VideoService _videoService;
 
-        public VideoPickerController(ILogger logger) {
+        private readonly VideoPickerService _videoPickerService;
+
+        private readonly VideoPickerConfig _config;
+
+        public VideoPickerController(ILogger logger, VideoPickerService service, VideoPickerConfig config) {
             _logger = logger;
-            _videoService = new VideoService();
+            _videoPickerService = service;
+            _config = config;
         }
 
         #region Public API methods
@@ -38,7 +42,7 @@ namespace Skybrud.VideoPicker.Controllers.Api {
             try {
 
                 // Attempt to get a video based on "source"
-                VideoPickerValue value = _videoService.GetVideo(source);
+                VideoPickerValue value = _videoPickerService.GetVideo(_config, source);
 
                 // Return the video details (or 
                 return value == null ? Request.CreateResponse(HttpStatusCode.NotFound) : (object) value;

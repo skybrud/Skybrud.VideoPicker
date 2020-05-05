@@ -3,15 +3,15 @@ using Skybrud.VideoPicker.Providers;
 
 namespace Skybrud.VideoPicker.Models.Config {
     
-    public class VideosConfiguration {
+    public class VideoPickerConfig {
 
         private readonly Dictionary<string, IProviderConfig> _providers;
 
-        public VideosConfiguration() {
+        public VideoPickerConfig() {
             _providers = new Dictionary<string, IProviderConfig>();
         }
 
-        public VideosConfiguration(Dictionary<string, IProviderConfig> providers) {
+        public VideoPickerConfig(Dictionary<string, IProviderConfig> providers) {
             _providers = providers ?? new Dictionary<string, IProviderConfig>();
         }
 

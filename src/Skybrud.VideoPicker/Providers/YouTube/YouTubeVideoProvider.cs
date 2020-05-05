@@ -24,7 +24,7 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
         public string Name => "YouTube";
         
-        public virtual bool IsMatch(VideoService service, string source, out IVideoOptions options) {
+        public virtual bool IsMatch(VideoPickerConfig config, string source, out IVideoOptions options) {
 
             options = null;
 
@@ -45,10 +45,10 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
             if (m1.Success == false) return false;
 
             // Get a reference to the YouTube provider configuration
-            YouTubeVideoConfig config = service.LoadConfig().GetConfig<YouTubeVideoConfig>(this);
+            YouTubeVideoConfig youtube = config.GetConfig<YouTubeVideoConfig>(this);
 
             // Get the first credentials (or trigger an error if none)
-            YouTubeCredentials credentials = config?.Credentials.FirstOrDefault();
+            YouTubeCredentials credentials = youtube?.Credentials.FirstOrDefault();
             if (string.IsNullOrWhiteSpace(credentials?.ServerKey)) throw new VideosException("YouTube provider is not configured.");
             
             // Get the video ID from the regex
@@ -59,15 +59,15 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
         }
 
-        public VideoPickerValue GetVideo(VideoService service, IVideoOptions options) {
+        public VideoPickerValue GetVideo(VideoPickerConfig config, IVideoOptions options) {
 
             if (!(options is YouTubeVideoOptions o)) return null;
 
             // Get a reference to the YouTube provider configuration
-            YouTubeVideoConfig config = service.LoadConfig().GetConfig<YouTubeVideoConfig>(this);
+            YouTubeVideoConfig youtube = config.GetConfig<YouTubeVideoConfig>(this);
 
             // Get the first credentials (or trigger an error if none)
-            YouTubeCredentials credentials = config?.Credentials.FirstOrDefault();
+            YouTubeCredentials credentials = youtube?.Credentials.FirstOrDefault();
             if (string.IsNullOrWhiteSpace(credentials?.ServerKey)) throw new VideosException("YouTube provider is not configured.");
 
             // Initialize a new GoogleService instance for accessing the YouTube API
