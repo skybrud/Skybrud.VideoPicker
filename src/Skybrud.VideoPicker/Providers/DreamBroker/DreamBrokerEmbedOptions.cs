@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System.Web;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Skybrud.Essentials.Http.Collections;
 using Skybrud.VideoPicker.Models.Videos;
@@ -47,7 +48,11 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
         #region Member methods
 
-        public string GetHtml() {
+        public IHtmlString GetHtml() {
+            return GetHtml(854, 480);
+        }
+
+        public IHtmlString GetHtml(int width, int height) {
 
             HttpQueryString query = new HttpQueryString();
             if (Autoplay) query.Add("autoplay", "true");
@@ -59,20 +64,25 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
             HtmlNode iframe = document.CreateElement("iframe");
 
             iframe.Attributes.Add("frameborder", "0");
-            iframe.Attributes.Add("width", "854");
-            iframe.Attributes.Add("height", "480");
+            iframe.Attributes.Add("width", width.ToString());
+            iframe.Attributes.Add("height", height.ToString());
 
             iframe.Attributes.Add(RequireConsent ? "consent-src" : "src", embedUrl);
 
             if (Autoplay) iframe.Attributes.Add("allow", "autoplay");
 
-            iframe.Attributes.Add("allowfullscreen", null);
-            iframe.Attributes.Add("webkitallowfullscreen", null);
-            iframe.Attributes.Add("mozallowfullscreen", null);
+            iframe.Attributes.Add("allowfullscreen", string.Empty);
+            iframe.Attributes.Add("webkitallowfullscreen", string.Empty);
+            iframe.Attributes.Add("mozallowfullscreen", string.Empty);
 
             if (string.IsNullOrWhiteSpace(_details.Title) == false) iframe.Attributes.Add("title", _details.Title);
 
-            return iframe.OuterHtml;
+            return new HtmlString(
+                iframe.OuterHtml
+                    .Replace("mozallowfullscreen=\"\"", "mozallowfullscreen")
+                    .Replace("webkitallowfullscreen=\"\"", "webkitallowfullscreen")
+                    .Replace("allowfullscreen=\"\"", "allowfullscreen")
+            );
 
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Skybrud.Essentials.Http.Collections;
@@ -66,7 +67,18 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
         #endregion
 
-        public string GetHtml() {
+        public IHtmlString GetHtml() {
+
+            // Vimeo sets the default width of the embed code to 640 pixels, and then calculates the height from the
+            // dimensions and aspect ratio of the video
+            int width = 640;
+            int height = (int)Math.Round(width * (double)_details.Height / _details.Width);
+
+            return GetHtml(width, height);
+
+        }
+
+        public IHtmlString GetHtml(int width, int height) {
 
             // Construct the query string
             HttpQueryString query = new HttpQueryString();
@@ -80,11 +92,6 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
             // Construct the embed URL
             string embedUrl = $"//player.vimeo.com/video/{_details.Id}" + (query.Count == 0 ? string.Empty : "?" + query);
-
-            // Vimeo sets the default width of the embed code to 640 pixels, and then calculates the height from the
-            // dimensions and aspect ratio of the video
-            int width = 640;
-            int height = (int) Math.Round(width * (double) _details.Height / _details.Width);
 
             HtmlDocument document = new HtmlDocument();
 
@@ -100,7 +107,7 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
             if (string.IsNullOrWhiteSpace(_details.Title) == false) iframe.Attributes.Add("title", _details.Title);
 
-            return iframe.OuterHtml.Replace("allowfullscreen=\"\"", "allowfullscreen");
+            return new HtmlString(iframe.OuterHtml.Replace("allowfullscreen=\"\"", "allowfullscreen"));
 
         }
 

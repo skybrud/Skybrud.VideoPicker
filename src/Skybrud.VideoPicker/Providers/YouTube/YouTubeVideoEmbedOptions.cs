@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System.Web;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Skybrud.Essentials.Http.Collections;
 using Skybrud.VideoPicker.Models.Videos;
@@ -67,7 +68,11 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
         #endregion
 
-        public string GetHtml() {
+        public IHtmlString GetHtml() {
+            return GetHtml(560, 315);
+        }
+
+        public IHtmlString GetHtml(int width, int height) {
 
             // Construct the base URL
             string url = $"https://www.{(NoCookie ? "youtube-nocookie" : "youtube")}.com/embed/{_details.Id}";
@@ -82,18 +87,18 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
             HtmlNode iframe = document.CreateElement("iframe");
 
-            iframe.Attributes.Add("width", "560");
-            iframe.Attributes.Add("width", "315");
+            iframe.Attributes.Add("width", width.ToString());
+            iframe.Attributes.Add("height", height.ToString());
 
             iframe.Attributes.Add(RequireConsent ? "consent-src" : "src", url + (query.IsEmpty ? string.Empty : "?" + query));
             iframe.Attributes.Add("frameborder", "0");
 
             iframe.Attributes.Add("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
-            iframe.Attributes.Add("allowfullscreen", null);
+            iframe.Attributes.Add("allowfullscreen", string.Empty);
 
             if (string.IsNullOrWhiteSpace(_details.Title) == false) iframe.Attributes.Add("title", _details.Title);
 
-            return iframe.OuterHtml;
+            return new HtmlString(iframe.OuterHtml.Replace("allowfullscreen=\"\"", "allowfullscreen"));
 
         }
 

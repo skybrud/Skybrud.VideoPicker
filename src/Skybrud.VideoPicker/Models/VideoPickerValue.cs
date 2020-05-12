@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Web;
+using Newtonsoft.Json;
+using Skybrud.Essentials.Json.Converters;
 using Skybrud.VideoPicker.Models.Providers;
 using Skybrud.VideoPicker.Models.Videos;
 
@@ -18,7 +20,8 @@ namespace Skybrud.VideoPicker.Models {
         public IVideoEmbedOptions Embed { get; }
 
         [JsonProperty("html", NullValueHandling = NullValueHandling.Ignore)]
-        public string Html => Embed?.GetHtml();
+        [JsonConverter(typeof(ToStringJsonConverter))]
+        public IHtmlString Html => Embed?.GetHtml();
 
         #endregion
 
