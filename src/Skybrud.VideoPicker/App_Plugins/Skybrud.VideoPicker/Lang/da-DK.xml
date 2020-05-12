@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<language alias="da" intName="Danish" localName="dansk" lcid="6" culture="da-DK">
+  <area alias="videopicker">
+    <key alias="duration">Længde</key>
+    <key alias="refetch">Hent videoen igen</key>
+    <key alias="url_placeholder">Indtast videoens URL her...</key>
+    <key alias="embed">Embed-kode</key>
+  </area>
+</language>

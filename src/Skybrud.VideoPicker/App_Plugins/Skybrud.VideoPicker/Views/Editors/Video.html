@@ -3,21 +3,21 @@
     <div class="skybrud-video-picker-option" ng-show="mode == 'url'">
         <div>
             <label for="{{uniqueId}}_url">
-                <strong>URL</strong>
+                <strong><localize key="videopicker_url">URL</localize></strong>
             </label>
-            <button type="button" ng-click="update()" ng-show="model.value.source" ng-disabled="loading" title="Fetch the video again">
+            <button type="button" ng-click="update()" ng-show="model.value.source" ng-disabled="loading" localize="title" title="@videopicker_refetch">
                 <i class="icon icon-sync"></i>
             </button>
         </div>
-        <input id="{{uniqueId}}_url" type="text" ng-model="model.value.source" ng-change="change()" placeholder="Enter the URL of the video here..."/>
+        <input id="{{uniqueId}}_url" type="text" ng-model="model.value.source" ng-change="change()" localize="placeholder" placeholder="@videopicker_url_placeholder"/>
     </div>
     
     <div class="skybrud-video-picker-option" ng-show="mode == 'embed'">
         <div>
             <label for="{{uniqueId}}_embed">
-                <strong>Embed code</strong>
+                <strong><localize key="videopicker_embed">Embed URL</localize></strong>
             </label>
-            <button type="button" ng-click="update()" ng-show="model.value.source" ng-disabled="loading" title="Fetch the video again">
+            <button type="button" ng-click="update()" ng-show="model.value.source" ng-disabled="loading" localize="title" title="@videopicker_refetch">
                 <i class="icon icon-sync"></i>
             </button>
         </div>
@@ -31,8 +31,14 @@
         <h4>{{model.value.details.title}}</h4>
 
         <div class="--meta">
-            <div ng-show="model.value.provider">Type: {{model.value.provider.name}}</div>
-            <div ng-show="duration">Længde: {{duration.text}}</div>
+            <div ng-show="model.value.provider">
+                <localize key="videopicker_provider">Provider</localize>:
+                {{model.value.provider.name}}
+            </div>
+            <div ng-show="duration">
+                <localize key="videopicker_duration">Duration</localize>:
+                {{duration.text}}
+            </div>
         </div>
         
         <div class="--thumbnail">
@@ -42,7 +48,6 @@
     </div>
     
     <umb-load-indicator ng-if="loading" />
-    
     
     <!--<pre>{{thumbnail | json}}</pre>
 

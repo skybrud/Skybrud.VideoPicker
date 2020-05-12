@@ -39,6 +39,7 @@
     <Content Include="App_Plugins\Skybrud.VideoPicker\**\*.js" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\**\*.css" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\**\*.html" />
+    <Content Include="App_Plugins\Skybrud.VideoPicker\**\*.xml" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\package.manifest" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Styles\Default.less" />
   </ItemGroup>

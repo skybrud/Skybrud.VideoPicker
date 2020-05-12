@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<language alias="en_us" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+  <area alias="videopicker">
+    <key alias="provider">Provider</key>
+    <key alias="duration">Duration</key>
+    <key alias="refetch">Fetch the video again</key>
+    <key alias="url">URL</key>
+    <key alias="url_placeholder">Enter the URL of the video here...</key>
+    <key alias="embed">Embed code</key>
+  </area>
+</language>
