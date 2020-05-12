@@ -47,8 +47,6 @@
 
         var config = angular.copy($scope.model.value[provider.alias]);
 
-        console.log(config);
-
         editorService.open({
             title: "Configure",
             size: "small",

@@ -62,8 +62,6 @@
         var m1 = $scope.model.value.source.match("\<iframe");
         $scope.mode = m1 ? "embed" : "url";
 
-        console.log($scope.mode);
-
         // Add a little timeout so Angular has time to update first
         if ($scope.mode === "embed") {
             $timeout(function() {
