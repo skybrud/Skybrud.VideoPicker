@@ -3,7 +3,6 @@ using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Skybrud.Essentials.Http.Collections;
 using Skybrud.VideoPicker.Models.Videos;
-using Skybrud.VideoPicker.Providers.DreamBroker.Models.Videos;
 
 namespace Skybrud.VideoPicker.Providers.DreamBroker {
     

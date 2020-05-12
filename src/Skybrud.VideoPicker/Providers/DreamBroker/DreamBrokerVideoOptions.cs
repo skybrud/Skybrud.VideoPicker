@@ -1,6 +1,6 @@
 ﻿using Skybrud.VideoPicker.Models.Options;
 
-namespace Skybrud.VideoPicker.Providers.DreamBroker.Models.Options {
+namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
     public class DreamBrokerVideoOptions : IVideoOptions {
 

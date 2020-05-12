@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Extensions;
 using Skybrud.VideoPicker.Models.Videos;
 
-namespace Skybrud.VideoPicker.Providers.DreamBroker.Models.Videos {
+namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
     public class DreamBrokerVideoDetails : IVideoDetails {
 
