@@ -6,7 +6,7 @@ using Skybrud.VideoPicker.Models.Videos;
 
 namespace Skybrud.VideoPicker.Providers.YouTube {
     
-    public class VimeoVideoEmbedOptions : IVideoEmbedOptions {
+    public class YouTubeVideoEmbedOptions : IVideoEmbedOptions {
 
         private readonly YouTubeVideoDetails _details;
 
@@ -49,9 +49,9 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
         #region Constructors
 
-        public VimeoVideoEmbedOptions(YouTubeVideoDetails details) : this(details, new YouTubeDataTypeConfig()) { }
+        public YouTubeVideoEmbedOptions(YouTubeVideoDetails details) : this(details, new YouTubeDataTypeConfig()) { }
 
-        public VimeoVideoEmbedOptions(YouTubeVideoDetails details, YouTubeDataTypeConfig config) {
+        public YouTubeVideoEmbedOptions(YouTubeVideoDetails details, YouTubeDataTypeConfig config) {
 
             _details = details;
 

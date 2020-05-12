@@ -2,10 +2,8 @@
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Extensions;
-using Skybrud.Essentials.Strings;
 using Skybrud.Social.Google;
 using Skybrud.Social.Google.YouTube;
 using Skybrud.Social.Google.YouTube.Models.Videos;
@@ -94,7 +92,7 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
             YouTubeVideoDetails details = new YouTubeVideoDetails(video);
 
-            VimeoVideoEmbedOptions embed = new VimeoVideoEmbedOptions(details);
+            YouTubeVideoEmbedOptions embed = new YouTubeVideoEmbedOptions(details);
 
             return new VideoPickerValue(provider, details, embed);
 
@@ -107,7 +105,7 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
             YouTubeVideoDetails details = obj.GetObject("details", YouTubeVideoDetails.Parse);
 
-            VimeoVideoEmbedOptions embed = new VimeoVideoEmbedOptions(details, config as YouTubeDataTypeConfig);
+            YouTubeVideoEmbedOptions embed = new YouTubeVideoEmbedOptions(details, config as YouTubeDataTypeConfig);
 
             return new VideoPickerValue(provider, details, embed);
 
@@ -119,44 +117,6 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
         public IProviderDataTypeConfig ParseDataTypeConfig(JObject obj) {
             return new YouTubeDataTypeConfig(obj);
-        }
-
-    }
-
-    public class YouTubeDataTypeConfig : IProviderDataTypeConfig {
-
-        [JsonProperty("enabled")]
-        public bool IsEnabled { get; }
-
-        [JsonProperty("consent")]
-        public DataTypeConfigOption<bool> RequireConsent { get; }
-
-        [JsonProperty("nocookie")]
-        public DataTypeConfigOption<bool> NoCookie { get; }
-
-        [JsonProperty("controls")]
-        public DataTypeConfigOption<bool> ShowControls { get; }
-
-        [JsonProperty("autoplay")]
-        public DataTypeConfigOption<bool> Autoplay { get; }
-
-        [JsonProperty("loop")]
-        public DataTypeConfigOption<bool> Loop { get; }
-
-        public YouTubeDataTypeConfig() : this(null) { }
-
-        public YouTubeDataTypeConfig(JObject value) {
-
-            IsEnabled = value.GetBoolean("enabled");
-            
-            JToken controls = value?.SelectToken("controls.value");
-
-            RequireConsent = new DataTypeConfigOption<bool>(value.GetBoolean("consent.value"));
-            NoCookie = new DataTypeConfigOption<bool>(value.GetBoolean("nocookie.value"));
-            ShowControls = new DataTypeConfigOption<bool>(StringUtils.ParseBoolean(controls, true));
-            Autoplay = new DataTypeConfigOption<bool>(value.GetBoolean("autoplay.value"));
-            Loop = new DataTypeConfigOption<bool>(value.GetBoolean("loop.value"));
-
         }
 
     }
