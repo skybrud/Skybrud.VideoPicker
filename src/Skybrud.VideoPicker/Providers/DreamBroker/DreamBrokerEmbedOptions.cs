@@ -40,6 +40,7 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
             config = config ?? new DreamBrokerDataTypeConfig();
 
             RequireConsent = config.RequireConsent.Value;
+            Autoplay = config.Autoplay.Value;
 
         }
 

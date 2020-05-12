@@ -21,7 +21,7 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
         public string Name => "Dream Broker";
 
-        public string ConfigView => "/App_Plugins/Skybrud.VideoPicker/Views/DefaultProvider/Config.html";
+        public string ConfigView => "/App_Plugins/Skybrud.VideoPicker/Views/DreamBroker/Config.html";
 
         public string EmbedView => null;//"/App_Plugins/Skybrud.VideoPicker/Views/DefaultProvider/Embed.html";
 

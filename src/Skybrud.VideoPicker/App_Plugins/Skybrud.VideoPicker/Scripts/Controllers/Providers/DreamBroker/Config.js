@@ -1,4 +1,4 @@
-﻿angular.module("umbraco").controller("Skybrud.VideoPicker.YouTube.Config.Controller", function ($scope, formHelper) {
+﻿angular.module("umbraco").controller("Skybrud.VideoPicker.DreamBroker.Config.Controller", function ($scope, formHelper) {
 
     var config = $scope.model.config;
 
@@ -14,10 +14,7 @@
     }
 
     bool("consent", false);
-    bool("nocookie", false);
-    bool("controls", true);
     bool("autoplay", false);
-    bool("loop", false);
 
     $scope.properties = [
         {
@@ -26,37 +23,12 @@
             description: "Select whether the embed code requires prior consent before being shown to the user.",
             value: config.consent.value,
             view: "boolean"
-            //view: "/App_Plugins/Skybrud.VideoPicker/Views/Editors/ConfigOption.html",
-            //option: {
-            //    view: "boolean"
-            //}
-        },
-        {
-            alias: "nocookie",
-            label: "No cookies",
-            description: "Select whether the player should use YouTube's <c>www.youtube-nocookie.com</c> domain instead.",
-            value: config.nocookie.value,
-            view: "boolean"
-        },
-        {
-            alias: "controls",
-            label: "Show controls",
-            description: "Select whether player controls should be displayed in the video player.",
-            value: config.controls.value,
-            view: "boolean"
         },
         {
             alias: "autoplay",
             label: "Autoplay",
             description: "Select whether the video should automatically start to play when the player loads.",
             value: config.autoplay.value,
-            view: "boolean"
-        },
-        {
-            alias: "loop",
-            label: "Loop",
-            description: "Select whether the video should play again and again.",
-            value: config.loop.value,
             view: "boolean"
         }
     ];
