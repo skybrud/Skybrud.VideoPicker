@@ -97,3 +97,12 @@
   margin-top: 5px;
   font-size: 11px;
 }
+.skybrud-video-picker-providers .--provider {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.skybrud-video-picker-providers .--provider small {
+  color: #999;
+  font-size: 11px;
+}

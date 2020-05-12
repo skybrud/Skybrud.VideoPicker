@@ -4,6 +4,10 @@
   ],
   "javascript": [
     "/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/Video.js",
-    "/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/VideoPreview.js"
+    "/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/VideoProviders.js",
+    "/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/VideoPreview.js",
+    "/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/Providers/Config.js",
+    "/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/Providers/Vimeo/Config.js",
+    "/App_Plugins/Skybrud.VideoPicker/Scripts/Controllers/Providers/YouTube/Config.js"
   ]
 }

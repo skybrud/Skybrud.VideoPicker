@@ -48,9 +48,21 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
         #region Constructors
 
-        public VimeoVideoEmbedOptions(YouTubeVideoDetails details) {
+        public VimeoVideoEmbedOptions(YouTubeVideoDetails details) : this(details, new YouTubeDataTypeConfig()) { }
+
+        public VimeoVideoEmbedOptions(YouTubeVideoDetails details, YouTubeDataTypeConfig config) {
+
             _details = details;
-            ShowControls = true;
+
+            config = config ?? new YouTubeDataTypeConfig();
+
+            RequireConsent = config.RequireConsent.Value;
+            NoCookie = config.NoCookie.Value;
+            ShowControls = config.ShowControls.Value;
+            Autoplay = config.Autoplay.Value;
+            Loop = config.Loop.Value;
+            RequireConsent = config.RequireConsent.Value;
+
         }
 
         #endregion

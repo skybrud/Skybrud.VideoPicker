@@ -31,8 +31,16 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
         #region Constructors
 
-        public DreamBrokerEmbedOptions(DreamBrokerVideoDetails details) {
+        public DreamBrokerEmbedOptions(DreamBrokerVideoDetails details) : this(details, null) { }
+
+        public DreamBrokerEmbedOptions(DreamBrokerVideoDetails details, DreamBrokerDataTypeConfig config) {
+
             _details = details;
+
+            config = config ?? new DreamBrokerDataTypeConfig();
+
+            RequireConsent = config.RequireConsent.Value;
+
         }
 
         #endregion

@@ -1,0 +1,60 @@
+﻿<div>
+    
+    
+    
+    
+    
+    <div style="margin-top: 10px;">
+        <label style="display: block;">
+            <input type="radio" name="hest" />
+            Set this option to a fixed value
+        </label>
+        <label style="display: block;">
+            <input type="radio" name="hest" />
+            Let the editor decide when inserting the video
+        </label>
+        <label style="display: block;">
+            <input type="radio" name="hest" />
+            Hide this option
+        </label>
+    </div>
+    
+    <div style="margin-top: 5px; border-top: 1px solid #f3f3f5; padding-top: 5px;">
+        <umb-toggle
+            checked="model.value.value"
+            on-click="model.value.value = !model.value.value"
+            label-on="Required"
+            label-off="Not required"
+            show-labels="true"
+            label-position="right" />
+    </div>
+    
+    <br /><br /><br />
+    <br /><br /><br />
+    
+    <div style="margin-top: 5px; border-top: 1px solid #f3f3f5; padding-top: 5px;">
+        <umb-toggle
+            checked="model.value.readonly === false"
+            on-click="model.value.readonly = !!!model.value.readonly"
+            label-on="Editors can change this value"
+            label-off="Editors cannot change this value"
+            show-labels="true"
+            label-position="right" />
+    </div>
+    
+    <div style="margin-top: 5px; border-top: 1px solid #f3f3f5; padding-top: 5px;">
+        <umb-toggle
+            checked="model.value.value"
+            on-click="model.value.value = !model.value.value"
+            label-on="Required"
+            label-off="Not required"
+            show-labels="true"
+            label-position="right" />
+    </div>
+    
+    
+    <br /><br /><br />
+    <br />
+    <br />
+    <pre>{{model | json}}</pre>
+</div>

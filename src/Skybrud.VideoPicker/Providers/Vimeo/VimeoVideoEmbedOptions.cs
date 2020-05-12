@@ -49,11 +49,19 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
         #region Constructors
 
-        public VimeoVideoEmbedOptions(VimeoVideoDetails details) {
+        public VimeoVideoEmbedOptions(VimeoVideoDetails details) : this(details, new VimeoDataTypeConfig()) { }
+
+        public VimeoVideoEmbedOptions(VimeoVideoDetails details, VimeoDataTypeConfig config) {
+
             _details = details;
-            ShowTitle = true;
-            ShowByLine = true;
-            ShowPortrait = true;
+
+            Autoplay = config.Autoplay.Value;
+            Loop = config.Loop.Value;
+            Color = string.IsNullOrWhiteSpace(config.Color.Value) ? "00adef" : config.Color.Value.TrimStart('#');
+            ShowTitle = config.ShowTitle.Value;
+            ShowByLine = config.ShowByline.Value;
+            ShowPortrait = config.ShowPortrait.Value;
+
         }
 
         #endregion
@@ -71,7 +79,7 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
             if (ShowPortrait == false) query.Add("portrait", "0");
 
             // Construct the embed URL
-            string embedUrl = $"/player.vimeo.com/video/{_details.Id}";
+            string embedUrl = $"//player.vimeo.com/video/{_details.Id}" + (query.Count == 0 ? string.Empty : "?" + query);
 
             // Vimeo sets the default width of the embed code to 640 pixels, and then calculates the height from the
             // dimensions and aspect ratio of the video
@@ -88,11 +96,11 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
             iframe.Attributes.Add("frameborder", "0");
 
             iframe.Attributes.Add("allow", "autoplay; fullscreen");
-            iframe.Attributes.Add("allowfullscreen", null);
+            iframe.Attributes.Add("allowfullscreen", string.Empty);
 
             if (string.IsNullOrWhiteSpace(_details.Title) == false) iframe.Attributes.Add("title", _details.Title);
 
-            return iframe.OuterHtml;
+            return iframe.OuterHtml.Replace("allowfullscreen=\"\"", "allowfullscreen");
 
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
 
@@ -16,6 +17,11 @@ namespace Skybrud.VideoPicker.Providers {
         /// </summary>
         /// <param name="items">The items to make up the collection.</param>
         public VideoPickerProviderCollection(IEnumerable<IVideoProvider> items) : base(items) { }
+
+        public bool TryGet(string alias, out IVideoProvider provider) {
+            provider = this.FirstOrDefault(x => x.Alias == alias);
+            return provider != null;
+        }
 
     }
 

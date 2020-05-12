@@ -1,0 +1,23 @@
+﻿<div class="skybrud-video-picker-providers" ng-controller="Skybrud.VideoPicker.VideoProviders.Controller">
+    
+    <div class="--provider" ng-repeat="provider in providers">
+        
+        <div style="display: flex;">
+            <umb-toggle checked="provider.enabled" on-click="toggle(provider)" />
+            <div style="flex: 1; margin-left: 5px; line-height: 32px;">
+                <strong>{{provider.name}}</strong>
+                <small>(from {{provider.assembly}})</small>
+            </div>
+            <div>
+                <button class="btn btn-link" type="button" ng-if="provider.configView" ng-click="configure(provider)" ngg-disabled="!provider.enabled">
+                    <i class="icon icon-settings"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--<pre>{{providers | json}}</pre>-->
+
+    <!--<pre>{{model.value.youtube | json}}</pre>-->
+
+</div>

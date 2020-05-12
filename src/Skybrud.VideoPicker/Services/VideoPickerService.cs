@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Skybrud.VideoPicker.Models;
+﻿using Skybrud.VideoPicker.Models;
 using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Options;
 using Skybrud.VideoPicker.Providers;
@@ -10,7 +9,7 @@ namespace Skybrud.VideoPicker.Services {
 
         #region Properties
 
-        public IEnumerable<IVideoProvider> Providers => VideoPickerProviderCollection.Current;
+        public VideoPickerProviderCollection Providers => VideoPickerProviderCollection.Current;
 
         public VideoPickerConfig Config => VideoPickerConfig.Current;
 

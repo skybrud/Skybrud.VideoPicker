@@ -1,11 +1,12 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Skybrud.VideoPicker.Exceptions;
 using Skybrud.VideoPicker.Models;
-using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Services;
 using Skybrud.WebApi.Json;
 using Umbraco.Core.Logging;
@@ -28,6 +29,35 @@ namespace Skybrud.VideoPicker.Controllers.Api {
         }
 
         #region Public API methods
+
+        [HttpGet]
+        public object GetProviders() {
+
+            try {
+ 
+                return _videoPickerService.Providers.Select(x => new {
+                    alias = x.Alias,
+                    name = x.Name,
+                    configView = x.ConfigView,
+                    embedView = x.EmbedView,
+                    assembly = Path.GetFileName(x.GetType().Assembly.Location)
+                });
+
+            } catch (VideosException ex) {
+
+                if (ex.Status != HttpStatusCode.NotFound) _logger.Error<VideoPickerController>(ex, "Failed getting list of video providers.");
+
+                return Request.CreateErrorResponse(ex.Status, ex.Message);
+
+            } catch (Exception ex)  {
+
+                _logger.Error<VideoPickerController>(ex, "Failed getting list of video providers.");
+
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "An error occured on the server.");
+
+            }
+
+        }
 
         [HttpGet]
         [HttpPost]

@@ -2,8 +2,10 @@
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Strings;
 using Skybrud.Social.Google;
 using Skybrud.Social.Google.YouTube;
 using Skybrud.Social.Google.YouTube.Models.Videos;
@@ -14,6 +16,7 @@ using Skybrud.VideoPicker.Models;
 using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Options;
 using Skybrud.VideoPicker.Models.Providers;
+using Skybrud.VideoPicker.PropertyEditors;
 using Skybrud.VideoPicker.Services;
 
 namespace Skybrud.VideoPicker.Providers.YouTube {
@@ -23,7 +26,11 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
         public string Alias => "youtube";
 
         public string Name => "YouTube";
-        
+
+        public string ConfigView => "/App_Plugins/Skybrud.VideoPicker/Views/YouTube/Config.html";
+
+        public string EmbedView => "/App_Plugins/Skybrud.VideoPicker/Views/YouTube/Embed.html";
+
         public virtual bool IsMatch(VideoPickerService service, string source, out IVideoOptions options) {
 
             options = null;
@@ -94,13 +101,13 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
         }
 
-        public VideoPickerValue ParseValue(JObject obj) {
+        public VideoPickerValue ParseValue(JObject obj, IProviderDataTypeConfig config) {
 
             VideoProviderDetails provider = new VideoProviderDetails(Alias, Name);
 
             YouTubeVideoDetails details = obj.GetObject("details", YouTubeVideoDetails.Parse);
 
-            VimeoVideoEmbedOptions embed = new VimeoVideoEmbedOptions(details);
+            VimeoVideoEmbedOptions embed = new VimeoVideoEmbedOptions(details, config as YouTubeDataTypeConfig);
 
             return new VideoPickerValue(provider, details, embed);
 
@@ -108,6 +115,48 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
         public IProviderConfig ParseConfig(XElement xml) {
             return new YouTubeVideoConfig(xml);
+        }
+
+        public IProviderDataTypeConfig ParseDataTypeConfig(JObject obj) {
+            return new YouTubeDataTypeConfig(obj);
+        }
+
+    }
+
+    public class YouTubeDataTypeConfig : IProviderDataTypeConfig {
+
+        [JsonProperty("enabled")]
+        public bool IsEnabled { get; }
+
+        [JsonProperty("consent")]
+        public DataTypeConfigOption<bool> RequireConsent { get; }
+
+        [JsonProperty("nocookie")]
+        public DataTypeConfigOption<bool> NoCookie { get; }
+
+        [JsonProperty("controls")]
+        public DataTypeConfigOption<bool> ShowControls { get; }
+
+        [JsonProperty("autoplay")]
+        public DataTypeConfigOption<bool> Autoplay { get; }
+
+        [JsonProperty("loop")]
+        public DataTypeConfigOption<bool> Loop { get; }
+
+        public YouTubeDataTypeConfig() : this(null) { }
+
+        public YouTubeDataTypeConfig(JObject value) {
+
+            IsEnabled = value.GetBoolean("enabled");
+            
+            JToken controls = value?.SelectToken("controls.value");
+
+            RequireConsent = new DataTypeConfigOption<bool>(value.GetBoolean("consent.value"));
+            NoCookie = new DataTypeConfigOption<bool>(value.GetBoolean("nocookie.value"));
+            ShowControls = new DataTypeConfigOption<bool>(StringUtils.ParseBoolean(controls, true));
+            Autoplay = new DataTypeConfigOption<bool>(value.GetBoolean("autoplay.value"));
+            Loop = new DataTypeConfigOption<bool>(value.GetBoolean("loop.value"));
+
         }
 
     }

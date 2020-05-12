@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Http;
 using Skybrud.Essentials.Http.Collections;
@@ -10,6 +11,7 @@ using Skybrud.VideoPicker.Models;
 using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Options;
 using Skybrud.VideoPicker.Models.Providers;
+using Skybrud.VideoPicker.PropertyEditors;
 using Skybrud.VideoPicker.Providers.DreamBroker.Models;
 using Skybrud.VideoPicker.Providers.DreamBroker.Models.Options;
 using Skybrud.VideoPicker.Providers.DreamBroker.Models.Videos;
@@ -22,6 +24,10 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
         public string Alias => "dreambroker";
 
         public string Name => "Dream Broker";
+
+        public string ConfigView => "/App_Plugins/Skybrud.VideoPicker/Views/DefaultProvider/Config.html";
+
+        public string EmbedView => null;//"/App_Plugins/Skybrud.VideoPicker/Views/DefaultProvider/Embed.html";
 
         public bool IsMatch(VideoPickerService service, string source, out IVideoOptions options) {
 
@@ -65,13 +71,13 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
         }
 
-        public VideoPickerValue ParseValue(JObject obj) {
+        public VideoPickerValue ParseValue(JObject obj, IProviderDataTypeConfig config) {
 
             VideoProviderDetails provider = new VideoProviderDetails(Alias, Name);
 
             DreamBrokerVideoDetails details = obj.GetObject("details", DreamBrokerVideoDetails.Parse);
 
-            DreamBrokerEmbedOptions embed = new DreamBrokerEmbedOptions(details);
+            DreamBrokerEmbedOptions embed = new DreamBrokerEmbedOptions(details, config as DreamBrokerDataTypeConfig);
 
             return new VideoPickerValue(provider, details, embed);
 
@@ -127,6 +133,30 @@ namespace Skybrud.VideoPicker.Providers.DreamBroker {
 
         public IProviderConfig ParseConfig(XElement xml) {
             return null;
+        }
+
+        public IProviderDataTypeConfig ParseDataTypeConfig(JObject obj) {
+            return new DreamBrokerDataTypeConfig(obj);
+        }
+
+    }
+
+    public class DreamBrokerDataTypeConfig : IProviderDataTypeConfig {
+
+        [JsonProperty("enabled")]
+        public bool IsEnabled { get; }
+
+        [JsonProperty("consent")]
+        public DataTypeConfigOption<bool> RequireConsent { get; }
+
+        public DreamBrokerDataTypeConfig() {
+            IsEnabled = false;
+            RequireConsent = new DataTypeConfigOption<bool>(false);
+        }
+
+        public DreamBrokerDataTypeConfig(JObject value) {
+            IsEnabled = value.GetBoolean("enabled");
+            RequireConsent = new DataTypeConfigOption<bool>(value.GetBoolean("consent.value"));
         }
 
     }

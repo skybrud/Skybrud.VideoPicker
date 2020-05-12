@@ -2,8 +2,10 @@
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Strings;
 using Skybrud.Social.Vimeo;
 using Skybrud.Social.Vimeo.Models.Videos;
 using Skybrud.VideoPicker.Exceptions;
@@ -11,6 +13,7 @@ using Skybrud.VideoPicker.Models;
 using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Options;
 using Skybrud.VideoPicker.Models.Providers;
+using Skybrud.VideoPicker.PropertyEditors;
 using Skybrud.VideoPicker.Services;
 
 namespace Skybrud.VideoPicker.Providers.Vimeo {
@@ -20,6 +23,10 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
         public string Alias => "vimeo";
 
         public string Name => "Vimeo";
+
+        public string ConfigView => "/App_Plugins/Skybrud.VideoPicker/Views/Vimeo/Config.html";
+
+        public string EmbedView => "/App_Plugins/Skybrud.VideoPicker/Views/Vimeo/Embed.html";
 
         public virtual bool IsMatch(VideoPickerService service, string source, out IVideoOptions options) {
 
@@ -92,13 +99,13 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
         }
 
-        public VideoPickerValue ParseValue(JObject obj) {
+        public VideoPickerValue ParseValue(JObject obj, IProviderDataTypeConfig config) {
 
             VideoProviderDetails provider = new VideoProviderDetails(Alias, Name);
 
             VimeoVideoDetails details = obj.GetObject("details", VimeoVideoDetails.Parse);
 
-            VimeoVideoEmbedOptions embed = new VimeoVideoEmbedOptions(details);
+            VimeoVideoEmbedOptions embed = new VimeoVideoEmbedOptions(details, config as VimeoDataTypeConfig);
 
             return new VideoPickerValue(provider, details, embed);
 
@@ -106,6 +113,54 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
         public IProviderConfig ParseConfig(XElement xml) {
             return new VimeoVideoConfig(xml);
+        }
+
+        public IProviderDataTypeConfig ParseDataTypeConfig(JObject obj) {
+            return new VimeoDataTypeConfig(obj);
+        }
+
+    }
+
+    public class VimeoDataTypeConfig : IProviderDataTypeConfig {
+
+        [JsonProperty("enabled")]
+        public bool IsEnabled { get; }
+
+        [JsonProperty("consent")]
+        public DataTypeConfigOption<bool> RequireConsent { get; }
+
+        [JsonProperty("autoplay")]
+        public DataTypeConfigOption<bool> Autoplay { get; }
+
+        [JsonProperty("loop")]
+        public DataTypeConfigOption<bool> Loop { get; }
+
+        [JsonProperty("color")]
+        public DataTypeConfigOption<string> Color { get; }
+
+        [JsonProperty("title")]
+        public DataTypeConfigOption<bool> ShowTitle { get; }
+
+        [JsonProperty("byline")]
+        public DataTypeConfigOption<bool> ShowByline { get; }
+
+        [JsonProperty("portrait")]
+        public DataTypeConfigOption<bool> ShowPortrait { get; }
+
+        public VimeoDataTypeConfig() : this(null) { }
+
+        public VimeoDataTypeConfig(JObject value) {
+
+            IsEnabled = value.GetBoolean("enabled");
+            
+            RequireConsent = new DataTypeConfigOption<bool>(value.GetBoolean("consent.value"));
+            Autoplay = new DataTypeConfigOption<bool>(value.GetBoolean("autoplay.value"));
+            Loop = new DataTypeConfigOption<bool>(value.GetBoolean("loop.value"));
+            Color = new DataTypeConfigOption<string>(value.GetString("color.value"));
+            ShowTitle = new DataTypeConfigOption<bool>(StringUtils.ParseBoolean(value?.SelectToken("title.value"), true));
+            ShowByline = new DataTypeConfigOption<bool>(StringUtils.ParseBoolean(value?.SelectToken("byline.value"), true));
+            ShowPortrait = new DataTypeConfigOption<bool>(StringUtils.ParseBoolean(value?.SelectToken("portrait.value"), true));
+
         }
 
     }

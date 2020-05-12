@@ -37,8 +37,15 @@ namespace Skybrud.VideoPicker.PropertyEditors.ValueConverters {
             string providerAlias = obj.GetString("provider.alias");
 
             IVideoProvider provider = _videoPickerService.Providers.FirstOrDefault(x => x.Alias == providerAlias);
+            if (provider == null) return null;
 
-            return provider?.ParseValue(obj);
+            VideoConfiguration config = propertyType.DataType.Configuration as VideoConfiguration;
+
+            IProviderDataTypeConfig providerConfig = null;
+
+            config?.Providers.TryGet(provider, out providerConfig);
+
+            return provider?.ParseValue(obj, providerConfig);
 
         }
         
