@@ -185,6 +185,11 @@
 
         }
 
+        if (!details.duration) {
+            $scope.duration = null;
+            return;
+        }
+
         var hours = Math.floor(details.duration / 60 / 60);
         var seconds = details.duration - hours * 60 * 60;
 
