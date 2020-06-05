@@ -140,7 +140,7 @@
 
                 if (!html) html = item.embed;
 
-                var m = html.match(/:\/\/(.+?)\/(v|[0-9]+)\.ihtml\/player\.html\?token=([a-z0-9]+)&source=embed&photo%5fid=([0-9]+)/);
+                var m = html.match(/\/\/(.+?)\/(v|[0-9]+)\.ihtml\/player\.html\?token=([a-z0-9]+)&source=embed&photo%5fid=([0-9]+)/);
 
                 if (!m) {
                     delete item.type;
