@@ -70,7 +70,7 @@ namespace Skybrud.VideoPicker.Models {
 
         protected VideoPickerDetails(JObject obj) : base(obj) {
             Id = obj.GetString("id");
-            Published = obj.GetInt32("published", TimeUtils.GetDateTimeFromUnixTime);
+            Published = obj.GetInt32("published", EssentialsTime.FromUnixTimestamp);
             Title = obj.GetString("title");
             Description = obj.GetString("description");
             Duration = obj.GetDouble("duration", TimeSpan.FromSeconds);
