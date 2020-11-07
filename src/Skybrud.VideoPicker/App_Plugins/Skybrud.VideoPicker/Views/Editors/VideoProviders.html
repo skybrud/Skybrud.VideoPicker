@@ -3,7 +3,7 @@
     <div class="--provider" ng-repeat="provider in providers">
         
         <div style="display: flex;">
-            <umb-toggle checked="provider.enabled" on-click="toggle(provider)" />
+            <umb-toggle checked="provider.enabled" on-click="toggle(provider)"></umb-toggle>
             <div style="flex: 1; margin-left: 5px; line-height: 32px;">
                 <strong>{{provider.name}}</strong>
                 <small>(from {{provider.assembly}})</small>

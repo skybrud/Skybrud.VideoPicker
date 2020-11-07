@@ -15,7 +15,7 @@ using Umbraco.Core.PropertyEditors;
 
 namespace Skybrud.VideoPicker.PropertyEditors {
 
-    [DataEditor("Skybrud.VideoPicker.Video", EditorType.PropertyValue, "Skybrud VideoPicker Video", "/App_Plugins/Skybrud.VideoPicker/Views/Editors/Video.html", ValueType = ValueTypes.Json, Group = "Skybrud.dk", Icon = "icon-play")]
+    [DataEditor("Skybrud.VideoPicker.Video", EditorType.PropertyValue, "Skybrud VideoPicker Video", "/App_Plugins/Skybrud.VideoPicker/Views/Editors/Video.html?v=2", ValueType = ValueTypes.Json, Group = "Skybrud.dk", Icon = "icon-play")]
     public class VideoPropertyEditor : DataEditor {
 
         public VideoPropertyEditor(ILogger logger) : base(logger) { }
@@ -33,7 +33,7 @@ namespace Skybrud.VideoPicker.PropertyEditors {
 
     public class VideoConfiguration {
 
-        [ConfigurationField("providers", "Providers", "/App_Plugins/Skybrud.VideoPicker/Views/Editors/VideoProviders.html", Description = "Configure the various video providers.")]
+        [ConfigurationField("providers", "Providers", "/App_Plugins/Skybrud.VideoPicker/Views/Editors/VideoProviders.html?v=2", Description = "Configure the various video providers.")]
         public VideoPickerProvidersConfig Providers { get; set; }
 
     }
