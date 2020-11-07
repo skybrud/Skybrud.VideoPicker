@@ -43,7 +43,7 @@ namespace Skybrud.VideoPicker.PropertyEditors.ValueConverters {
 
             IProviderDataTypeConfig providerConfig = null;
 
-            config?.Providers.TryGet(provider, out providerConfig);
+            config?.Providers?.TryGet(provider, out providerConfig);
 
             return provider?.ParseValue(obj, providerConfig);
 
