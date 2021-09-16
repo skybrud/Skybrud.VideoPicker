@@ -1,0 +1,39 @@
+{
+  "tasks": {
+    "postBuild": [
+      {
+        "alias": "zip",
+        "destination": "releases/github/{packageName}.v{version}.zip",
+        "files": [
+          {
+            "source": "src/{packageName}/bin/Release/net45/",
+            "destination": "bin/",
+            "patterns": [
+              "{packageName}.dll",
+              "{packageName}.xml",
+              "Skybrud.Essentials.dll",
+              "Skybrud.Essentials.xml",
+              "Skybrud.Essentials.Http.dll",
+              "Skybrud.Essentials.Http.xml",
+              "Skybrud.Social.TwentyThree.dll",
+              "Skybrud.Social.TwentyThree.xml",
+              "Skybrud.WebApi.Json.dll",
+              "Skybrud.WebApi.Json.xml"
+            ]
+          },
+          {
+            "source": "src/{packageName}/App_Plugins/Skybrud.VideoPicker",
+            "destination": "App_Plugins/Skybrud.VideoPicker/",
+            "patterns": [
+              "**/*.js",
+              "**/*.css",
+              "**/*.html",
+              "**/*.xml",
+              "package.manifest"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
