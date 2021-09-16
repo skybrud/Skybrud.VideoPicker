@@ -1,4 +1,4 @@
-﻿angular.module("umbraco").directive("skyVideo", function ($http, $timeout, userService, entityResource, notificationsService, mediaHelper) {
+﻿angular.module("umbraco").directive("skyVideo", function ($http, $timeout, userService, entityResource, notificationsService, mediaHelper, localizationService) {
     return {
         scope: {
             value: "=",
@@ -23,6 +23,11 @@
             scope.thumbnail = null;
 
             scope.originalThumbnail = null;
+
+            scope.labels = {
+                second: "second",
+                seconds: "seconds"
+            };
 
             function initConfig() {
 
@@ -58,12 +63,45 @@
                     startNodeId = userData.startMediaId;
                 });
 
+                localizationService.localizeMany(["skyVideoPicker_second", "skyVideoPicker_seconds"]).then(function (data) {
+
+                    // Update the labels from the response
+                    scope.labels.second = data[0];
+                    scope.labels.seconds = data[1];
+
+                    // Continue the rest of the initialization
+                    init2();
+
+                });
+
+            }
+
+            function init2() {
+
                 if (scope.value && scope.value.thumbnailId) {
                     entityResource.getById(scope.value.thumbnailId, "media").then(function (data) {
                         if (!data.image) data.image = mediaHelper.resolveFileFromEntity(data);
                         scope.thumbnail = data;
                         scope.thumbnailUrl = scope.thumbnail ? scope.thumbnail.image + "?width=320&height=180&mode=crop" : null;
                     });
+                }
+
+                // Add "provider" for legacy values
+                if (scope.value && scope.value.type && !scope.value.provider) {
+                    switch (scope.value.type) {
+                    case "vimeo":
+                        scope.value.provider = { alias: "vimeo", name: "Vimeo" };
+                        break;
+                    case "youtube":
+                        scope.value.provider = { alias: "youtube", name: "YouTube" };
+                        break;
+                    case "twentythree":
+                        scope.value.provider = { alias: "twentythree", name: "TwentyThree" };
+                        break;
+                    default:
+                        scope.value.provider = { alias: scope.value.type, name: scope.value.type };
+                        break;
+                    }
                 }
 
                 hest(scope.value);
@@ -83,52 +121,57 @@
                 item.details.$thumbnail = null;
 
                 // Get user friendly duration
-                var seconds = item.details.duration;
-                var hours = Math.floor(seconds / 60 / 60);
-                seconds = seconds - (hours * 60 * 60);
-                var minutes = Math.floor(seconds / 60);
-                seconds = seconds - (minutes * 60);
-                scope.duration = [];
-                if (hours > 0) scope.duration.push(hours);
-                if (hours > 0 || minutes > 0) scope.duration.push(minutes);
-                scope.duration.push(seconds);
-                scope.duration = scope.duration.join(":");
+                if (item.details.duration === 1) {
+                    scope.duration = "1 " + scope.labels.second;
+                } else if (item.details.duration < 60) {
+                    scope.duration = item.details.duration + " " + scope.labels.seconds;
+                } else {
+                    var seconds = item.details.duration;
+                    var hours = Math.floor(seconds / 60 / 60);
+                    seconds = seconds - (hours * 60 * 60);
+                    var minutes = Math.floor(seconds / 60);
+                    seconds = seconds - (minutes * 60);
+                    scope.duration = [];
+                    if (hours > 0) scope.duration.push(hours);
+                    if (hours > 0 || minutes > 0) scope.duration.push(minutes);
+                    scope.duration.push(seconds);
+                    scope.duration = scope.duration.join(":");
+                }
 
                 switch (item.type) {
 
                     case "vimeo":
-                        scope.typeName = "Vimeo";
                         var t = item.details.thumbnails.length > 1 ? item.details.thumbnails[1] : null;
                         if (t) {
                             item.details.$thumbnail = scope.originalThumbnail = t;
                             scope.originalThumbnail = {
                                 width: 320,
                                 height: 180,
-                                url: t.url.replace("200x150", "320x180")
+                                url: t.url.replace("200x150", "320x180"),
+                                style: "width: 320px; height: 180px;"
                             };
                         }
                         break;
 
                     case "youtube":
-                        scope.typeName = "YouTube";
                         item.details.$thumbnail = item.details.thumbnails[1];
                         scope.originalThumbnail = item.details.thumbnails[1];
                         scope.thumbnailWidth = scope.originalThumbnail.width;
                         scope.thumbnailHeight = scope.originalThumbnail.height;
+                        scope.originalThumbnail.style = `width: ${scope.thumbnailWidth}px; height: ${scope.thumbnailHeight};`;
                         break;
 
                     case "twentythree":
-                        scope.typeName = "Twenty Three";
-                        var t = _.findWhere(item.details.thumbnails, { alias: "portrait" });
+                        var t = _.findWhere(item.details.thumbnails, { alias: "medium" });
                         if (t) {
                             item.details.$thumbnail = scope.originalThumbnail = t;
                             scope.thumbnailWidth = t.width;
-                            scope.thumbnailHeight = t.height;
+                            scope.thumbnailHeight = t.height ? t.height : 0;
+                            scope.originalThumbnail.style = `width: 320px;`;
                         }
                         break;
 
                     default:
-                        scope.typeName = "Ukendt";
                         if (item.details && item.detailsitem.details.thumbnails) item.details.$thumbnail = item.details.thumbnails[0];
                         break;
 
@@ -136,89 +179,50 @@
 
             }
 
-            function fromEmbed(item, html) {
-
-                if (!html) html = item.embed;
-
-                var m = html.match(/\/\/(.+?)\/(v|[0-9]+)\.ihtml\/player\.html\?token=([a-z0-9]+)&source=embed&photo%5fid=([0-9]+)/);
-
-                if (!m) {
-                    delete item.type;
-                    delete item.details;
-                    return;
-                }
-
-                if (scope.config.services.twentythree === false) {
-                    item.error = "Videos from Twenty Three is not permitted for this picker.";
-                    delete item.type;
-                    delete item.details;
-                    return;
-                }
-
-                var domain = m[1];
-                var player = m[2];
-                var token = m[3];
-                var video = m[4];
+            function fromSource(item, source) {
 
                 scope.loading = true;
 
-                $http.get("/umbraco/Skybrud/VideoPicker/GetTwentyThreeVideo?domain=" + domain + "&token=" + token + "&player=" + player + "&video=" + video).success(function (video) {
-
-                    scope.loading = false;
-
-                    item.url = video.url;
-                    item.type = video.type;
-                    item.details = video.details;
-                    hest(item);
-
-                }).error(function (r) {
-
-                    scope.loading = false;
-
-                    item.type = null;
-                    item.details = null;
-
-                    if (r && r.meta && r.meta.error) {
-                        notificationsService.error("VideoPicker", r.meta.error);
-                    } else {
-                        notificationsService.error("VideoPicker", "Failed retrieving the specified video.");
+                const config = {
+                    umbIgnoreErrors: true,
+                    params: {
+                        source: source
                     }
+                };
 
-                });
-
-            }
-
-            function fromUrl(item) {
-
-                scope.loading = true;
-
-                $http.get("/umbraco/Skybrud/VideoPicker/GetVideoFromUrl?url=" + item.url).success(function (video) {
+                $http.get("/umbraco/Skybrud/VideoPicker/GetVideoFromSource", config).success(function (video) {
 
                     if (video.type === "youtube" && scope.config.services.youtube === false) {
 
                         item.error = "Videos from YouTube is not permitted for this picker.";
 
-                        item.type = null;
-                        item.details = null;
+                        delete item.type;
+                        delete item.provider;
+                        delete item.details;
 
                     } else if (video.type === "vimeo" && scope.config.services.vimeo === false) {
 
                         item.error = "Videos from Vimeo is not permitted for this picker.";
 
-                        item.type = null;
-                        item.details = null;
+                        delete item.type;
+                        delete item.provider;
+                        delete item.details;
 
                     } else if (video.type === "twentythree" && scope.config.services.twentythree === false) {
 
                         item.error = "Videos from Twenty Three is not permitted for this picker.";
 
-                        item.type = null;
-                        item.details = null;
+                        delete item.type;
+                        delete item.provider;
+                        delete item.details;
 
                     } else {
 
+                        delete item.error;
+
                         item.url = video.url;
                         item.type = video.type;
+                        item.provider = video.provider;
                         item.details = video.details;
                         hest(item);
 
@@ -230,12 +234,15 @@
 
                     scope.loading = false;
 
-                    item.type = null;
-                    item.details = null;
+                    delete item.type;
+                    delete item.provider;
+                    delete item.details;
 
                     if (r && r.meta && r.meta.error) {
+                        item.error = r.meta.error;
                         notificationsService.error("VideoPicker", r.meta.error);
                     } else {
+                        item.error = "Failed retrieving the specified video.";
                         notificationsService.error("VideoPicker", "Failed retrieving the specified video.");
                     }
 
@@ -243,11 +250,20 @@
 
             }
 
+            function fromEmbed(item, html) {
+                if (!html) html = item.embed;
+                fromSource(item, html);
+            }
+
+            function fromUrl(item) {
+                fromSource(item, item.url);
+            }
+
             scope.update = function () {
 
                 if (scope.mode === "embed") {
 
-                    var m = scope.value.embed ? scope.value.embed.match("\<iframe") : null;
+                    var m = scope.value.embed ? scope.value.embed.match("\<iframe") || scope.value.embed.match("\<script") : null;
 
                     // Revert to URL mode if the embed value is empty
                     if (!m) {
@@ -272,11 +288,12 @@
                 }
 
                 var m0 = scope.value.url.match("\<iframe");
-                var m1 = scope.value.url.match("vimeo.com/([0-9]+)$");
-                var m2 = scope.value.url.match("youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)");
-                var m3 = scope.value.url.match("/manage/video/([0-9]+)$");
+                var m1 = scope.value.url.match("\<script");
+                var m2 = scope.value.url.match("vimeo.com/([0-9]+)$");
+                var m3 = scope.value.url.match("youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)");
+                var m4 = scope.value.url.match("/manage/video/([0-9]+)$");
 
-                if (m0) {
+                if (m0 || m1) {
 
                     scope.value.embed = scope.value.url;
                     scope.value.url = "";
@@ -289,11 +306,13 @@
 
                     fromEmbed(scope.value);
                     return;
+
                 }
+
 
                 delete scope.value.embed;
 
-                if (!m1 && !m2 && !m3) {
+                if (!m2 && !m3 && !m4) {
                     delete scope.value.type;
                     delete scope.value.details;
                     return;

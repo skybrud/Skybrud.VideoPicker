@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json;
 using Skybrud.Essentials.Json.Extensions;
+using Skybrud.VideoPicker.Models.Providers;
 using Skybrud.VideoPicker.Models.TwentyThree;
+using Skybrud.VideoPicker.Providers;
 
 namespace Skybrud.VideoPicker.Models {
     
@@ -13,23 +16,26 @@ namespace Skybrud.VideoPicker.Models {
 
         #region Properties
 
-        [JsonProperty("url")]
-        public string Url { get; internal set; }
-
         [JsonProperty("type")]
-        public string Type { get; internal set; }
+        public string Type => Provider.Alias;
+
+        [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
+        public string Url { get; internal set; }
 
         [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; internal set; }
 
         [JsonIgnore]
-        public bool HasTitle => !String.IsNullOrWhiteSpace(Title);
+        public bool HasTitle => !string.IsNullOrWhiteSpace(Title);
 
         [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
         public string Description { get; internal set; }
 
         [JsonIgnore]
-        public bool HasDescription => !String.IsNullOrWhiteSpace(Description);
+        public bool HasDescription => !string.IsNullOrWhiteSpace(Description);
+        
+        [JsonProperty("provider")]
+        public IVideoProviderDetails Provider { get; internal set; }
 
         [JsonProperty("details")]
         public VideoPickerDetails Details { get; internal set; }
@@ -71,21 +77,26 @@ namespace Skybrud.VideoPicker.Models {
         /// <summary>
         /// Initializes an empty video picker item.
         /// </summary>
-        internal VideoPickerItem() : base(null) {
-            Url = "";
-            Type = "";
-            Title = "";
-            Description = "";
-        }
+        internal VideoPickerItem() : base(null) { }
 
         protected VideoPickerItem(JObject obj) : base(obj) {
+            
             Url = obj.GetString("url");
-            Type = obj.GetString("type");
+            Provider = obj.GetObject("provider", VideoProviderDetails.Parse);
             Title = obj.GetString("title");
             Description = obj.GetString("description");
             Details = obj.GetObject("details", VideoPickerDetails.Parse);
             ThumbnailId = obj.GetInt32("thumbnailId");
+
+            // Fix provider for legacy values
+            if (Provider == null && obj.HasValue("type")) {
+                string type = obj.GetString("type");
+                IVideoProvider provider = VideoPickerProviderCollection.Instance.FirstOrDefault(x => x.Alias == type);
+                Provider = provider == null ? new VideoProviderDetails(type, type) : new VideoProviderDetails(provider);
+            }
+            
             if (Type == "twentythree") TwentyThree = new TwentyThreeVideoDetails(this);
+
         }
 
         #endregion

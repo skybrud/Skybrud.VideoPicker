@@ -9,5 +9,8 @@
     <key alias="thumbnailFrom">Thumbnail from</key>
     <key alias="addVideo">Add video</key>
     <key alias="urlPlaceholder">Enter the URL of the video here...</key>
+    <key alias="providerType">Provider</key>
+    <key alias="videoType">Type</key>
+    <key alias="embedCode">Embed code</key>
   </area>
 </language>

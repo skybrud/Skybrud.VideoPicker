@@ -8,7 +8,7 @@
                         <span class="red" ng-if="config.title.required">*</span>
                     </strong>
                 </div>
-                <input type="text" ng-model="value.title" placeholder="{{config.title.placeholder}}" ng-required="config.title.required" />
+                <input type="text" ng-model="value.title" placeholder="{{config.title.placeholder}}" ng-required="config.title.required"/>
             </label>
         </div>
         <div class="sky-video-option" ng-show="config.description.visible">
@@ -23,6 +23,7 @@
             </label>
         </div>
         <div class="sky-video-option" ng-show="mode == 'url'">
+            <div class="alert alert-danger" ng-if="value.error" ng-bind-html="value.error"></div>
             <label>
                 <div>
                     <strong>URL</strong>
@@ -34,6 +35,7 @@
             </label>
         </div>
         <div class="sky-video-option" ng-show="mode == 'embed'">
+            <div class="alert alert-danger" ng-if="value.error">{{value.error}}</div>
             <label>
                 <div>
                     <strong>Embed code</strong>
@@ -49,17 +51,25 @@
         <div class="sky-video-option">
             <label>
                 <div>
-                    <strong><localize key="skyVideoPicker_type">Type</localize></strong>
+                    <strong><localize key="skyVideoPicker_providerType">Provider</localize></strong>
                 </div>
                 <span>
-                    {{typeName}}
-                    <span ng-if="value.type == 'twentythree'" class="comment">
-                        (via {{value.details.url.split('/')[2]}})
+                    {{value.provider.name}}
+                    <span ng-if="value.provider.alias == 'twentythree'" class="comment">
+                        (via {{value.details.domain || value.details.url.split('/')[2]}})
                     </span>
                 </span>
             </label>
         </div>
-        <div class="sky-video-option">
+        <div class="sky-video-option sky-video-option-videoType" ng-if="value.details.type">
+            <label>
+                <div>
+                    <strong><localize key="skyVideoPicker_videoType">Video Type</localize></strong>
+                </div>
+                <span>{{value.details.type}}</span>
+            </label>
+        </div>
+        <div class="sky-video-option" ng-if="value.details.duration">
             <label>
                 <div>
                     <strong><localize key="skyVideoPicker_duration">Duration</localize></strong>
@@ -71,9 +81,9 @@
             <div class="sky-video-thumbnail">
                 <strong style="font-size: 12px; text-transform: uppercase;">
                     <localize key="skyVideoPicker_thumbnailFrom">Thumbnail from</localize>
-                    {{typeName}}
+                    {{value.provider.name}}
                 </strong><br />
-                <img ng-show="originalThumbnail" ng-src="{{originalThumbnail.url}}" style="height: {{thumbnailHeight}}px; width: {{thumbnailWidth}}px;" />
+                <img ng-show="originalThumbnail" ng-src="{{originalThumbnail.url}}" style="{{originalThumbnail.style}}}" />
             </div>
             <div ng-show="error" style="margin-top: 10px;">
                 <div class="alert alert-danger">{{error}}</div>

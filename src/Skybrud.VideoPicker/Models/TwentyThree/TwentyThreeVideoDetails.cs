@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Social.TwentyThree;
 
 namespace Skybrud.VideoPicker.Models.TwentyThree {
 
@@ -30,6 +30,13 @@ namespace Skybrud.VideoPicker.Models.TwentyThree {
 
             Id = item.Details?.Id;
 
+            if (item.Details?.Type == "spot") {
+                Domain = item.Details.Domain;
+                Embed = item.Details.Embed;
+                Token = Embed == null ? null : Regex.Match(Embed, $"/spot/{Id}/([a-z0-9]+)/").Groups[1].Value;
+                return;
+            }
+
             VideoPickerFormat format = item.Details?.Formats.FirstOrDefault();
 
             Match m1 = Regex.Match(format?.Url ?? string.Empty, "://([a-z0-9-\\.]+)/([0-9]+)/([0-9]+)/([a-z0-9]+)/video_");
@@ -45,7 +52,7 @@ namespace Skybrud.VideoPicker.Models.TwentyThree {
 
             if (string.IsNullOrWhiteSpace(Embed) == false) return;
 
-            Embed = $"<div style=\"width:100%; height:0; position: relative; padding-bottom:56.25%\"><iframe src=\"https://{Domain}/v.ihtml/player.html?token={Token}&source=embed&photo%5fid={Id}\" style=\"width:100%; height:100%; position: absolute; top: 0; left: 0;\" frameborder=\"0\" border=\"0\" scrolling=\"no\" allowfullscreen=\"1\" mozallowfullscreen=\"1\" webkitallowfullscreen=\"1\" allow=\"autoplay; fullscreen\"></iframe></div>";
+            Embed = TwentyThreeUtils.GetEmbedCode(Domain, Id, Token);
 
         }
 

@@ -25,22 +25,22 @@
                 switch (item.type) {
 
                 case 'vimeo':
-                    item.$typeName = 'Vimeo';
+                    item.$providerName = 'Vimeo';
                     item.details.$thumbnail = item.details.thumbnails[0];
                     break;
 
                 case 'youtube':
-                    item.$typeName = 'YouTube';
+                    item.$providerName = 'YouTube';
                     item.details.$thumbnail = item.details.thumbnails[0];
                     break;
 
                 case 'twentythree':
-                    item.$typeName = 'Twenty Three';
+                    item.$providerName = 'Twenty Three';
                     item.details.$thumbnail = _.findWhere(item.details.thumbnails, { alias: 'portrait' });
                     break;
 
                 default:
-                    item.$typeName = 'Ukendt';
+                    item.$providerName = 'Ukendt';
                     if (item.details && item.detailsitem.details.thumbnails) item.details.$thumbnail = item.details.thumbnails[0];
                     break;
 

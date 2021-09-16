@@ -204,6 +204,9 @@
   font-size: 12px;
   color: #666;
 }
+.sky-video .sky-video-option.sky-video-option-videoType span {
+  text-transform: capitalize;
+}
 .sky-video .sky-video-thumbnails {
   display: flex;
   flex-wrap: wrap;
