@@ -7,17 +7,17 @@
   <PropertyGroup>
     <Version>2.0.0-alpha004</Version>
     <Authors>Anders Bjerner</Authors>
-    <Company>Skybrud.dk</Company>
+    <Company>Limbo</Company>
     <Description>Skybrud.VideoPicker is a package for Umbraco 8 containing a property editor and a grid editor for inserting videos from YouTube or Vimeo.</Description>
-    <Copyright>Copyright © 2020</Copyright>
+    <Copyright>Copyright © 2021</Copyright>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>Skybrud.VideoPicker</PackageId>
-    <PackageTags>Skybrud, Umbraco, Video, YouTube, Vimeo</PackageTags>
+    <PackageTags>Skybrud, Limbo, Umbraco, Video, YouTube, Vimeo</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://packages.skybrud.dk/skybrud.videopicker/</PackageProjectUrl>
-    <PackageIconUrl>http://www.skybrud.dk/img/5431sk/icon/favicon.ico</PackageIconUrl>
+    <PackageIcon>Limbo.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/skybrud/Skybrud.VideoPicker</RepositoryUrl>
   </PropertyGroup>
