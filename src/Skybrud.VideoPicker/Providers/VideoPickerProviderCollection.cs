@@ -23,6 +23,11 @@ namespace Skybrud.VideoPicker.Providers {
             return provider != null;
         }
 
+        public bool TryGet<TVideoProvider>(out TVideoProvider provider) where TVideoProvider : IVideoProvider {
+            provider = this.OfType<TVideoProvider>().FirstOrDefault();
+            return provider != null;
+        }
+
     }
 
 }
