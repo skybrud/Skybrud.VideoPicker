@@ -41,7 +41,7 @@ namespace Skybrud.VideoPicker.Controllers.Api {
                     configView = x.ConfigView,
                     embedView = x.EmbedView,
                     assembly = Path.GetFileName(x.GetType().Assembly.Location)
-                });
+                }).OrderBy(x => x.name);
 
             } catch (VideosException ex) {
 
