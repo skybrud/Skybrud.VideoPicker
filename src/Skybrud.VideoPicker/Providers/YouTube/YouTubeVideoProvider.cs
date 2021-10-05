@@ -103,11 +103,13 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
 
             VideoProviderDetails provider = new VideoProviderDetails(Alias, Name);
 
+            VideoProviderCredentialsDetails credentials = obj.GetObject("credentials", VideoProviderCredentialsDetails.Parse);
+
             YouTubeVideoDetails details = obj.GetObject("details", YouTubeVideoDetails.Parse);
 
             YouTubeVideoEmbedOptions embed = new YouTubeVideoEmbedOptions(details, config as YouTubeDataTypeConfig);
 
-            return new VideoPickerValue(provider, details, embed);
+            return new VideoPickerValue(provider, credentials, details, embed);
 
         }
 

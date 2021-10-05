@@ -89,11 +89,13 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
             VideoProviderDetails provider = new VideoProviderDetails(Alias, Name);
 
+            VideoProviderCredentialsDetails credentailsDetails = new VideoProviderCredentialsDetails(credentials);
+
             VimeoVideoDetails details = new VimeoVideoDetails(video);
 
             VimeoVideoEmbedOptions embed = new VimeoVideoEmbedOptions(details);
 
-            return new VideoPickerValue(provider, details, embed);
+            return new VideoPickerValue(provider, credentailsDetails, details, embed);
 
         }
 
@@ -101,11 +103,13 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
             VideoProviderDetails provider = new VideoProviderDetails(Alias, Name);
 
+            VideoProviderCredentialsDetails credentials = obj.GetObject("credentials", VideoProviderCredentialsDetails.Parse);
+
             VimeoVideoDetails details = obj.GetObject("details", VimeoVideoDetails.Parse);
 
             VimeoVideoEmbedOptions embed = new VimeoVideoEmbedOptions(details, config as VimeoDataTypeConfig);
 
-            return new VideoPickerValue(provider, details, embed);
+            return new VideoPickerValue(provider, credentials, details, embed);
 
         }
 
