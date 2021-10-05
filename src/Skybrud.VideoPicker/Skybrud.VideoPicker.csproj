@@ -39,6 +39,7 @@
     <Content Include="App_Plugins\Skybrud.VideoPicker\**\*.xml" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\package.manifest" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\Styles\Default.less" />
+    <None Include="../build/Limbo.png" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <ItemGroup>
