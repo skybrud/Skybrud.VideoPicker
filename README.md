@@ -39,7 +39,7 @@ This package works around a list of providers, where each providr is the impleme
 
 The package and the individual providers can be configured through the `~/Config/Skybrud.VideoPicker.config` file. The content looks something like:
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <settings>
   <providers>
