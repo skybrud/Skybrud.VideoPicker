@@ -17,7 +17,7 @@ namespace Skybrud.VideoPicker.Models {
         #region Properties
 
         [JsonProperty("type")]
-        public string Type => Provider.Alias;
+        public string Type => Provider?.Alias;
 
         [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
         public string Url { get; internal set; }
