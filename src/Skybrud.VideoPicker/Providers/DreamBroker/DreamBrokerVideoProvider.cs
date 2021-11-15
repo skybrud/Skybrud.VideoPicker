@@ -11,6 +11,7 @@ using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Options;
 using Skybrud.VideoPicker.Models.Providers;
 using Skybrud.VideoPicker.PropertyEditors;
+using Skybrud.VideoPicker.PropertyEditors.Video;
 using Skybrud.VideoPicker.Services;
 
 namespace Skybrud.VideoPicker.Providers.DreamBroker {

@@ -9,7 +9,7 @@ using Skybrud.VideoPicker.Services;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
 
-namespace Skybrud.VideoPicker.PropertyEditors.ValueConverters {
+namespace Skybrud.VideoPicker.PropertyEditors.Video {
 
     public class VideoValueConverter : PropertyValueConverterBase {
 
@@ -24,7 +24,7 @@ namespace Skybrud.VideoPicker.PropertyEditors.ValueConverters {
         #endregion
 
         public override bool IsConverter(IPublishedPropertyType propertyType) {
-            return propertyType.EditorAlias == "Skybrud.VideoPicker.Video";
+            return propertyType.EditorAlias == VideoEditor.EditorAlias;
         }
 
         public override object ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object source, bool preview) {

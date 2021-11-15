@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Essentials.Strings;
 using Skybrud.VideoPicker.PropertyEditors;
+using Skybrud.VideoPicker.PropertyEditors.Video;
 
 namespace Skybrud.VideoPicker.Providers.YouTube {
 

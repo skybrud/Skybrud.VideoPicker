@@ -4,6 +4,7 @@ using Skybrud.VideoPicker.Models;
 using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Options;
 using Skybrud.VideoPicker.PropertyEditors;
+using Skybrud.VideoPicker.PropertyEditors.Video;
 using Skybrud.VideoPicker.Services;
 
 namespace Skybrud.VideoPicker.Providers {
@@ -31,6 +32,11 @@ namespace Skybrud.VideoPicker.Providers {
         /// this provider doesn't support editing the embed options.
         /// </summary>
         string EmbedView { get; }
+
+        /// <summary>
+        /// Gets whether the provider supports manually picking videos (as an alternative to entering the URL or source manually).
+        /// </summary>
+        //bool AllowPicking { get; }
 
         /// <summary>
         /// Returns whether the specified <paramref name="source"/> is recognized by this provider. If <c>true</c>, the
