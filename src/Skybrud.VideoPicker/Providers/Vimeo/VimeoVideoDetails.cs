@@ -55,8 +55,7 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
 
             List<VideoFile> files = new List<VideoFile>();
 
-            foreach(VimeoVideoFile file in video.Files)
-            {
+            foreach(VimeoVideoFile file in video.Files) {
                 files.Add(new VideoFile(file.Width, file.Height, file.Link, file.Type, file.Size));
             }
 

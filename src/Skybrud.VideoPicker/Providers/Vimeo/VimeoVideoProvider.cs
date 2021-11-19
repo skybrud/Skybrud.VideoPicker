@@ -78,7 +78,7 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
             if (credentials.IsConfigured == false) throw new VideosException("Vimeo provider is not configured (4).");
 
             // Initialize a new VimeoService instance for accessing the Vimeo API
-            VimeoService vimeo = credentials.GetService();
+            VimeoHttpService vimeo = credentials.GetService();
 
             // Make the request to the Vimeo API
             var response = vimeo.Videos.GetVideo(o.VideoId);

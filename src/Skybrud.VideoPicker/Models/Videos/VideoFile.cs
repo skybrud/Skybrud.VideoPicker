@@ -2,27 +2,26 @@
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Extensions;
 
-namespace Skybrud.VideoPicker.Models.Videos
-{
-    public class VideoFile
-    {
-        [JsonProperty("width")]
+namespace Skybrud.VideoPicker.Models.Videos {
+    
+    public class VideoFile {
+        
+        [JsonProperty("width", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int Width { get; }
 
-        [JsonProperty("height")]
+        [JsonProperty("height", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int Height { get; }
 
-        [JsonProperty("url")]
+        [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
         public string Url { get; }
 
-        [JsonProperty("type")]
+        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
         public string Type { get; }
 
-        [JsonProperty("size")]
-        public int Size { get; }
+        [JsonProperty("size", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public long Size { get; }
 
-        public VideoFile(int width, int height, string url, string type, int size)
-        {
+        public VideoFile(int width, int height, string url, string type, long size) {
             Width = width;
             Height = height;
             Url = url;
@@ -30,18 +29,18 @@ namespace Skybrud.VideoPicker.Models.Videos
             Size = size;
         }
 
-        public VideoFile(JObject obj)
-        {
-            Width = obj.GetInt32("Width");
-            Height = obj.GetInt32("Height");
-            Url = obj.GetString("Link");
-            Type = obj.GetString("Type");
-            Size = obj.GetInt32("Size");
+        public VideoFile(JObject obj) {
+            Width = obj.GetInt32("width");
+            Height = obj.GetInt32("height");
+            Url = obj.GetString("link");
+            Type = obj.GetString("type");
+            Size = obj.GetInt32("size");
         }
 
-        public static VideoFile Parse(JObject obj)
-        {
+        public static VideoFile Parse(JObject obj) {
             return obj == null ? null : new VideoFile(obj);
         }
+
     }
+
 }

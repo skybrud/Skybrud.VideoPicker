@@ -31,11 +31,11 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
             IsConfigured = string.IsNullOrWhiteSpace(AccessToken) == false || string.IsNullOrWhiteSpace(ConsumerKey) == false && string.IsNullOrWhiteSpace(ConsumerSecret) == false;
         }
 
-        public VimeoService GetService() {
+        public VimeoHttpService GetService() {
 
-            if (string.IsNullOrWhiteSpace(AccessToken) == false) return VimeoService.CreateFromAccessToken(AccessToken);
+            if (string.IsNullOrWhiteSpace(AccessToken) == false) return VimeoHttpService.CreateFromAccessToken(AccessToken);
 
-            if (string.IsNullOrWhiteSpace(ConsumerKey) == false && string.IsNullOrWhiteSpace(ConsumerSecret) == false) return VimeoService.CreateFromOAuthClient(new VimeoOAuthClient(ConsumerKey, ConsumerSecret));
+            if (string.IsNullOrWhiteSpace(ConsumerKey) == false && string.IsNullOrWhiteSpace(ConsumerSecret) == false) return VimeoHttpService.CreateFromOAuthClient(new VimeoOAuthClient(ConsumerKey, ConsumerSecret));
 
             throw new VideosException("Vimeo credentials isn't configured.");
 
