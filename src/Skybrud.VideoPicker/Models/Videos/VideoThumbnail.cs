@@ -6,10 +6,10 @@ namespace Skybrud.VideoPicker.Models.Videos {
 
     public class VideoThumbnail {
 
-        [JsonProperty("width")]
+        [JsonProperty("width", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int Width { get; }
 
-        [JsonProperty("height")]
+        [JsonProperty("height", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int Height { get; }
 
         [JsonProperty("url")]
