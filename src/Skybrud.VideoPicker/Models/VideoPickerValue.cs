@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using Newtonsoft.Json;
 using Skybrud.Essentials.Json.Converters;
-using Skybrud.VideoPicker.Models.Config;
 using Skybrud.VideoPicker.Models.Providers;
 using Skybrud.VideoPicker.Models.Videos;
 
@@ -17,7 +16,7 @@ namespace Skybrud.VideoPicker.Models {
         /// <summary>
         /// Gets a reference to the credentials used when this video was inserted.
         /// </summary>
-        [JsonProperty("credentials")]
+        [JsonProperty("credentials", NullValueHandling = NullValueHandling.Ignore)]
         public IVideoProviderCredentialsDetails Credentials { get; }
 
         [JsonProperty("details")]
