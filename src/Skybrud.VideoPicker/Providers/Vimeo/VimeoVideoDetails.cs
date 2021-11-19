@@ -38,6 +38,9 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
         [JsonProperty("thumbnails")]
         public VideoThumbnail[] Thumbnails { get; }
 
+        [JsonProperty("files")]
+        public VideoFile[] Files { get; }
+
         #endregion
 
         #region Constructors
@@ -50,6 +53,13 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
                 thumbnails.Add(new VideoThumbnail(size.Width, size.Height, size.Link));
             }
 
+            List<VideoFile> files = new List<VideoFile>();
+
+            foreach(VimeoVideoFile file in video.Files)
+            {
+                files.Add(new VideoFile(file.Width, file.Height, file.Link, file.Type, file.Size));
+            }
+
             Id = video.Id.ToString();
             Title = video.Name;
             Description = video.Description;
@@ -57,6 +67,7 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
             Width = video.Width;
             Height = video.Height;
             Thumbnails = thumbnails.ToArray();
+            Files = files.ToArray();
 
         }
 
@@ -68,6 +79,7 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
             Width = obj.GetInt32("width");
             Height = obj.GetInt32("height");
             Thumbnails = obj.GetArrayItems("thumbnails", VideoThumbnail.Parse);
+            Files = obj.GetArrayItems("files", VideoFile.Parse);
         }
 
         public static VimeoVideoDetails Parse(JObject obj) {
