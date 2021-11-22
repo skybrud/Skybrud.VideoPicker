@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Strings;
 using Skybrud.Social.Vimeo;
 using Skybrud.Social.Vimeo.Models.Videos;
 using Skybrud.VideoPicker.Exceptions;
@@ -45,9 +46,15 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
             // Remove query string (if present)
             source = source.Split('?')[0];
 
-            // Does "source" match known formats of YouTube video URLs?
-            Match m1 = Regex.Match(source, "vimeo.com/(video/|)([0-9]+)$");
-            if (m1.Success == false) return false;
+            // Does "source" match known formats of Vimeo video URLs?
+            long videoId;
+            if (RegexUtils.IsMatch(source, "vimeo.com/(video/|)([0-9]+)$", out Match m1)) {
+                videoId = long.Parse(m1.Groups[2].Value);
+            } else if (RegexUtils.IsMatch(source, "vimeo.com/manage/videos/([0-9]+)$", out m1)) {
+                videoId = long.Parse(m1.Groups[1].Value);
+            } else  {
+                return false;
+            }
 
             // Get a reference to the Vimeo provider configuration
             VimeoVideoConfig config = service.Config.GetConfig<VimeoVideoConfig>(this);
@@ -56,9 +63,6 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
             VimeoCredentials credentials = config?.Credentials.FirstOrDefault();
             if (credentials == null) throw new VideosException("Vimeo provider is not configured (1).");
             if (credentials.IsConfigured == false) throw new VideosException("Vimeo provider is not configured (2).");
-
-            // Get the video ID from the regex
-            long videoId = long.Parse(m1.Groups[2].Value);
 
             options = new VimeoVideoOptions(videoId);
             return true;
