@@ -81,6 +81,10 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
             Files = obj.GetArrayItems("files", VideoFile.Parse);
         }
 
+        #endregion
+
+        #region Static methods
+
         public static VimeoVideoDetails Parse(JObject obj) {
             return obj == null ? null : new VimeoVideoDetails(obj);
         }
