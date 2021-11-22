@@ -6,7 +6,9 @@ using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Essentials.Strings;
 using Skybrud.Social.Vimeo;
+using Skybrud.Social.Vimeo.Exceptions;
 using Skybrud.Social.Vimeo.Models.Videos;
+using Skybrud.Social.Vimeo.Responses.Videos;
 using Skybrud.VideoPicker.Exceptions;
 using Skybrud.VideoPicker.Models;
 using Skybrud.VideoPicker.Models.Config;
@@ -84,12 +86,21 @@ namespace Skybrud.VideoPicker.Providers.Vimeo {
             // Initialize a new VimeoService instance for accessing the Vimeo API
             VimeoHttpService vimeo = credentials.GetService();
 
-            // Make the request to the Vimeo API
-            var response = vimeo.Videos.GetVideo(o.VideoId);
+            // Attempt to look up the video in the Vimeo API
+            VimeoVideo video;
+            try {
 
-            // Get the video object from the response body
-            VimeoVideo video = response.Body;
-            if (video == null) throw new VideosException("Vimeo video not found.", HttpStatusCode.NotFound);
+                // Make a request to the Vimeo API
+                VimeoVideoResponse response = vimeo.Videos.GetVideo(o.VideoId);
+
+                // Get the video object from the response body
+                video = response.Body;
+
+            } catch (VimeoHttpException ex) when (ex.StatusCode == HttpStatusCode.NotFound) {
+
+                throw new VideosException("Vimeo video not found.", HttpStatusCode.NotFound);
+
+            }
 
             VideoProviderDetails provider = new VideoProviderDetails(Alias, Name);
 
