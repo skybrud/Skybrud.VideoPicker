@@ -32,7 +32,7 @@ namespace Skybrud.VideoPicker.Models.Videos {
         public VideoFile(JObject obj) {
             Width = obj.GetInt32("width");
             Height = obj.GetInt32("height");
-            Url = obj.GetString("link");
+            Url = obj.GetString("url");
             Type = obj.GetString("type");
             Size = obj.GetInt32("size");
         }
