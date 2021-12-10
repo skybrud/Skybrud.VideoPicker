@@ -39,7 +39,7 @@ namespace Skybrud.VideoPicker.Providers.TwentyThree {
             options = null;
             
             Match m1 = Regex.Match(source, "^(http|https)://([a-zA-Z0-9-\\.]+)/manage/video/([0-9]+)$", RegexOptions.IgnoreCase);
-            Match m2 = Regex.Match(source, "(http|https|)://(.+?)/(v|[0-9]+)\\.ihtml/player\\.html\\?token=([a-z0-9]+)&source=embed&photo%5fid=([0-9]+)");
+            Match m2 = Regex.Match(source, "(http:|https:|)//(.+?)/(v|[0-9]+)\\.ihtml/player\\.html\\?token=([a-z0-9]+)&source=embed&photo%5fid=([0-9]+)");
             Match m3 = Regex.Match(source, "<script src=\"(http|https)://(.+?)/spot/([0-9]+)/([a-z0-9]+)/include\\.js");
 
             // From manage URL
@@ -58,7 +58,7 @@ namespace Skybrud.VideoPicker.Providers.TwentyThree {
             // From <iframe>
             if (m2.Success) {
                 
-                string scheme = m2.Groups[1].Value;
+                string scheme = m2.Groups[1].Value.Trim(':');
                 string domain = m2.Groups[2].Value;
                 string playerId = m2.Groups[3].Value;
                 string token = m2.Groups[4].Value;
