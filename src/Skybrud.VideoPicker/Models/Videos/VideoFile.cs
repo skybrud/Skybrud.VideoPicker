@@ -19,7 +19,7 @@ namespace Skybrud.VideoPicker.Models.Videos {
         public string Type { get; }
 
         [JsonProperty("size", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public long Size { get; }
+        public double Size { get; }
 
         public VideoFile(int width, int height, string url, string type, long size) {
             Width = width;
@@ -34,7 +34,7 @@ namespace Skybrud.VideoPicker.Models.Videos {
             Height = obj.GetInt32("height");
             Url = obj.GetString("url");
             Type = obj.GetString("type");
-            Size = obj.GetInt32("size");
+            Size = obj.GetDouble("size");
         }
 
         public static VideoFile Parse(JObject obj) {
