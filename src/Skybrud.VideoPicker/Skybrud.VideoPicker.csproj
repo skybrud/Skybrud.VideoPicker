@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.0.0-beta014</Version>
+    <Version>1.0.0-beta015</Version>
     <Authors>Anders Bjerner</Authors>
     <Company>Limbo</Company>
     <Description>Skybrud.VideoPicker is a package for Umbraco 7 containing a property editor and a grid editor for inserting videos from YouTube, Vimeo or TwentyThree.</Description>
-    <Copyright>Copyright © 2021</Copyright>
+    <Copyright>Copyright © 2023</Copyright>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -33,7 +33,7 @@
     <PackageReference Include="Skybrud.Social.TwentyThree" Version="1.1.2" />
     <PackageReference Include="Skybrud.Umbraco.GridData" Version="2.0.5" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Content Include="App_Plugins\Skybrud.VideoPicker\**\*.css" />
     <Content Include="App_Plugins\Skybrud.VideoPicker\**\*.html" />
@@ -46,7 +46,7 @@
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(PackageId).xml</DocumentationFile>
   </PropertyGroup>
-  
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(ConfigurationName)'=='Release' AND '$(BuildTools)'=='1'">
     <Exec Command="&quot;$(ProjectDir)..\build\Skybrud.BuildTools.Tasks.exe&quot; &quot;postBuild&quot; &quot;$(ConfigurationName)&quot; &quot;$(ProjectPath)&quot; &quot;$(TargetPath)&quot;" />
   </Target>
