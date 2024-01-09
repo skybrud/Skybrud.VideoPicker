@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
-using Skybrud.Social.Google.Common;
+using Skybrud.Social.Google;
+using Skybrud.Social.Google.YouTube;
 using Skybrud.Social.Google.YouTube.Exceptions;
 using Skybrud.Social.Google.YouTube.Models.Videos;
 using Skybrud.Social.Google.YouTube.Options.Videos;
@@ -13,7 +15,7 @@ using Skybrud.VideoPicker.Models.Providers;
 using Umbraco.Core;
 
 namespace Skybrud.VideoPicker.Providers.YouTube {
-    
+
     public class YouTubeProvider : IVideoProvider {
 
         private readonly VideoPickerConfig _config;
@@ -51,14 +53,14 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
                 source = m0.Groups[1].Value;
 
             }
-            
+
             // Does "source" match known formats of YouTube video URLs?
             Match m1 = Regex.Match(source, @"youtu(?:\.be|be\.com|be-nocookie\.com)/(embed/|)(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)", RegexOptions.IgnoreCase);
             if (m1.Success == false) return false;
-            
+
             // Validate that the YouTube provider is configured
             if (string.IsNullOrWhiteSpace(_config.GoogleServerKey)) throw new VideoPickerException("YouTube provider is not configured.");
-            
+
             // Get the video ID from the regex
             string videoId = m1.Groups[2].Value;
 
@@ -68,7 +70,7 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
         }
 
         public VideoPickerItem GetVideo(IVideoOptions options) {
-            
+
             // Must be an instannce of "YouTubeVideoOptions"
             if (!(options is YouTubeVideoOptions o)) return null;
 
@@ -78,22 +80,22 @@ namespace Skybrud.VideoPicker.Providers.YouTube {
         }
 
         public VideoPickerItem GetVideoById(string videoId) {
-            
+
             if (string.IsNullOrWhiteSpace(_config.GoogleServerKey)) throw new VideoPickerException("YouTube provider is not configured.");
 
-            GoogleService service = GoogleService.CreateFromServerKey(_config.GoogleServerKey);
+            GoogleHttpService service = GoogleHttpService.CreateFromApiKey(_config.GoogleServerKey);
 
             try {
 
-                YouTubeGetVideoListResponse response = service.YouTube.Videos.GetVideos(new YouTubeGetVideoListOptions {
+                YouTubeVideoListResponse response = service.YouTube().Videos.GetVideos(new YouTubeGetVideoListOptions {
                     Part = YouTubeVideoParts.Snippet + YouTubeVideoParts.ContentDetails,
-                    Ids = new[] { videoId }
+                    Ids = new List<string> { videoId }
                 });
 
-                if (response.Body.Items.Length == 0) throw new VideoPickerNotFoundException("Video not found.");
+                if (response.Body.Items.Count == 0) throw new VideoPickerNotFoundException("Video not found.");
 
                 YouTubeVideo video = response.Body.Items[0];
-                
+
                 // Return a new video picker item
                 return new VideoPickerItem {
                     Url = "https://www.youtube.com/watch?v=" + videoId,

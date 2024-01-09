@@ -25,13 +25,14 @@
 
   <ItemGroup>
     <Reference Include="System.Web" />
+    <PackageReference Include="Skybrud.Social.Google.YouTube" Version="1.0.0" />
+    <PackageReference Include="Skybrud.Social.Vimeo" Version="1.0.1" />
+    <PackageReference Include="Skybrud.WebApi.Json" Version="1.0.4" />
+    <PackageReference Include="Skybrud.Social.TwentyThree" Version="1.1.2" />
+    <PackageReference Include="Skybrud.Umbraco.GridData" Version="2.0.5" />
     <PackageReference Include="UmbracoCms.Core" Version="7.6.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Skybrud.WebApi.Json" Version="1.0.4" />
-    <PackageReference Include="Skybrud.Social.Google" Version="1.0.0-beta004" />
-    <PackageReference Include="Skybrud.Social.TwentyThree" Version="1.1.2" />
-    <PackageReference Include="Skybrud.Umbraco.GridData" Version="2.0.5" />
   </ItemGroup>
 
   <ItemGroup>
