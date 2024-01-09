@@ -23,10 +23,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Skybrud.Essentials.Http" Version="1.0.14" />
-    <PackageReference Include="Skybrud.Social.Google.YouTube" Version="1.0.0-beta001" />
-    <PackageReference Include="Skybrud.Social.Vimeo" Version="1.0.0-beta005" />
-    <PackageReference Include="Skybrud.WebApi.Json" Version="1.0.4" />
+    <PackageReference Include="Skybrud.Essentials.Http" Version="1.1.5" />
+    <PackageReference Include="Skybrud.Social.Google.YouTube" Version="1.0.0" />
+    <PackageReference Include="Skybrud.Social.Vimeo" Version="1.0.1" />
+    <PackageReference Include="Skybrud.WebApi.Json" Version="1.1.0" />
     <PackageReference Include="UmbracoCms.Web" Version="8.1.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
