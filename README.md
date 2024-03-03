@@ -6,4 +6,16 @@ The package will then fetch information about the video (title, description, dur
 
 Users will also be able to select a custom thumbnail for the video - or just stick with the default thumbnail from YouTube/Vimeo.
 
+
+
+## Getting Started
+
+- [**Installation**](./installation.md)
+- [**Configuration**](./configuration/)
+- [**Property Editor**](./property-editor.md)
+- [**Grid Editor**](./grid-editor.md)
+
+
+## Screenshot
+
 ![image](https://user-images.githubusercontent.com/3634580/32501030-364256de-c3d7-11e7-9300-02ce084deaf1.png)
